@@ -1,0 +1,82 @@
+#pragma once
+
+// Assetto Corsa Competizione (0.1.0) SDK
+
+#ifdef _MSC_VER
+	#pragma pack(push, 0x8)
+#endif
+
+#include "ACC_ABP_bentley_continental_gt3_2016_net_classes.hpp"
+
+namespace SDK
+{
+//---------------------------------------------------------------------------
+//Parameters
+//---------------------------------------------------------------------------
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_3AB38E914F6FBC895B498FBD6F1E5AD6
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_3AB38E914F6FBC895B498FBD6F1E5AD6_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_95F9544E42993941469AD1AAF8497D58
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_95F9544E42993941469AD1AAF8497D58_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_B292A9C44C865C5F9B6FAAAF82D15F93
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_B292A9C44C865C5F9B6FAAAF82D15F93_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_861268D4448257FAEC0C7F963A8D9630
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_861268D4448257FAEC0C7F963A8D9630_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_SequencePlayer_ADA41A6749793BCAF1680EB92BEF3336
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_SequencePlayer_ADA41A6749793BCAF1680EB92BEF3336_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_1C76F1024D100D8F4EF7B9B5DCA9EE48
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_1C76F1024D100D8F4EF7B9B5DCA9EE48_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_SequencePlayer_3B7579C344436CF82706D1BC585DB93F
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_SequencePlayer_3B7579C344436CF82706D1BC585DB93F_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_09457FF44C8A745447CE70963E6CEEB6
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_09457FF44C8A745447CE70963E6CEEB6_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_BlendSpacePlayer_52734ED34B71D4F341408089BDD53642
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_BlendSpacePlayer_52734ED34B71D4F341408089BDD53642_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_BlendSpacePlayer_52C2E1024CC37EEE217EE1BABEE2A945
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_BlendSpacePlayer_52C2E1024CC37EEE217EE1BABEE2A945_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_7B1F287F4DC2230B07BE6E9532A90A63
+struct UABP_bentley_continental_gt3_2016_net_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_AnimGraphNode_TransitionResult_7B1F287F4DC2230B07BE6E9532A90A63_Params
+{
+};
+
+// Function ABP_bentley_continental_gt3_2016_net.ABP_bentley_continental_gt3_2016_net_C.ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net
+struct UABP_bentley_continental_gt3_2016_net_C_ExecuteUbergraph_ABP_bentley_continental_gt3_2016_net_Params
+{
+	int                                                EntryPoint;                                               // (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData)
+};
+
+}
+
+#ifdef _MSC_VER
+	#pragma pack(pop)
+#endif
