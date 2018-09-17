@@ -385,3 +385,4 @@
 #include "SDK/ACC_ABP_jaguar_g3_exterior_classes.hpp"
 #include "SDK/ACC_jaguar_g3_classes.hpp"
 #include "SDK/ACC_lamborghini_huracan_gt3_2020_classes.hpp"
+#include "SDK/ACC_KSRacing_classes.h"

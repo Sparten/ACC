@@ -52,10 +52,10 @@ namespace ksRacing
 	{
 	public:
 	};
-	class
+	class RaceManager
 	{
 	public:
-		std::std::unique_ptr<EntryList> entryList;
+		std::unique_ptr<EntryList> entryList;
 	};
 	
 }

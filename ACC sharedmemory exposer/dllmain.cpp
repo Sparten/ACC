@@ -49,10 +49,50 @@ DWORD __stdcall InitializeHook(LPVOID)
 		if (GetAsyncKeyState(VK_NUMPAD0) & 1)
 		{
 			
-			for (int i = 0; i < GWorld->ControllerList.Num(); i++)
-			{
-				
+			/*for (int i = 0; i < GWorld->ControllerList.Num(); i++)
+			{				
 				add_log(GWorld->ControllerList[i]->GetFullName().c_str());
+			}*/
+			AAcRaceGameMode* raceGameMode = (AAcRaceGameMode*)GWorld->AuthorityGameMode;
+			UAcGameInstance* instance= (UAcGameInstance*)GWorld->OwningGameInstance;
+			FCircuitInfo circuit;
+			//EInfoType__Circuit
+			TArray<FName> names;
+			instance->InfoManager->GetInfoList(EInfoType::EInfoType__Circuit, &names);
+			
+			for (int i = 0; i < names.Num(); i++)
+			{
+				add_log("circuit %s", names[i].GetName());
+			}
+			
+			if (instance->InfoManager->GetCircuitInfo(FName("circuit nurburgring"), &circuit))
+			{
+				add_log("circuit %s", circuit.CircuitName.ToString().c_str());
+			}
+			
+			for (int i = 0; i < GWorld->PawnList.Num(); i++)
+			{
+				ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[i].Get();
+				add_log("Car: %i %s", i, car->carName.ToString().c_str());			
+				FDriverInfo* info = &car->DriverInfo;
+				UAcCarTimingServices* timings = car->CarTimingServices;			
+				std::string driverName = "";
+				if (info->FirstName.IsValid())
+				{
+					driverName = info->FirstName.ToString() + " ";
+				}
+				if (info->SecondName.IsValid())
+				{
+					driverName += info->SecondName.ToString() + " ";
+				}
+				if (info->LastName.IsValid())
+				{
+					driverName += info->LastName.ToString() + " ";
+				}
+				int lapcount = timings->GetLapCount();
+				int currentlaptime = timings->GetCurrentLapTime();
+				add_log("Driver Name: %s %s", driverName.c_str());
+				add_log("LapCount: %i Current Laptime %i", lapcount , currentlaptime);
 			}
 			add_log("%s %llx", GWorld->GetFullName().c_str(), GWorld );
 			add_log("%llx", FName::GNames);

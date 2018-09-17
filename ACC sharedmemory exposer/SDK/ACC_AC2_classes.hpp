@@ -7,6 +7,7 @@
 #endif
 
 #include "ACC_AC2_structs.hpp"
+#include "ACC_KSRacing_classes.h"
 #include <memory>
 namespace SDK
 {
@@ -1577,7 +1578,8 @@ public:
 
 };
 
-
+class APhysicsAvatar;
+class ATrackAvatar;
 // Class AC2.AcRaceGameMode
 // 0x0398 (0x0760 - 0x03C8)
 class AAcRaceGameMode : public AGameModeBase
@@ -1618,11 +1620,16 @@ public:
 	float                                              blueFlagLimit;                                            // 0x04B8(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
 	float                                              blueFlagDistance;                                         // 0x04BC(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
 	uintptr_t										   GameInstance;
-	uintptr_t										   RaceGameState;
-	std::unique_ptr<uintptr_t>						   raceManager;												 // TUniquePtr<ksRacing::RaceManager,TDefaultDelete<ksRacing::RaceManager> > ?
+	AGameStateBase*									   RaceGameState;
+	std::unique_ptr<ksRacing::RaceManager>			   raceManager;												 // TUniquePtr<ksRacing::RaceManager,TDefaultDelete<ksRacing::RaceManager> > ?
 	bool											   areControlsLocked;
 	unsigned char                                      UnknownData01[0x7];
-	unsigned char                                      UnknownData02[0xB8];                                      // 0x04C0(0x00D8) MISSED OFFSET
+	APhysicsAvatar*									   PhysicsAvatar;
+	ATrackAvatar*									   TrackAvatar;
+	AAcPlayerStartManager*							   PlayerStartManager;
+	uintptr_t										   SunLight;
+	AAcIdealLineActor*								   idealLine;
+	unsigned char                                      UnknownData02[0x90];                                      // 0x04C0(0x00D8) MISSED OFFSET
 	class UTrackSectionServices*                       TrackSectionServices;                                     // 0x0598(0x0008) (ZeroConstructor, IsPlainOldData)
 	class UAcTeamStrategyController*                   TeamStrategyController;                                   // 0x05A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	unsigned char                                      UnknownData03[0x18];                                      // 0x05A8(0x0018) MISSED OFFSET
@@ -1723,7 +1730,9 @@ public:
 class UAcRaceManager : public UObject
 {
 public:
-	unsigned char                                      UnknownData00[0x70];                                      // 0x0028(0x0070) MISSED OFFSET
+	UAcGameInstance*								   gameInstance;
+	uintptr_t										   rgm;
+	unsigned char                                      UnknownData00[0x60];                                      // 0x0028(0x0070) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
