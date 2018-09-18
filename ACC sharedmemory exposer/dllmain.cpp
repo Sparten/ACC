@@ -18,7 +18,7 @@ char dlldir[512] = "";
 HANDLE monitorThread = nullptr;
 DWORD exitCode = 0;
 
-SharedMemeoryWriter <ACCSharedMemory> writer("Global\\ACC");
+SharedMemeoryWriter <ACCSharedMemoryData> writer("Global\\ACC");
 void __cdecl add_log(const char *fmt, ...)
 {
 
@@ -43,110 +43,137 @@ void __cdecl add_log(const char *fmt, ...)
 	}
 	return;
 }
-//volatile bool exitThread = false;
-DWORD __stdcall InitializeHook(LPVOID)
+typedef void(__stdcall *Tick_t)(AAcRaceGameMode*, double);
+Tick_t pTick = nullptr;
+intptr_t* tickAddress = nullptr;
+void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 {
-	//UAcGameInstance *instance = (UAcGameInstance *)UAcGameInstance::StaticClass();
-	//add_log("Class Name: %s", g_UWorld->GetFullName().c_str()); 
-	//console_window c;
-	while (1)
-	{	
+	AAcRaceGameState *raceGameState = reinterpret_cast<AAcRaceGameState*>(GWorld->GameState);
+	AAcRaceGameMode* raceGameMode = reinterpret_cast<AAcRaceGameMode*>(GWorld->AuthorityGameMode);
+	ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);
+	ACarAvatar* playerCarCarAvatar = raceGameMode->GetPlayerCarAvatar();
+	for (int i = 0; i < GWorld->PawnList.Num(); i++)
+	{
+		ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[i].Get();
 
-		GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
-		FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
-		UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
-		//add_log("%llx", offsetof(ULevel, ActorCluster));
-		//c.add_log("Main Thread ID: ");
-		if (GetAsyncKeyState(VK_NUMPAD0) & 1)
+		switch (car->GetControllerType())
 		{
-			for (int i = 0; i < GWorld->PlayerControllerList.Num(); i++)
-			{
-				add_log(GWorld->PlayerControllerList[i]->GetFullName().c_str());
-			}
-
-			AAcRaceGameMode* raceGameMode = (AAcRaceGameMode*)GWorld->AuthorityGameMode;
-
-			APhysicsAvatar *physics = raceGameMode->PhysicsAvatar;
-
-			UAcGameInstance* instance = (UAcGameInstance*)GWorld->OwningGameInstance;
-			FCircuitInfo circuit;
-			//EInfoType__Circuit
-			TArray<FName> names;
-			instance->InfoManager->GetInfoList(EInfoType::EInfoType__Circuit, &names);
-
-			for (int i = 0; i < names.Num(); i++)
-			{
-				if (instance->InfoManager->GetCircuitInfo(names[i], &circuit))
-				{
-					add_log("circuit: %s length: %i", circuit.CircuitName.ToString().c_str(), circuit.Length);
-				}
-			}
-			for (int i = 0; i < GWorld->PawnList.Num(); i++)
-			{
-				ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[i].Get();
-
-				switch (car->GetControllerType())
-				{
-					case EControllerType::EControllerType__Player:
-					{
-						break;
-					}
-					case EControllerType::EControllerType__Client:
-					{
-						break;
-					}
-					case EControllerType::EControllerType__Ai:
-					{
-						break;
-					}
-				}
-				AController* control = car->GetController();
-				//add_log("%llx", offsetof(ACarAvatar, physicsAvatar));
-				FVector vec;
-				USceneComponent* screen = car->RootComponent;
-				vec = screen->K2_GetComponentLocation();
-				add_log("Location x %f y %f z %f", vec.X, vec.Y, vec.Z);
-
-				//car->GetTargetLocation(&vec, nullptr);
-				//add_log("Location x %f y %f z %f", vec.X, vec.Y, vec.Z);
-
-				add_log("Car: %i %s", i, car->carName.ToString().c_str());
-				FDriverInfo* info = &car->DriverInfo;
-				UAcCarTimingServices* timings = car->CarTimingServices;
-				std::string driverName = "";
-				if (info->FirstName.IsValid())
-				{
-					driverName = info->FirstName.ToString() + " ";
-				}
-				if (info->SecondName.IsValid())
-				{
-					driverName += info->SecondName.ToString() + " ";
-				}
-				if (info->LastName.IsValid())
-				{
-					driverName += info->LastName.ToString().c_str();
-				}
-				int lapcount = timings->GetLapCount();
-				int currentlaptime = timings->GetCurrentLapTime();
-				add_log("Driver Name: %s", driverName.c_str());
-				add_log("LapCount: %i Current Laptime %i", lapcount, currentlaptime);
-			}
-			add_log("%s %llx", GWorld->GetFullName().c_str(), GWorld);
-			add_log("%llx", FName::GNames);
-			add_log("%llx", UObject::GObjects);
-			
+		case EControllerType::EControllerType__Player:
+		{
+			break;
 		}
-		Sleep(50);
+		case EControllerType::EControllerType__Client:
+		{
+			break;
+		}
+		case EControllerType::EControllerType__Ai:
+		{
+			break;
+		}
+		}
+
+		FVector vec;
+		USceneComponent* screen = car->RootComponent;
+		vec = screen->K2_GetComponentLocation();
+		float distanceRoundTrack = trackAvatar->GetFastLaneDistanceToPoint(vec);
+		//add_log("distanceRoundTrack %f", distanceRoundTrack / 100);
+
+		//car->GetTargetLocation(&vec, nullptr);
+		//add_log("Location x %f y %f z %f", vec.X, vec.Y, vec.Z);
+
+		//add_log("Car: %i %s", i, car->carName.ToString().c_str());
+		FDriverInfo* driverInfo = &car->DriverInfo;
+		FCarInfo* carInfo = &car->CarEntryInfo;
+
+		UAcCarTimingServices* timings = car->CarTimingServices;
+		std::string driverName = "";
+		if (driverInfo->FirstName.IsValid())
+		{
+			driverName = driverInfo->FirstName.ToString() + " ";
+		}
+		if (driverInfo->SecondName.IsValid())
+		{
+			driverName += driverInfo->SecondName.ToString() + " ";
+		}
+		if (driverInfo->LastName.IsValid())
+		{
+			driverName += driverInfo->LastName.ToString().c_str();
+		}
+		int lapcount = timings->GetLapCount();
+		int currentlaptime = timings->GetCurrentLapTime();
 	}
+	return pTick(p, time);
+}
+bool doOnce = false;
+DWORD __stdcall InitializeHook(LPVOID)
+{	
+	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
+	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
+	//add_log("%llx", offsetof(ACarAvatar, physicsAvatar));
+	for (;;)
+	{
+		GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
+		if (GWorld->AuthorityGameMode == nullptr)
+		{
+			continue;
+		}
+		UAcGameInstance* instance = reinterpret_cast<UAcGameInstance*>(GWorld->OwningGameInstance);
+		if (GWorld->AuthorityGameMode == nullptr || !GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
+		{
+			continue;
+		}			
+		AAcRaceGameMode* raceGameMode = (AAcRaceGameMode*)GWorld->AuthorityGameMode;
+	
+		//Hook AAcRaceGameMode::Ticks as we need to be in a game thread to run our updated to avoid being out of thread conntext.
+		if (!doOnce)
+		{
+			tickAddress = GetVFunctionTableAddress(raceGameMode, 131);
+			DWORD newProtect = PAGE_READWRITE;
+			DWORD oldProtect = 0;
+			VirtualProtect(tickAddress, sizeof(intptr_t), newProtect, &oldProtect);
+			pTick = reinterpret_cast<Tick_t>(*tickAddress);
+			*tickAddress = (intptr_t)&Tick_Detour;
+			VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
+			doOnce = true;
+		}
+
+		//add_log("AAcRaceGameState::Ticks %llx", GetVFunction(raceGameState, 130));
+		/*				
+		FCircuitInfo circuit;
+		TArray<FName> names;
+		instance->InfoManager->GetInfoList(EInfoType::EInfoType__Circuit, &names);*/
+
+		//ACCSharedMemoryData sharedMemoryData;
+
+		/*for (int i = 0; i < names.Num(); i++)
+		{
+			if (instance->InfoManager->GetCircuitInfo(names[i], &circuit))
+			{
+				add_log("circuit: %s length: %i", circuit.CircuitName.ToString().c_str(), circuit.Length);
+			}
+		}*/
+
+		/*
+		add_log("%s %llx", GWorld->GetFullName().c_str(), GWorld);
+		add_log("%llx", FName::GNames);
+		add_log("%llx", UObject::GObjects);
+		*/
+	Sleep(17);
+	}		
 	return 0;
+}
+void __stdcall unhook()
+{
+	DWORD newProtect = PAGE_READWRITE;
+	DWORD oldProtect = 0;
+	VirtualProtect(tickAddress, sizeof(intptr_t), newProtect, &oldProtect);
+	pTick = reinterpret_cast<Tick_t>(*tickAddress);
+	*tickAddress = reinterpret_cast<intptr_t>(pTick);
+	VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
 }
 
 
-
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-					 )
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	switch (ul_reason_for_call)
 	{
@@ -166,6 +193,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	case DLL_THREAD_DETACH:
 		break;
 	case DLL_PROCESS_DETACH:
+		unhook();
 		GetExitCodeThread(monitorThread, &exitCode);
 		TerminateThread(monitorThread, exitCode);
 		break;

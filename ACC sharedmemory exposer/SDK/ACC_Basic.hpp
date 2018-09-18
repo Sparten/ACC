@@ -13,10 +13,14 @@ namespace SDK
 template<typename Fn>
 inline Fn GetVFunction(const void *instance, std::size_t index)
 {
-	auto vtable = *reinterpret_cast<const void***>(const_cast<void*>(instance));
+	auto vtable = *reinterpret_cast<intptr_t***>(const_cast<void*>(instance));
 	return reinterpret_cast<Fn>(vtable[index]);
 }
-
+inline intptr_t* GetVFunctionTableAddress(const void *instance, std::size_t index)
+{
+	auto vtable = *reinterpret_cast<intptr_t***>(const_cast<void*>(instance));
+	return reinterpret_cast<intptr_t*>(&vtable[index]);
+}
 class UObject;
 
 enum class EInternalObjectFlags : int32_t

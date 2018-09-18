@@ -13,25 +13,29 @@ class __declspec(align(4))Track
 	char name[MAX_PATH];
 	int length;
 	int corners;
-
 };
-
-class __declspec(align(4)) ACCSharedMemory
+class __declspec(align(4))Drivers
 {
-	~ACCSharedMemory() {}
-	
-	ACCSharedMemory()
+	char name[MAX_PATH];
+	int length;
+};
+class __declspec(align(4)) ACCSharedMemoryData
+{
+public:
+	~ACCSharedMemoryData() {}
+	ACCSharedMemoryData()
 	{
-		int updateTick;
-		Track track;
+
 	}
+	int updateTick;
+	Track track;
 };
 template <typename WriteStruct>
 class SharedMemeoryWriter
 {
 public:
 	SharedMemeoryWriter(SharedMemeoryWriter& other) = delete;
-	SharedMemeoryWriter<WriteStruct>(const char *regionName)
+	SharedMemeoryWriter(const char *regionName)
 	{
 		name = regionName;
 		HANDLE  hMapFile = CreateFileMappingA(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(WriteStruct), regionName);
@@ -44,6 +48,10 @@ public:
 		{
 			data.reset(tmpdata, UnmapViewOfFile);
 		}
+	}
+	bool updateSharedMemory(WriteStruct& newData)
+	{
+		CopyMemory(data, newData, sizeof(WriteStruct));
 	}
 private:
 	std::shared_ptr< WriteStruct > data;

@@ -8,6 +8,8 @@
 
 #include <memory>
 #include <string>
+#include <vector>
+#include <functional>
 namespace ksRacing
 {
 	class WritableRaceStructure
@@ -43,7 +45,6 @@ namespace ksRacing
 		unsigned char unknowdata011A[0x6];
 		std::wstring playerID;
 	};
-	template <typename EventFunction>
 	class Event
 	{
 		unsigned char unknowdata[0x18];

@@ -361,8 +361,6 @@ public:
 		static auto ptr = UObject::FindClass("Class Engine.SceneComponent");
 		return ptr;
 	}
-
-
 	void ToggleVisibility(bool bPropagateToChildren);
 	bool SnapTo(class USceneComponent* InParent, const struct FName& InSocketName);
 	void SetWorldScale3D(const struct FVector& NewScale);

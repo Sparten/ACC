@@ -1643,7 +1643,10 @@ public:
 		static auto ptr = UObject::FindClass("Class AC2.AcRaceGameMode");
 		return ptr;
 	}
-
+	inline void Tick(double time)
+	{
+		return GetVFunction<void(*)(AAcRaceGameMode*, double)>(this, 131)(this, time);
+	}
 
 	void Proceed();
 	class UViewOptionsLibrary* getViewLibrary();
@@ -1707,8 +1710,6 @@ public:
 		static auto ptr = UObject::FindClass("Class AC2.AcRaceGameState");
 		return ptr;
 	}
-
-
 	void SetRainGlobalLevel(float Value);
 	void SetMainVolume(float Volume);
 	void SetCloudGlobalLevel(float Value);
@@ -2865,8 +2866,13 @@ class AC2Client
 class UClientAvatar : public UObject
 {
 public:
-	unsigned char                                      UnknownData00[0x78];                                      // 0x0028(0x0088) MISSED OFFSET
-	AC2Client *										   client;
+	ksRacing::Event									   evOnCarConnected;
+	ksRacing::Event									   evOnCarDisconnected;
+	ksRacing::Event									   evOnRemoteSplit;
+	ksRacing::Event									   evOnRemoteLapCompleted;
+	ksRacing::Event									   evOnSessionUpdate;
+	AC2Client*										   client;
+	APhysicsAvatar*									   physicsAvatar;
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.ClientAvatar");
