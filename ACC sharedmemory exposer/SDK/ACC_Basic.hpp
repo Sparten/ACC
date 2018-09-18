@@ -211,7 +211,10 @@ public:
 	{
 		return *GetItemPtr(index);
 	}
-
+		ElementType const* const& GetById(int32_t index) const
+	{
+		return *GetItemPtr(index);
+	}
 private:
 	inline ElementType const* const* GetItemPtr(int32_t Index) const
 	{
@@ -268,7 +271,7 @@ struct FName
 		{
 			if (!std::strcmp(GetGlobalNames()[i]->GetAnsiName(), nameToFind))
 			{
-				ComparisonIndex = i;
+				ComparisonIndex = GetGlobalNames()[i]->Index;
 				
 				return;
 			}
@@ -282,6 +285,37 @@ struct FName
 				{
 					cache.insert(i);
 
+					ComparisonIndex = GetGlobalNames()[i]->Index;
+
+					return;
+				}
+			}
+		}
+	};
+	FName(std::wstring nameToFind)
+		: ComparisonIndex(0),
+		Number(0)
+	{
+		static std::unordered_set<int> cache;
+		//!std::strcmp(, nameToFind)
+		for (auto i : cache)
+		{
+			if (nameToFind._Equal(GetGlobalNames()[i]->GetWideName()))
+			{
+				ComparisonIndex = i;
+
+				return;
+			}
+		}
+
+		for (auto i = 0; i < GetGlobalNames().Num(); ++i)
+		{
+			if (GetGlobalNames()[i] != nullptr)
+			{
+				if (nameToFind._Equal(GetGlobalNames()[i]->GetWideName()))
+				{
+					cache.insert(i);
+
 					ComparisonIndex = i;
 
 					return;
@@ -289,7 +323,6 @@ struct FName
 			}
 		}
 	};
-
 	static TNameEntryArray *GNames;
 	static inline TNameEntryArray& GetGlobalNames()
 	{

@@ -600,8 +600,9 @@ class UAcCarTimingServices : public UObject
 {
 public:
 	unsigned char                                      CurrentSector;                                            // 0x0028(0x0001) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x1E7];                                     // 0x0029(0x01E7) MISSED OFFSET
-
+	unsigned char                                      UnknownData01[0x7];                                     // 0x0029(0x01E7) MISSED OFFSET
+	
+	unsigned char                                      UnknownData00[0x1E0];                                     // 0x0029(0x01E7) MISSED OFFSET
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.AcCarTimingServices");
@@ -2543,7 +2544,9 @@ public:
 	class UProceduralMeshComponent*                    VirtualMirrorMesh;                                        // 0x08E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	class UCarAvatarRatingCalculator*                  RatingCalculator;                                         // 0x08E8(0x0008) (ZeroConstructor, IsPlainOldData)
 	class USkeletalMeshComponent*                      ExternalMeshComponent;                                    // 0x08F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData14[0x1558];                                    // 0x08F8(0x1558) MISSED OFFSET
+	unsigned char                                      UnknownData14[0x230];                                     // 0x08F8(0x1558) MISSED OFFSET
+	APhysicsAvatar*									   physicsAvatar;
+	unsigned char                                      UnknownData15[0x1320];                                    // 0x08F8(0x1558) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
