@@ -2866,11 +2866,11 @@ class AC2Client
 class UClientAvatar : public UObject
 {
 public:
-	ksRacing::Event									   evOnCarConnected;
-	ksRacing::Event									   evOnCarDisconnected;
-	ksRacing::Event									   evOnRemoteSplit;
-	ksRacing::Event									   evOnRemoteLapCompleted;
-	ksRacing::Event									   evOnSessionUpdate;
+	ksRacing::Event<int>								   evOnCarConnected;
+	ksRacing::Event<int>									   evOnCarDisconnected;
+	ksRacing::Event<int>									   evOnRemoteSplit;
+	ksRacing::Event<int>									   evOnRemoteLapCompleted;
+	ksRacing::Event<int>									   evOnSessionUpdate;
 	AC2Client*										   client;
 	APhysicsAvatar*									   physicsAvatar;
 	static UClass* StaticClass()
@@ -6281,8 +6281,9 @@ public:
 class APhysicsAvatar : public AActor
 {
 public:
-	unsigned char                                      UnknownData00[0x158];                                     // 0x0328(0x0158) MISSED OFFSET
-
+	
+	unsigned char                                      UnknownData00[0x120];                                     // 0x0328(0x0158) MISSED OFFSET
+	ksRacing::SessionInfo							   currentSession;
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.PhysicsAvatar");

@@ -7,6 +7,10 @@
 #include "SharedMemoryWriter.h"
 using namespace SDK;
 
+typedef void(__stdcall *Tick_t)(AAcRaceGameMode*, double);
+Tick_t pTick = nullptr;
+intptr_t* tickAddress = nullptr;
+
 intptr_t NamesAddress = (intptr_t)GetModuleHandle(NULL) + 0x329E250;
 TNameEntryArray* FName::GNames  = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
 intptr_t ObjectsAddress = (intptr_t)GetModuleHandle(NULL) + 0x2F312A0;
@@ -17,8 +21,9 @@ UWorld *GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
 char dlldir[512] = "";
 HANDLE monitorThread = nullptr;
 DWORD exitCode = 0;
-
-SharedMemeoryWriter <ACCSharedMemoryData> writer("Global\\ACC");
+console_window c;
+//SharedMemeoryWriter <ACCSharedMemoryData> writer("Global\\ACC");
+volatile bool unhookIt = false;
 void __cdecl add_log(const char *fmt, ...)
 {
 
@@ -43,48 +48,39 @@ void __cdecl add_log(const char *fmt, ...)
 	}
 	return;
 }
-typedef void(__stdcall *Tick_t)(AAcRaceGameMode*, double);
-Tick_t pTick = nullptr;
-intptr_t* tickAddress = nullptr;
+void __stdcall Unhook()
+{
+	DWORD newProtect = PAGE_READWRITE;
+	DWORD oldProtect = 0;
+	VirtualProtect(tickAddress, sizeof(intptr_t), newProtect, &oldProtect);
+	*tickAddress = reinterpret_cast<intptr_t>(pTick);
+	VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
+}
 void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 {
+	GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
 	AAcRaceGameState *raceGameState = reinterpret_cast<AAcRaceGameState*>(GWorld->GameState);
-	AAcRaceGameMode* raceGameMode = reinterpret_cast<AAcRaceGameMode*>(GWorld->AuthorityGameMode);
+	AAcRaceGameMode* raceGameMode = reinterpret_cast<AAcRaceGameMode*>(GWorld->AuthorityGameMode);	
 	ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);
 	ACarAvatar* playerCarCarAvatar = raceGameMode->GetPlayerCarAvatar();
+	APhysicsAvatar* physicsAvatar = raceGameMode->PhysicsAvatar;
+	//add_log("sessionInfo %i", sessionInfo->type);
+	add_log("sessionInfo %i", raceGameMode->raceManager.get()->currentSessionType);
+	//add_log("sessionInfo %i", raceGameMode->raceManager->entryList);
+
+	//ERaceSessionPhase sessionPhase = playerController->MainGui->GetCurrentSessionPhase();
+	//float sessionTime = playerController->MainGui->GetCurrentSessionTime();
+	//float sessionStartTime = playerController->MainGui->GetSessionStartTime();
+	//float sessionEndTime = playerController->MainGui->GetSessionEndTime();
 	for (int i = 0; i < GWorld->PawnList.Num(); i++)
 	{
 		ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[i].Get();
-
-		switch (car->GetControllerType())
-		{
-		case EControllerType::EControllerType__Player:
-		{
-			break;
-		}
-		case EControllerType::EControllerType__Client:
-		{
-			break;
-		}
-		case EControllerType::EControllerType__Ai:
-		{
-			break;
-		}
-		}
-
 		FVector vec;
 		USceneComponent* screen = car->RootComponent;
 		vec = screen->K2_GetComponentLocation();
 		float distanceRoundTrack = trackAvatar->GetFastLaneDistanceToPoint(vec);
-		//add_log("distanceRoundTrack %f", distanceRoundTrack / 100);
-
-		//car->GetTargetLocation(&vec, nullptr);
-		//add_log("Location x %f y %f z %f", vec.X, vec.Y, vec.Z);
-
-		//add_log("Car: %i %s", i, car->carName.ToString().c_str());
 		FDriverInfo* driverInfo = &car->DriverInfo;
 		FCarInfo* carInfo = &car->CarEntryInfo;
-
 		UAcCarTimingServices* timings = car->CarTimingServices;
 		std::string driverName = "";
 		if (driverInfo->FirstName.IsValid())
@@ -102,28 +98,46 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		int lapcount = timings->GetLapCount();
 		int currentlaptime = timings->GetCurrentLapTime();
 	}
+	//if we are runnin in AAcRaceGameMode we want to unhook here so we dont risk unloading the dll in the middle of the hooked function while we are still collecting data
+	//Bad things will happen if we do.
+	if (unhookIt)
+	{
+		Unhook();
+		unhookIt = false;
+	}
 	return pTick(p, time);
 }
+
 bool doOnce = false;
+
 DWORD __stdcall InitializeHook(LPVOID)
 {	
 	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
 	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
-	//add_log("%llx", offsetof(ACarAvatar, physicsAvatar));
+	//add_log("%llx", offsetof(APhysicsAvatar, currentSession));
 	for (;;)
 	{
 		GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
+		if (GWorld == nullptr || IsBadReadPtr((const void*)GWorld, sizeof(UWorld)))
+		{
+			continue;
+		}
 		if (GWorld->AuthorityGameMode == nullptr)
 		{
 			continue;
 		}
-		UAcGameInstance* instance = reinterpret_cast<UAcGameInstance*>(GWorld->OwningGameInstance);
-		if (GWorld->AuthorityGameMode == nullptr || !GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
+		if (!GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
 		{
+			// If not in a AAcRaceGameMode state its safe to unhook the function here as its not called.
+			if (unhookIt && doOnce)
+			{
+				Unhook();
+				unhookIt = false;
+			}
 			continue;
-		}			
-		AAcRaceGameMode* raceGameMode = (AAcRaceGameMode*)GWorld->AuthorityGameMode;
-	
+		}
+		AAcRaceGameMode* raceGameMode = reinterpret_cast<AAcRaceGameMode*>(GWorld->AuthorityGameMode);
+		//Sleep(1000);
 		//Hook AAcRaceGameMode::Ticks as we need to be in a game thread to run our updated to avoid being out of thread conntext.
 		if (!doOnce)
 		{
@@ -135,9 +149,8 @@ DWORD __stdcall InitializeHook(LPVOID)
 			*tickAddress = (intptr_t)&Tick_Detour;
 			VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
 			doOnce = true;
+			add_log("Hooked AAcRaceGameMode::Ticks");
 		}
-
-		//add_log("AAcRaceGameState::Ticks %llx", GetVFunction(raceGameState, 130));
 		/*				
 		FCircuitInfo circuit;
 		TArray<FName> names;
@@ -162,16 +175,15 @@ DWORD __stdcall InitializeHook(LPVOID)
 	}		
 	return 0;
 }
-void __stdcall unhook()
-{
-	DWORD newProtect = PAGE_READWRITE;
-	DWORD oldProtect = 0;
-	VirtualProtect(tickAddress, sizeof(intptr_t), newProtect, &oldProtect);
-	pTick = reinterpret_cast<Tick_t>(*tickAddress);
-	*tickAddress = reinterpret_cast<intptr_t>(pTick);
-	VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
-}
 
+void __stdcall WaitForUnHook()
+{
+	unhookIt = true;
+	while (unhookIt)
+	{
+		Sleep(50);
+	}
+}
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
@@ -193,7 +205,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 	case DLL_THREAD_DETACH:
 		break;
 	case DLL_PROCESS_DETACH:
-		unhook();
+		WaitForUnHook();
 		GetExitCodeThread(monitorThread, &exitCode);
 		TerminateThread(monitorThread, exitCode);
 		break;
