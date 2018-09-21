@@ -50,7 +50,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -144,6 +144,12 @@
   <ItemGroup>
     <ClInclude Include="SDK.hpp" />
     <ClInclude Include="SDK\ACC_AC2_classes.hpp" />
+    <ClInclude Include="SDK\ACC_AC2_parameters.hpp" />
+    <ClInclude Include="SDK\ACC_AC2_structs.hpp" />
+    <ClInclude Include="SDK\ACC_CoreUObject_classes.hpp" />
+    <ClInclude Include="SDK\ACC_Engine_classes.hpp" />
+    <ClInclude Include="SDK\ACC_Engine_parameters.hpp" />
+    <ClInclude Include="SDK\ACC_Engine_structs.hpp" />
     <ClInclude Include="SDK\ACC_KSRacing_classes.h" />
     <ClInclude Include="SharedMemoryWriter.h" />
     <ClInclude Include="stdafx.h" />

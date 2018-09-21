@@ -2855,11 +2855,6 @@ struct ServerInfo
 	int32_t maxClients;
 	int32_t unknownData;
 };
-class AC2Client
-{
-	unsigned char                                      UnknownData00[0x78];
-	public:
-};
 
 // Class AC2.ClientAvatar
 // 0x0088 (0x00B0 - 0x0028)
@@ -2871,7 +2866,7 @@ public:
 	ksRacing::Event<int>									   evOnRemoteSplit;
 	ksRacing::Event<int>									   evOnRemoteLapCompleted;
 	ksRacing::Event<int>									   evOnSessionUpdate;
-	AC2Client*										   client;
+	ksRacing::AC2Client*										   client;
 	APhysicsAvatar*									   physicsAvatar;
 	static UClass* StaticClass()
 	{

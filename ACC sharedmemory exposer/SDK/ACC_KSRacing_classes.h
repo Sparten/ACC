@@ -12,6 +12,7 @@
 #include <functional>
 #include <map>
 #include <set>
+#include <winsock.h>
 namespace ksRacing
 {
 	#define __int8 char
@@ -95,10 +96,153 @@ namespace ksRacing
 		PostSessionTime = 6,
 		ResultUI = 7,
 	};
-	/*template<typename T>struct Event
+	enum class DriverCategory : uint8_t
 	{
-		unsigned char unknowndata[0x18];
-	};*/
+		EDriverCategory__Platinum = 0,
+		EDriverCategory__Gold = 1,
+		EDriverCategory__Silver = 2,
+		EDriverCategory__Bronze = 3,
+		EDriverCategory__EDriverCategory_MAX = 4
+	};
+	enum class Nationality : uint8_t
+	{
+		ENationality__Any = 0,
+		ENationality__Italy = 1,
+		ENationality__Germany = 2,
+		ENationality__France = 3,
+		ENationality__Spain = 4,
+		ENationality__GreatBritain = 5,
+		ENationality__Hungary = 6,
+		ENationality__Belgium = 7,
+		ENationality__Switzerland = 8,
+		ENationality__Austria = 9,
+		ENationality__Russia = 10,
+		ENationality__Thailand = 11,
+		ENationality__Netherlands = 12,
+		ENationality__Poland = 13,
+		ENationality__Argentina = 14,
+		ENationality__Monaco = 15,
+		ENationality__Ireland = 16,
+		ENationality__Brazil = 17,
+		ENationality__SouthAfrica = 18,
+		ENationality__PuertoRico = 19,
+		ENationality__Slovakia = 20,
+		ENationality__Oman = 21,
+		ENationality__Greece = 22,
+		ENationality__SaudiArabia = 23,
+		ENationality__Norway = 24,
+		ENationality__Turkey = 25,
+		ENationality__SouthKorea = 26,
+		ENationality__Lebanon = 27,
+		ENationality__Armenia = 28,
+		ENationality__Mexico = 29,
+		ENationality__Sweden = 30,
+		ENationality__Finland = 31,
+		ENationality__Denmark = 32,
+		ENationality__Croatia = 33,
+		ENationality__Canada = 34,
+		ENationality__China = 35,
+		ENationality__Portugal = 36,
+		ENationality__ENationality_MAX = 37
+	};
+	// Enum AC2.ECarModelType
+	enum class CarModelType : uint8_t
+	{
+		ECarModelType__Porsche_991_GT3_R = 0,
+		ECarModelType__Mercedes_AMG_GT3 = 1,
+		ECarModelType__Ferrari_488_GT3 = 2,
+		ECarModelType__Audi_R8_LMS = 3,
+		ECarModelType__Lamborghini_Huracan_GT3 = 4,
+		ECarModelType__Mclaren_650s_GT3 = 5,
+		ECarModelType__Nissan_GT_R_Nismo_GT3 = 6,
+		ECarModelType__BMW_M6_GT3 = 7,
+		ECarModelType__Bentley_Continental_GT3 = 8,
+		ECarModelType__Porsche_991II_GT3_Cup = 9,
+		ECarModelType__Nissan_GT_R_Nismo_GT301 = 10,
+		ECarModelType__Bentley_Continental_GT301 = 11,
+		ECarModelType__Aston_Martin_Vantage_V12_GT3 = 12,
+		ECarModelType__Lamborghini_Gallardo_R_EX = 13,
+		ECarModelType__Jaguar_G3 = 14,
+		ECarModelType__Lexus_RC_F_GT3 = 15,
+		ECarModelType__Lamborghini_Huracan_GT301 = 16,
+		ECarModelType__ECarModelType_MAX = 17
+	};
+	// Enum AC2.EMarshalFlagType
+	enum class MarshalFlagType : uint8_t
+	{
+		EMarshalFlagType__White = 0,
+		EMarshalFlagType__Green = 1,
+		EMarshalFlagType__Red = 2,
+		EMarshalFlagType__Blue = 3,
+		EMarshalFlagType__Yellow = 4,
+		EMarshalFlagType__Black = 5,
+		EMarshalFlagType__BlackWhite = 6,
+		EMarshalFlagType__Checkered = 7,
+		EMarshalFlagType__OrangeCircle = 8,
+		EMarshalFlagType__RedYellowStipes = 9,
+		EMarshalFlagType__None = 10,
+		EMarshalFlagType__EMarshalFlagType_MAX = 11
+	};
+	enum class CupCategory : uint8_t
+	{
+		ECupCategory__Overall = 0,
+		ECupCategory__ProAm = 1,
+		ECupCategory__Am = 2,
+		ECupCategory__Silver = 3,
+		ECupCategory__National = 4,
+		ECupCategory__ECupCategory_MAX = 5
+	};
+	enum class CarLocation : uint8_t
+	{
+		ECarLocation__Null = 0,
+		ECarLocation__Track = 1,
+		ECarLocation__PitLane = 2,
+		ECarLocation__PitEntry = 3,
+		ECarLocation__PitExit = 4,
+		ECarLocation__ECarLocation_MAX = 5
+	};
+
+	enum class RaceEventType : uint8_t
+	{
+		ERaceEventType__A_3H = 0,
+		ERaceEventType__B_24H = 1,
+		ERaceEventType__C_6H = 2,
+		ERaceEventType__D_1H = 3,
+		ERaceEventType__ERaceEventType_MAX = 4
+	};
+
+	/* 1737 */
+	enum class LapStateFlags : uint8_t
+	{
+		HasCut = 0x0,
+		IsInvalidLap = 1,
+		HasPenalty = 2,
+		IsOutLap = 3,
+		IsInLap = 4,
+		IsFormationLap = 5,
+		IsSafetyCarOnTrack = 6,
+		IsFullCourseYellow = 7,
+		IsRetired = 8,
+		IsDisqualified = 9,
+		IsOnPitWorkingZone = 10,
+		DriverSwap = 11,
+	};
+
+	/* 1750 */
+	typedef LapStateFlags PitStopMistakeType;
+
+	/* 1751 */
+	enum class PitStopRepairType : uint8_t
+	{
+		Chassis = 0x0,
+		SuspensionLF = 0x1,
+		SuspensionRF = 0x2,
+		SuspensionLR = 0x3,
+		SuspensionRR = 0x4,
+		Brakes = 0x5,
+		Radiator = 0x6,
+		GearBox = 0x7,
+	};
 
 	template<typename T>
 	struct Event
@@ -247,7 +391,31 @@ namespace ksRacing
 		unsigned int cutClearTime;
 		char activeCutInvestigationLimit;
 	};
-
+	struct DriverInfo : WritableRaceStructure
+	{
+		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > firstName;
+		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > secondName;
+		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > lastName;
+		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > nickName;
+		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > shortName;
+		char weight;
+		Nationality nationality;
+		DriverCategory driverCategory;
+		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > driverRow;
+		int helmetTemplateKey;
+		int helmetBaseColor;
+		int helmetDetailColor;
+		char helmetMaterialType;
+		int helmetGlassColor;
+		float helmetGlassMetallic;
+		int glovesTemplateKey;
+		int suitTemplateKey;
+		int suitDetailColor1;
+		int suitDetailColor2;
+		char skillLevel;
+		char aggroLevel;
+		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > playerID;
+	};
 	struct __declspec(align(8)) DriverEntry
 	{
 		DriverInfo driverInfo;
@@ -611,10 +779,10 @@ namespace ksRacing
 		unsigned int singleDriverPitStopTime;
 	};
 
-	/* 67419 */
+
 	struct RaceEntity : WritableRaceStructure
 	{
-		unsigned char eventType[1];
+		RaceEventType eventType;
 		EventRaceRules eventRaceRules;
 		std::vector<SessionEntity, std::allocator<SessionEntity> > sessions;
 	};
@@ -650,12 +818,12 @@ namespace ksRacing
 		char rimMaterialType1;
 		char rimMaterialType2;
 		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > teamName;
-		unsigned char nationality[2];
+		Nationality nationality;
 		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > displayName;
 		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > competitorName;
-		unsigned char competitorNationality[2];
+		Nationality competitorNationality;
 		char teamTemplateKey;
-		unsigned char carModelType[1];
+		CarModelType carModelType;
 		unsigned char cupCategory[1];
 		unsigned char licenseType[1];
 		bool useEnduranceKit;
@@ -664,31 +832,7 @@ namespace ksRacing
 	};
 
 	/* 67209 */
-	struct DriverInfo : WritableRaceStructure
-	{
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > firstName;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > secondName;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > lastName;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > nickName;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > shortName;
-		char weight;
-		__declspec(align(2)) unsigned char nationality[2];
-		unsigned char driverCategory[1];
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > driverRow;
-		int helmetTemplateKey;
-		int helmetBaseColor;
-		int helmetDetailColor;
-		char helmetMaterialType;
-		int helmetGlassColor;
-		float helmetGlassMetallic;
-		int glovesTemplateKey;
-		int suitTemplateKey;
-		int suitDetailColor1;
-		int suitDetailColor2;
-		char skillLevel;
-		char aggroLevel;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > playerID;
-	};
+
 
 	struct CarEntity : WritableRaceStructure
 	{
@@ -727,39 +871,6 @@ namespace ksRacing
 		unsigned int assignedAtSessionTime;
 		unsigned int paidOnAtSessionTime;
 		unsigned int value;
-	};
-
-	/* 1737 */
-	enum LapStateFlags
-	{
-		HasCut = 0x0,
-		IsInvalidLap = 0x1,
-		HasPenalty = 0x2,
-		IsOutLap = 0x3,
-		IsInLap = 0x4,
-		IsFormationLap = 0x5,
-		IsSafetyCarOnTrack = 0x6,
-		IsFullCourseYellow = 0x7,
-		IsRetired = 0x8,
-		IsDisqualified = 0x9,
-		IsOnPitWorkingZone = 0xA,
-		DriverSwap = 0xB,
-	};
-
-	/* 1750 */
-	typedef LapStateFlags PitStopMistakeType;
-
-	/* 1751 */
-	enum PitStopRepairType
-	{
-		Chassis = 0x0,
-		SuspensionLF = 0x1,
-		SuspensionRF = 0x2,
-		SuspensionLR = 0x3,
-		SuspensionRR = 0x4,
-		Brakes = 0x5,
-		Radiator = 0x6,
-		GearBox = 0x7,
 	};
 
 
@@ -807,7 +918,7 @@ namespace ksRacing
 	/* 68559 */
 	struct CarState
 	{
-		unsigned char cupCategory[1];
+		CupCategory cupCategory;
 		std::vector<unsigned short, std::allocator<unsigned short> > officialCupPositionAsPosition;
 		unsigned __int16 realtimePosition;
 		float totalDistance;
@@ -820,7 +931,7 @@ namespace ksRacing
 		Lap bestLap;
 		unsigned int sectorCount;
 		float lastSectorTimeStamp;
-		unsigned char carLocation[1];
+		CarLocation carLocation;
 		bool isBetweenSafetyCarLines;
 		char formationLapCounter;
 		bool isSessionOver;
@@ -1054,6 +1165,54 @@ namespace ksRacing
 		unsigned __int16 microSector;
 		int value;
 	};
-
+	struct ServerInfo
+	{
+		/*std::wstring _ip;
+		std::wstring password;
+		int32_t updPort;
+		int32_t tcpPort;
+		int32_t maxClients;
+		int16_t unknownData;*/
+		unsigned char unknownData[0x48];
+	};
+	/* 67205 */
+	struct IPAddress
+	{
+		sockaddr_in sokaddr;
+	};
+	struct  AC2Client
+	{
+		Event<OnRemoteLapEvent> evOnCarConnected;
+		Event<unsigned char> evOnCarDisconnected;
+		Event<OnSplitTimeEvent> evOnRemoteSplit;
+		Event<OnRemoteLapEvent> evOnRemoteLapCompleted;
+		Event<OnRemoteLapEvent> evOnSessionUpdateEvent;
+		ServerInfo serverInfo;
+		unsigned char clientStatus;
+		unsigned char unknownData[7];
+		SeasonResult seasonResult;
+		SeasonEntity seasonEntity;
+		DriverInfo driverInfo;
+		CarInfo carInfo;
+		bool isAssociated;
+		std::unique_ptr<void > sok;
+		long double lastSendTime;
+		long double sendInterval;
+		IPAddress serverIP;
+		char connectionID;
+		char connectedCarId;
+		char pakSequenceIndex;
+		std::unique_ptr<void> tcpSock;
+		std::vector<unsigned char, std::allocator<unsigned char> > connectedCarIDS;
+		std::vector<unsigned char, std::allocator<unsigned char> > requestedCarIDS;
+		void *physicsEngine;
+		unsigned int pingTime;
+		long double lastPingTime;
+		std::vector<int> clientColissionEvents;
+		long double lastClientEventSendTime;
+		bool isGameStarted;
+		unsigned __int16 carIndex;
+		unsigned __int16 driverIndex;
+	};
 	
 }
