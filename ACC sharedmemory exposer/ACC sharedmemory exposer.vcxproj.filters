@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\SDK">
+      <UniqueIdentifier>{ed551e11-b822-4d08-b873-422a92600a53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDK">
+      <UniqueIdentifier>{c7935094-9b6e-460d-b99d-8c094eaa2581}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -21,16 +27,10 @@
     <ClInclude Include="SDK.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\ACC_AC2_classes.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\ACC_KSRacing_classes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="_console.h">
@@ -39,46 +39,49 @@
     <ClInclude Include="SharedMemoryWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\ACC_AC2_classes.hpp">
+      <Filter>Header Files\SDK</Filter>
+    </ClInclude>
     <ClInclude Include="SDK\ACC_AC2_parameters.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\ACC_AC2_structs.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\ACC_Engine_classes.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\ACC_Engine_parameters.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\ACC_Engine_structs.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\ACC_CoreUObject_classes.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\ACC_Engine_classes.hpp">
+      <Filter>Header Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\ACC_Engine_parameters.hpp">
+      <Filter>Header Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\ACC_Engine_structs.hpp">
+      <Filter>Header Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\ACC_KSRacing_classes.h">
+      <Filter>Header Files\SDK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ACC sharedmemory exposer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\ACC_Basic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\ACC_CoreUObject_functions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\ACC_Engine_functions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\ACC_AC2_functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\ACC_AC2_functions.cpp">
+      <Filter>Source Files\SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\ACC_Basic.cpp">
+      <Filter>Source Files\SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\ACC_CoreUObject_functions.cpp">
+      <Filter>Source Files\SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\ACC_Engine_functions.cpp">
+      <Filter>Source Files\SDK</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -258,7 +258,7 @@ namespace ksRacing
 	struct WritableRaceStructure
 	{
 		WritableRaceStructureVtbl *vfptr;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > fileDir;
+		std::wstring fileDir;
 	};
 
 	/* 67368 */
@@ -285,7 +285,7 @@ namespace ksRacing
 	struct __declspec(align(8)) AssistRules : WritableRaceStructure
 	{
 		char presetIndex;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > description;
+		std::wstring description;
 		unsigned char autoGear[1];
 		unsigned char autoClutch[1];
 		float stabilityControlLevelMin;
@@ -324,7 +324,7 @@ namespace ksRacing
 	struct RealismRules : WritableRaceStructure
 	{
 		char presetIndex;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > description;
+		std::wstring description;
 		char eventIndex;
 		char sessionIndex;
 		float damageRate;
@@ -393,15 +393,15 @@ namespace ksRacing
 	};
 	struct DriverInfo : WritableRaceStructure
 	{
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > firstName;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > secondName;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > lastName;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > nickName;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > shortName;
+		std::wstring firstName;
+		std::wstring secondName;
+		std::wstring lastName;
+		std::wstring nickName;
+		std::wstring shortName;
 		char weight;
 		Nationality nationality;
 		DriverCategory driverCategory;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > driverRow;
+		std::wstring driverRow;
 		int helmetTemplateKey;
 		int helmetBaseColor;
 		int helmetDetailColor;
@@ -414,7 +414,7 @@ namespace ksRacing
 		int suitDetailColor2;
 		char skillLevel;
 		char aggroLevel;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > playerID;
+		std::wstring playerID;
 	};
 	struct __declspec(align(8)) DriverEntry
 	{
@@ -444,24 +444,24 @@ namespace ksRacing
 	/* 67357 */
 	struct SessionResult : WritableRaceStructure
 	{
-		std::vector<TrackEvent, std::allocator<TrackEvent> > trackEvents;
-		std::vector<Lap, std::allocator<Lap> > laps;
-		std::vector<NextSessionPenalty, std::allocator<NextSessionPenalty> > nextSessionPenalties;
-		std::vector<SessionPenalty, std::allocator<SessionPenalty> > currentSessionPenalties;
-		std::vector<WeatherStatus, std::allocator<WeatherStatus> > weatherForUpdateMinutes;
-		std::vector<PitStopEvent, std::allocator<PitStopEvent> > pitstopEvents;
-		std::vector<std::vector<TyreSet, std::allocator<TyreSet> >, std::allocator<std::vector<TyreSet, std::allocator<TyreSet> > > > tyresConditions;
-		std::vector<unsigned short, std::allocator<unsigned short> > standing;
-		std::vector<short, std::allocator<short> > points;
+		std::vector<TrackEvent > trackEvents;
+		std::vector<Lap> laps;
+		std::vector<NextSessionPenalty > nextSessionPenalties;
+		std::vector<SessionPenalty> currentSessionPenalties;
+		std::vector<WeatherStatus> weatherForUpdateMinutes;
+		std::vector<PitStopEvent> pitstopEvents;
+		std::vector<std::vector<TyreSet>> tyresConditions;
+		std::vector<unsigned short > standing;
+		std::vector<short> points;
 	};
 
 	/* 67367 */
 	struct SeasonResult : WritableRaceStructure
 	{
-		std::vector<CarInfo, std::allocator<CarInfo> > cars;
-		std::vector<DriverInfo, std::allocator<DriverInfo> > drivers;
-		std::vector<EventResult, std::allocator<EventResult> > events;
-		std::vector<short, std::allocator<short> > points;
+		std::vector<CarInfo> cars;
+		std::vector<DriverInfo> drivers;
+		std::vector<EventResult> events;
+		std::vector<short> points;
 		SessionResult savedSession;
 	};
 
@@ -478,7 +478,7 @@ namespace ksRacing
 		Event<bool> onCheckCarInitializatedEvent;
 		Event<AddOnlineEvent> onAddOnlineEvent;
 		char sectorCount;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > exportFileName;
+		std::wstring exportFileName;
 		long double physicsTime;
 		long double sessionStartTimeStamp;
 		long double receivedServerTime;
@@ -489,15 +489,15 @@ namespace ksRacing
 		bool canTick;
 		bool areCarsInitializated;
 		bool isTimeStopped;
-		std::unique_ptr<EntryList, std::default_delete<EntryList> > entryList;
-		std::unique_ptr<CarStateServices, std::default_delete<CarStateServices> > carStateServices;
-		std::unique_ptr<DriverStateServices, std::default_delete<DriverStateServices> > driverStateServices;
-		std::unique_ptr<WeatherServices, std::default_delete<WeatherServices> > weatherServices;
-		std::unique_ptr<ResultServices, std::default_delete<ResultServices> > resultServices;
-		std::unique_ptr<GarageServices, std::default_delete<GarageServices> > garageServices;
-		std::unique_ptr<TrackServices, std::default_delete<TrackServices> > trackServices;
-		std::unique_ptr<TimingServices, std::default_delete<TimingServices> > timingServices;
-		std::unique_ptr<RaceDirectorServices, std::default_delete<RaceDirectorServices> > raceDirectorServices;
+		std::unique_ptr<EntryList> entryList;
+		std::unique_ptr<CarStateServices> carStateServices;
+		std::unique_ptr<DriverStateServices> driverStateServices;
+		std::unique_ptr<WeatherServices> weatherServices;
+		std::unique_ptr<ResultServices> resultServices;
+		std::unique_ptr<GarageServices> garageServices;
+		std::unique_ptr<TrackServices> trackServices;
+		std::unique_ptr<TimingServices> timingServices;
+		std::unique_ptr<RaceDirectorServices> raceDirectorServices;
 		SeasonEntity seasonEntity;
 		GameplayRules sessionGameplayRules;
 		OnlineRules sessionOnlineRules;
@@ -532,11 +532,11 @@ namespace ksRacing
 		Event<unsigned short> onSessionOverEvent;
 		RaceManager *raceManager;
 		char sorterState;
-		std::map<unsigned short, CarState, std::less<unsigned short>, std::allocator<std::pair<unsigned short const, CarState> > > carStates;
-		std::map<unsigned short, CarState *, std::less<unsigned short>, std::allocator<std::pair<unsigned short const, CarState *> > > liveCarStates;
-		std::vector<unsigned short, std::allocator<unsigned short> > realtimePositions;
-		std::vector<unsigned short, std::allocator<unsigned short> > splinePositions;
-		std::vector<std::vector<unsigned short, std::allocator<unsigned short> >, std::allocator<std::vector<unsigned short, std::allocator<unsigned short> > > > cupStandingAsCarIndex;
+		std::map<unsigned short, CarState> carStates;
+		std::map<unsigned short, CarState *> liveCarStates;
+		std::vector<unsigned short> realtimePositions;
+		std::vector<unsigned short> splinePositions;
+		std::vector<std::vector<unsigned short>> cupStandingAsCarIndex;
 		bool doAllCarsCompleteTheSession;
 	};
 
@@ -544,7 +544,7 @@ namespace ksRacing
 	struct DriverStateServices
 	{
 		RaceManager *raceManager;
-		std::map<unsigned short, DriverState, std::less<unsigned short>, std::allocator<std::pair<unsigned short const, DriverState> > > driverStates;
+		std::map<unsigned short, DriverState> driverStates;
 	};
 
 	/* 67320 */
@@ -653,15 +653,15 @@ namespace ksRacing
 	{
 		RaceManager *raceManager;
 		int trackId;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > trackName;
+		std::wstring trackName;
 		std::pair<float, float> greenFlagTriggerRange;
 		std::pair<float, float> formationTriggerRange;
 		float greenFlagFinalDistance;
 		unsigned char trackStartingLight[1];
 		unsigned char pitEntryLight[1];
 		unsigned char pitExitLight[1];
-		std::vector<std::pair<unsigned short, unsigned short>, std::allocator<std::pair<unsigned short, unsigned short> > > fastLaneSpots;
-		std::vector<std::pair<bool, unsigned short>, std::allocator<std::pair<bool, unsigned short> > > pitZoneStatus;
+		std::vector<std::pair<unsigned short, unsigned short>> fastLaneSpots;
+		std::vector<std::pair<bool, unsigned short>> pitZoneStatus;
 		DynamicTrack dynamicTrack;
 	};
 	/* 68227 */
@@ -683,9 +683,9 @@ namespace ksRacing
 	{
 		std::vector<Lap, std::allocator<Lap> > overallLaps;
 		TimingRecord overallRecord;
-		std::map<unsigned short, TimingRecord, std::less<unsigned short>, std::allocator<std::pair<unsigned short const, TimingRecord> > > carRecords;
-		std::map<unsigned short, TimingRecord, std::less<unsigned short>, std::allocator<std::pair<unsigned short const, TimingRecord> > > driverRecords;
-		std::vector<std::pair<unsigned short, unsigned short>, std::allocator<std::pair<unsigned short, unsigned short> > > carCurrentLap;
+		std::map<unsigned short, TimingRecord > carRecords;
+		std::map<unsigned short, TimingRecord > driverRecords;
+		std::vector<std::pair<unsigned short, unsigned short>> carCurrentLap;
 	};
 
 	/* 67302 */
@@ -694,7 +694,7 @@ namespace ksRacing
 		unsigned __int16 driverIndex;
 		float timeStamp;
 		int lapTime;
-		std::vector<int, std::allocator<int> > splitTimes;
+		std::vector<int> splitTimes;
 		unsigned __int16 lapStates;
 	};
 
@@ -720,8 +720,8 @@ namespace ksRacing
 		std::set<std::pair<unsigned short, unsigned short>, std::less<std::pair<unsigned short, unsigned short> >, std::allocator<std::pair<unsigned short, unsigned short> > > noOvertakeSectors;
 		std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<unsigned short, unsigned short> > > > it;
 		std::set<unsigned short, std::less<unsigned short>, std::allocator<unsigned short> > carsToRemove;
-		std::map<unsigned short, CarInvestigation, std::less<unsigned short>, std::allocator<std::pair<unsigned short const, CarInvestigation> > > cutInvestigations;
-		std::map<unsigned short, CarPenalty, std::less<unsigned short>, std::allocator<std::pair<unsigned short const, CarPenalty> > > penalties;
+		std::map<unsigned short, CarInvestigation> cutInvestigations;
+		std::map<unsigned short, CarPenalty > penalties;
 		bool isWetSession;
 	};
 
@@ -790,7 +790,7 @@ namespace ksRacing
 	/* 67421 */
 	struct __declspec(align(8)) EventEntity : WritableRaceStructure
 	{
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > trackName;
+		std::wstring trackName;
 		CircuitEntity circuit;
 		GraphicsRules graphics;
 		CarSet carSet;
@@ -817,10 +817,10 @@ namespace ksRacing
 		int rimColor2Id;
 		char rimMaterialType1;
 		char rimMaterialType2;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > teamName;
+		std::wstring teamName;
 		Nationality nationality;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > displayName;
-		std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > competitorName;
+		std::wstring displayName;
+		std::wstring competitorName;
 		Nationality competitorNationality;
 		char teamTemplateKey;
 		CarModelType carModelType;
@@ -837,14 +837,14 @@ namespace ksRacing
 	struct CarEntity : WritableRaceStructure
 	{
 		CarInfo info;
-		std::vector<DriverEntity, std::allocator<DriverEntity> > drivers;
+		std::vector<DriverEntity> drivers;
 	};
 	/* 67362 */
 	struct EventResult : WritableRaceStructure
 	{
-		std::vector<std::pair<unsigned short, unsigned short>, std::allocator<std::pair<unsigned short, unsigned short> > > carDrivers;
-		std::vector<SessionResult, std::allocator<SessionResult> > sessions;
-		std::vector<short, std::allocator<short> > points;
+		std::vector<std::pair<unsigned short, unsigned short> > carDrivers;
+		std::vector<SessionResult > sessions;
+		std::vector<short> points;
 	};
 
 	/* 67296 */
@@ -883,8 +883,8 @@ namespace ksRacing
 		unsigned char speedType[1];
 		unsigned __int16 newTyreSetIndex;
 		unsigned int pitStopTimeLength;
-		std::vector<enum PitStopMistakeType, std::allocator<enum PitStopMistakeType> > mistakes;
-		std::vector<enum PitStopRepairType, std::allocator<enum PitStopRepairType> > repairs;
+		std::vector<enum PitStopMistakeType> mistakes;
+		std::vector<enum PitStopRepairType> repairs;
 	};
 
 	/* 68557 */
@@ -961,7 +961,7 @@ namespace ksRacing
 	/* 68613 */
 	struct GarageStock
 	{
-		std::vector<TyreSet, std::allocator<TyreSet> > tyreSets;
+		std::vector<TyreSet> tyreSets;
 	};
 
 	/* 68710 */
@@ -976,7 +976,7 @@ namespace ksRacing
 		float sessionTimeLimit;
 		float sessionTime;
 		unsigned __int16 lapIndex;
-		std::vector<unsigned short, std::allocator<unsigned short> > investigatedCutMicroSectors;
+		std::vector<unsigned short> investigatedCutMicroSectors;
 		float notificationTriggerTime;
 		bool hasBeenNotificated;
 	};
@@ -1012,11 +1012,11 @@ namespace ksRacing
 		bool isQualifyRaceStartReserved;
 		bool isPracticeReserved;
 		bool isWet;
-		std::vector<float, std::allocator<float> > avgTreadHeight;
-		std::vector<float, std::allocator<float> > avgBlistering;
-		std::vector<float, std::allocator<float> > avgGraining;
-		std::vector<float, std::allocator<float> > avgPuncture;
-		std::vector<float, std::allocator<float> > avgFlatSpot;
+		std::vector<float> avgTreadHeight;
+		std::vector<float> avgBlistering;
+		std::vector<float> avgGraining;
+		std::vector<float> avgPuncture;
+		std::vector<float> avgFlatSpot;
 	};
 
 

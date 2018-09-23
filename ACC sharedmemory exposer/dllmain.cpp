@@ -7,6 +7,7 @@
 #include <codecvt>
 #include "_console.h"
 #include "SharedMemoryWriter.h"
+
 using namespace SDK;
 
 typedef void(__stdcall *Tick_t)(AAcRaceGameMode*, double);
@@ -23,9 +24,12 @@ UWorld *GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
 char dlldir[512] = "";
 HANDLE monitorThread = nullptr;
 DWORD exitCode = 0;
-console_window c;
+//console_window c;
+std::vector<FCircuitInfo> savedCircuits;
 SharedMemeoryWriter <ACCSharedMemoryData> writer("Local\\CrewChief_ACC");
 volatile bool unhookIt = false;
+
+
 std::string ws2s(const std::wstring& wstr)
 {
 	using convert_typeX = std::codecvt_utf8<wchar_t>;
@@ -65,19 +69,9 @@ void __stdcall Unhook()
 	*tickAddress = reinterpret_cast<intptr_t>(pTick);
 	VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
 }
-float CheckForNaN(float val, float divideBy)
-{
-	float out = 0;
-	if (fabs(val) < 1e-10)
-	{
-		return out;
-	}
-	out = val / divideBy;
-	return out;
-}
-
 ACCSharedMemoryData *sharedData = (ACCSharedMemoryData*)malloc(sizeof(ACCSharedMemoryData));;
 double lasttime = -1;
+bool set = false;
 void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 {
 	
@@ -85,13 +79,23 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	/*if (time >= lasttime + 16.7777)
 	{*/
 		lasttime = time;
-		sharedData->update = time;
+		
+		char dblToFl[32];
+		std::string::size_type sz;
+		sprintf_s(dblToFl, _TRUNCATE, "%f", sharedData->update);
+		sharedData->update = std::stof(dblToFl, &sz);
+
 		GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
 		AAcRaceGameState *raceGameState = reinterpret_cast<AAcRaceGameState*>(GWorld->GameState);
-		AAcRaceGameMode* raceGameMode = reinterpret_cast<AAcRaceGameMode*>(GWorld->AuthorityGameMode);
+		AAcRaceGameMode* raceGameMode = p;
 		ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);
-		ksRacing::RaceManager* raceManager = raceGameMode->raceManager.get();
-		//raceManager->carStateServices->liveCarStates[0]->carLocation		
+		if (!set)
+		{
+			set = true;
+			trackAvatar->GetFastLane()->GetSpline()->SetDrawDebug(true);
+		}
+		ksRacing::RaceManager* raceManager = raceGameMode->raceManager.get();	
+		//collect all our session data
 		sharedData->sessionData.areCarsInitializated = raceManager->areCarsInitializated;
 		sharedData->sessionData.currentEventIndex = raceManager->currentEventIndex;
 		sharedData->sessionData.currentSessionIndex = raceManager->currentSessionIndex;
@@ -101,17 +105,45 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		sharedData->sessionData.isEventInitializated = raceManager->isEventInitializated;
 		sharedData->sessionData.isServer = raceManager->isServer;
 		sharedData->sessionData.isSessionInitializated = raceManager->isSessionInitializated;
-		sharedData->sessionData.isTimeStopped = raceManager->isTimeStopped;
-		sharedData->sessionData.physicsTime = raceManager->physicsTime;
-		sharedData->sessionData.receivedServerTime = raceManager->receivedServerTime;
-		sharedData->sessionData.serverTimeOffset = raceManager->serverTimeOffset;
-		sharedData->sessionData.sessionEndTime = raceManager->sessionEndTime;
+		sharedData->sessionData.isTimeStopped = raceManager->isTimeStopped;	
+
+		sprintf_s(dblToFl, _TRUNCATE, "%.04Lf", raceManager->physicsTime);	
+		sharedData->sessionData.physicsTime = std::stof(dblToFl, &sz);
+
+		sprintf_s(dblToFl, _TRUNCATE, "%.04Lf", raceManager->sessionStartTimeStamp);
+		sharedData->sessionData.sessionStartTimeStamp = std::stof(dblToFl, &sz);
+
+		sprintf_s(dblToFl, _TRUNCATE, "%.04Lf", raceManager->receivedServerTime);
+		sharedData->sessionData.receivedServerTime = std::stof(dblToFl, &sz);
+
+		sprintf_s(dblToFl, _TRUNCATE, "%.04Lf", raceManager->serverTimeOffset);
+		sharedData->sessionData.serverTimeOffset = std::stof(dblToFl, &sz);
+
 		sharedData->sessionData.sessionStartTime = raceManager->sessionStartTime;
-		sharedData->sessionData.sessionStartTimeStamp = raceManager->sessionStartTimeStamp;
-		
-		
-		ACarAvatar* playerCarAvatar = raceGameMode->GetPlayerCarAvatar();
-		
+		sharedData->sessionData.sessionEndTime = raceManager->sessionEndTime;
+
+		//track and weather
+		strcpy_s(sharedData->track.name, _TRUNCATE, ws2s(raceManager->trackServices->trackName).c_str());
+		sharedData->track.id = raceManager->trackServices->trackId;
+		sharedData->track.sectors = raceManager->sectorCount;
+		sharedData->track.weatherState.ambientTemperature = raceManager->weatherServices->status.ambientTemperature;
+		sharedData->track.weatherState.cloudLevel = raceManager->weatherServices->status.cloudLevel;
+		sharedData->track.weatherState.rainLevel = raceManager->weatherServices->status.rainLevel;
+		sharedData->track.weatherState.roadTemperature = raceManager->weatherServices->status.roadTemperature;
+		sharedData->track.weatherState.wetLevel = raceManager->weatherServices->status.wetLevel;
+		sharedData->track.weatherState.windDirection = raceManager->weatherServices->status.windDirection;
+		sharedData->track.weatherState.windSpeed = raceManager->weatherServices->status.windSpeed;
+		sharedData->track.length = trackAvatar->GetFastLane()->GetSpline()->GetSplineLength() * .01f;
+		for each (auto var in savedCircuits)
+		{
+			if (var.CircuitId == raceManager->trackServices->trackId)
+			{
+				sharedData->track.corners = var.Corners;
+				sharedData->track.isPolesitterOnLeft = var.bIsPolesitterOnLeft;
+			}
+		}
+
+		ACarAvatar* playerCarAvatar = raceGameMode->GetPlayerCarAvatar();		
 		float playerSpeedMS = playerCarAvatar->GetSpeedKMH() * 0.277777778f;
 		APhysicsAvatar* physicsAvatar = raceGameMode->PhysicsAvatar;
 		USceneComponent* playerScreen = playerCarAvatar->RootComponent;
@@ -126,84 +158,66 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		sharedData->playerDriver.rotation.roll = playerRotation.Roll;
 		sharedData->playerDriver.distanceRoundTrack = trackAvatar->GetFastLaneDistanceToPoint(playerLocation);
 
-
 		//ksRacing::AC2Client* client = gameInstance->ClientAvatar->client;
 		//add_log(ws2s(client->driverInfo.firstName).c_str());
 
 		//add_log("sessionInfo %i", raceGameMode->raceManager.get()->currentSessionType);
 		int playerCarIndex = 0;
-		/*if (raceGameMode->raceManager->entryList.get() != nullptr)
-		{
-			for each (auto var in raceGameMode->raceManager->entryList->carMap)
-			{
-				if (var.second.isPlayerCar)
-				{
-					playerCarIndex = var.first;
-					add_log(ws2s(raceGameMode->raceManager->entryList->driverMap[playerCarIndex].driverInfo.firstName).c_str());
-				}
-			}
-
-			for each (auto var in raceGameMode->raceManager->entryList->driverMap)
-			{
-				if (var.second.isDriving)
-				{
-					add_log(ws2s(var.second.driverInfo.firstName).c_str());
-				}
-
-			}
-		}*/
+		sharedData->opponentDriverCount = GWorld->PawnList.Num();
 		if (raceGameMode->raceManager->entryList.get() != nullptr)
 		{
 			for each (auto var in raceGameMode->raceManager->carStateServices->liveCarStates)
 			{
-				//add_log("distance round track %f", var.second->splineDistance);
+				uint16_t index = var.first;
+				ksRacing::CarState* state = var.second;
+				sharedData->opponentDrivers[index].currentDelta = state->currentDelta;
+				sharedData->opponentDrivers[index].driverIndex = state->driverIndex;
+				sharedData->opponentDrivers[index].formationLapCounter = state->formationLapCounter;
+				sharedData->opponentDrivers[index].isBetweenSafetyCarLines = state->isBetweenSafetyCarLines;
+				sharedData->opponentDrivers[index].isDisqualified = state->isDisqualified;
+				sharedData->opponentDrivers[index].isRetired = state->isRetired;
+				sharedData->opponentDrivers[index].isSessionOver = state->isSessionOver;
+				sharedData->opponentDrivers[index].lapCount = state->lapCount;
+				sharedData->opponentDrivers[index].lastSectorTimeStamp = state->lastSectorTimeStamp;
+				sharedData->opponentDrivers[index].trackLocation = state->carLocation;
+				sharedData->opponentDrivers[index].position = state->splinePosition;
+				sharedData->opponentDrivers[index].realTimePosition = state->realtimePosition;
+				sharedData->opponentDrivers[index].sectorCount = state->sectorCount;
+				sharedData->opponentDrivers[index].totalTime = state->totalTime;
+				sharedData->opponentDrivers[index].distanceRoundTrack = state->splineDistance * sharedData->track.length;
+				ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[index].Get();
+				FVector vec;
+				USceneComponent* screen = car->RootComponent;
+				FVector location = screen->K2_GetComponentLocation();
+				FRotator rotation = screen->K2_GetComponentRotation();
+				float speedMS = car->GetSpeedKMH() * 0.277777778f;
+				sharedData->opponentDrivers[index].speed = speedMS;
+				sharedData->opponentDrivers[index].location.x = location.X * .01f;
+				sharedData->opponentDrivers[index].location.y = location.Y * .01f;
+				sharedData->opponentDrivers[index].location.z = location.Z * .01f;
+				sharedData->opponentDrivers[index].rotation.pitch = rotation.Pitch;
+				sharedData->opponentDrivers[index].rotation.yaw = rotation.Yaw;
+				sharedData->opponentDrivers[index].rotation.roll = rotation.Roll;
+				
+				FDriverInfo driverInfo = car->DriverInfo;
+				std::string driverName = "";
+				if (driverInfo.FirstName.IsValid())
+				{
+					driverName = driverInfo.FirstName.ToString() + " ";
+				}
+				if (driverInfo.SecondName.IsValid())
+				{
+					driverName += driverInfo.SecondName.ToString() + " ";
+				}
+				if (driverInfo.LastName.IsValid())
+				{
+					driverName += driverInfo.LastName.ToString().c_str();
+				}
+
+				strcpy_s(sharedData->opponentDrivers[index].name, _TRUNCATE, driverName.c_str());
+				UAcCarTimingServices* timings = car->CarTimingServices;
+				sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
 			}
-		}
-
-		sharedData->opponentDriverCount = GWorld->PawnList.Num();
-		for (int i = 0; i < GWorld->PawnList.Num(); i++)
-		{
-			ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[i].Get();
-			//car->
-			FVector vec;
-			USceneComponent* screen = car->RootComponent;
-			FVector location = screen->K2_GetComponentLocation();
-			FRotator rotation = screen->K2_GetComponentRotation();
-			float speedMS = car->GetSpeedKMH() * 0.277777778f;
-			sharedData->opponentDrivers[i].speed = speedMS;
-			sharedData->opponentDrivers[i].location.x = location.X * .01f;
-			sharedData->opponentDrivers[i].location.y = location.Y * .01f;
-			sharedData->opponentDrivers[i].location.z = location.Z * .01f;
-			sharedData->opponentDrivers[i].rotation.pitch = rotation.Pitch;
-			sharedData->opponentDrivers[i].rotation.yaw = rotation.Yaw;
-			sharedData->opponentDrivers[i].rotation.roll = rotation.Roll;
-			sharedData->opponentDrivers[i].distanceRoundTrack = trackAvatar->GetFastLaneDistanceToPoint(vec);
-
-			FDriverInfo driverInfo = car->DriverInfo;
-			FCarInfo carInfo = car->CarEntryInfo;
-			std::string driverName = "";
-			if (driverInfo.FirstName.IsValid())
-			{
-				driverName = driverInfo.FirstName.ToString() + " ";
-			}
-			if (driverInfo.SecondName.IsValid())
-			{
-				driverName += driverInfo.SecondName.ToString() + " ";
-			}
-			if (driverInfo.LastName.IsValid())
-			{
-				driverName += driverInfo.LastName.ToString().c_str();
-			}
-
-			strcpy_s(sharedData->opponentDrivers->name, _TRUNCATE, driverName.c_str());
-
-
-
-			UAcCarTimingServices* timings = car->CarTimingServices;
-
-			//add_log(carInfo.CompetitorName.ToString().c_str());
-			int lapcount = timings->GetLapCount();
-			int currentlaptime = timings->GetCurrentLapTime();
 		}
 		writer.updateSharedMemory(sharedData);
 	//}
@@ -227,8 +241,16 @@ DWORD __stdcall InitializeHook(LPVOID)
 	LoadLibraryA(unloadDir);
 	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
 	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
-	//add_log("%llX", offsetof(ksRacing::AC2Client, driverInfo));
-	//add_log("%llX", sizeof(ksRacing::RaceEventType));
+
+	add_log("isBetweenSafetyCarLines 0x%X", offsetof(Driver, isBetweenSafetyCarLines));
+	add_log("isSessionOver 0x%X", offsetof(Driver, isSessionOver));
+	add_log("isDisqualified 0x%X", offsetof(Driver, isDisqualified));
+	add_log("isRetired 0x%X", offsetof(Driver, isRetired));
+	add_log("driverIndex 0x%X", offsetof(Driver, driverIndex));
+	add_log("formationLapCounter 0x%X", offsetof(Driver, formationLapCounter));
+	add_log("trackLocation 0x%X", offsetof(Driver, trackLocation));
+
+	add_log("0x%llX", sizeof(Driver));
 	
 	for (;;)
 	{
@@ -251,6 +273,11 @@ DWORD __stdcall InitializeHook(LPVOID)
 				unhookIt = false;
 				return 0;
 			}
+			else if (!doOnce && unhookIt)
+			{ 
+				unhookIt = false;
+				return 0;
+			}
 			lasttime = 0;
 			continue;
 		}
@@ -259,6 +286,18 @@ DWORD __stdcall InitializeHook(LPVOID)
 		//Hook AAcRaceGameMode::Ticks as we need to be in a game thread to run our updated to avoid being out of thread conntext.
 		if (!doOnce)
 		{
+			FCircuitInfo circuit;
+			TArray<FName> names;
+			UAcGameInstance* instance = reinterpret_cast<UAcGameInstance*>(GWorld->OwningGameInstance);
+			instance->InfoManager->GetInfoList(EInfoType::EInfoType__Circuit, &names);
+			for (int i = 0; i < names.Num(); i++)
+			{
+				if (instance->InfoManager->GetCircuitInfo(names[i], &circuit))
+				{
+					savedCircuits.push_back(circuit);
+				}
+			}
+
 			tickAddress = GetVFunctionTableAddress(raceGameMode, 131);
 			DWORD newProtect = PAGE_READWRITE;
 			DWORD oldProtect = 0;
@@ -268,21 +307,10 @@ DWORD __stdcall InitializeHook(LPVOID)
 			VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
 			doOnce = true;
 			add_log("Hooked AAcRaceGameMode::Ticks");
+
 		}
-		/*				
-		FCircuitInfo circuit;
-		TArray<FName> names;
-		instance->InfoManager->GetInfoList(EInfoType::EInfoType__Circuit, &names);*/
+						
 
-		//ACCSharedMemoryData sharedMemoryData;
-
-		/*for (int i = 0; i < names.Num(); i++)
-		{
-			if (instance->InfoManager->GetCircuitInfo(names[i], &circuit))
-			{
-				add_log("circuit: %s length: %i", circuit.CircuitName.ToString().c_str(), circuit.Length);
-			}
-		}*/
 
 		/*
 		add_log("%s %llx", GWorld->GetFullName().c_str(), GWorld);
@@ -311,7 +339,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 
 		DisableThreadLibraryCalls(hModule);
 
-		GetModuleFileName(hModule, dlldir, 512);
+		GetModuleFileNameA(hModule, dlldir, 512);
 
 		for (size_t i = strlen(dlldir); i > 0; i--) { if (dlldir[i] == '\\') { dlldir[i + 1] = 0; break; } }
 
