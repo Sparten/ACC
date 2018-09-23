@@ -70,31 +70,31 @@ void __stdcall Unhook()
 	VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
 }
 ACCSharedMemoryData *sharedData = (ACCSharedMemoryData*)malloc(sizeof(ACCSharedMemoryData));;
-double lasttime = -1;
+double lasttime = 0;
 bool set = false;
 void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 {
 	
 	//limit update rate to 60 times a sec
-	/*if (time >= lasttime + 16.7777)
-	{*/
-		lasttime = time;
-		
+	if (p->raceManager->physicsTime >= lasttime + 16.777777 || p->raceManager->physicsTime <= lasttime)
+	{
+		AAcRaceGameMode* raceGameMode = p;
+		ksRacing::RaceManager* raceManager = p->raceManager.get();
+		lasttime = raceManager->physicsTime;		
 		char dblToFl[32];
 		std::string::size_type sz;
 		sprintf_s(dblToFl, _TRUNCATE, "%f", sharedData->update);
 		sharedData->update = std::stof(dblToFl, &sz);
-
 		GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
 		AAcRaceGameState *raceGameState = reinterpret_cast<AAcRaceGameState*>(GWorld->GameState);
-		AAcRaceGameMode* raceGameMode = p;
+		
 		ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);
 		if (!set)
 		{
 			set = true;
 			trackAvatar->GetFastLane()->GetSpline()->SetDrawDebug(true);
 		}
-		ksRacing::RaceManager* raceManager = raceGameMode->raceManager.get();	
+			
 		//collect all our session data
 		sharedData->sessionData.areCarsInitializated = raceManager->areCarsInitializated;
 		sharedData->sessionData.currentEventIndex = raceManager->currentEventIndex;
@@ -220,7 +220,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			}
 		}
 		writer.updateSharedMemory(sharedData);
-	//}
+	}
 	//if we are runnin in AAcRaceGameMode we want to unhook here so we dont risk unloading the dll in the middle of the hooked function while we are still collecting data
 	//Bad things will happen if we do.
 	if (unhookIt)
