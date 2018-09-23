@@ -143,25 +143,13 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			}
 		}
 
-		ACarAvatar* playerCarAvatar = raceGameMode->GetPlayerCarAvatar();		
-		float playerSpeedMS = playerCarAvatar->GetSpeedKMH() * 0.277777778f;
-		APhysicsAvatar* physicsAvatar = raceGameMode->PhysicsAvatar;
-		USceneComponent* playerScreen = playerCarAvatar->RootComponent;
-		FVector playerLocation = playerScreen->K2_GetComponentLocation();
-		FRotator playerRotation = playerScreen->K2_GetComponentRotation();
-		sharedData->playerDriver.speed = playerSpeedMS;
-		sharedData->playerDriver.location.x = playerLocation.X * .01f;
-		sharedData->playerDriver.location.y = playerLocation.Y * .01f;
-		sharedData->playerDriver.location.z = playerLocation.Z * .01f;
-		sharedData->playerDriver.rotation.pitch = playerRotation.Pitch;
-		sharedData->playerDriver.rotation.yaw = playerRotation.Yaw;
-		sharedData->playerDriver.rotation.roll = playerRotation.Roll;
-		sharedData->playerDriver.distanceRoundTrack = trackAvatar->GetFastLaneDistanceToPoint(playerLocation);
+
 
 		//ksRacing::AC2Client* client = gameInstance->ClientAvatar->client;
 		//add_log(ws2s(client->driverInfo.firstName).c_str());
 
 		//add_log("sessionInfo %i", raceGameMode->raceManager.get()->currentSessionType);
+		// In single player sessions this iteration works as player will allways be in index 0 i'm not sure this is going to be the case once it goes online.
 		int playerCarIndex = 0;
 		sharedData->opponentDriverCount = GWorld->PawnList.Num();
 		if (raceGameMode->raceManager->entryList.get() != nullptr)
@@ -218,6 +206,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 				UAcCarTimingServices* timings = car->CarTimingServices;
 				sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
 			}
+			sharedData->playerDriver = sharedData->opponentDrivers[0];
 		}
 		writer.updateSharedMemory(sharedData);
 	}
