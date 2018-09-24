@@ -63,8 +63,12 @@ struct Driver
 	int lapCount;
 	int totalTime;
 	int currentDelta;
-	unsigned int sectorCount;
+	unsigned int currentSector;
 	unsigned int currentlaptime;
+	float trottle;
+	float brake;
+	float clutch;
+	float rpms;
 	__declspec(align(4))bool isBetweenSafetyCarLines;
 	__declspec(align(4))bool isSessionOver;
 	__declspec(align(4))bool isDisqualified;
@@ -76,7 +80,10 @@ struct Driver
 	__declspec(align(1))ksRacing::CarLocation trackLocation;
 	
 };
+struct PlayerDriver : Driver
+{
 
+};
 struct SessionData
 {
 	__declspec(align(4))float physicsTime;
@@ -120,13 +127,13 @@ public:
 	SharedMemeoryWriter(const char *regionName)
 	{	
 		mappedRegion.reset(CreateFileMappingA(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(WriteStruct), regionName), CloseHandle);
-		if (mappedRegion == nullptr)
+		if (!mappedRegion)
 		{
 			return;
 		}
 		
 		mappedData.reset((WriteStruct*)MapViewOfFile(mappedRegion.get(), FILE_MAP_ALL_ACCESS, 0, 0, sizeof(WriteStruct)), UnmapViewOfFile);
-		if (mappedData == nullptr)
+		if (!mappedData)
 		{
 			return;
 		}

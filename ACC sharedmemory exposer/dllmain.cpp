@@ -26,9 +26,13 @@ HANDLE monitorThread = nullptr;
 DWORD exitCode = 0;
 //console_window c;
 std::vector<FCircuitInfo> savedCircuits;
-SharedMemeoryWriter <ACCSharedMemoryData> writer("Local\\CrewChief_ACC");
+SharedMemeoryWriter<ACCSharedMemoryData> writer("Local\\CrewChief_ACC");
 volatile bool unhookIt = false;
 
+double TicksNow();
+static double const MILLISECONDS_IN_SECOND = 1000.0;
+static double const MICROSECONDS_IN_MILLISECOND = 1000.0;
+static double const MICROSECONDS_IN_SECOND = MILLISECONDS_IN_SECOND * MICROSECONDS_IN_MILLISECOND;
 
 std::string ws2s(const std::wstring& wstr)
 {
@@ -69,15 +73,47 @@ void __stdcall Unhook()
 	*tickAddress = reinterpret_cast<intptr_t>(pTick);
 	VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
 }
-ACCSharedMemoryData *sharedData = (ACCSharedMemoryData*)malloc(sizeof(ACCSharedMemoryData));;
+
+#define USE_QPC
+
+double TicksNow() {
+
+#ifdef USE_QPC
+
+	static double frequencyMicrosecond = 0.0;
+	static bool once = false;
+	if (!once) {
+
+		LARGE_INTEGER qpcFrequency = {};
+
+		QueryPerformanceFrequency(&qpcFrequency);
+
+		frequencyMicrosecond = static_cast<double>(qpcFrequency.QuadPart) / MICROSECONDS_IN_SECOND;
+
+		once = true;
+
+	}
+	LARGE_INTEGER now = {};
+	QueryPerformanceCounter(&now);
+	return static_cast<double>(now.QuadPart) / frequencyMicrosecond;
+
+#else 
+
+	return GetTickCount64() * MICROSECONDS_IN_MILLISECOND;
+
+#endif
+
+}
 double lasttime = 0;
-bool set = false;
 void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 {
-	
 	//limit update rate to 60 times a sec
+	
 	if (p->raceManager->physicsTime >= lasttime + 16.777777 || p->raceManager->physicsTime <= lasttime)
 	{
+		//double tick = TicksNow();
+		std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+		sharedData->isReady = true;
 		AAcRaceGameMode* raceGameMode = p;
 		ksRacing::RaceManager* raceManager = p->raceManager.get();
 		lasttime = raceManager->physicsTime;		
@@ -87,14 +123,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		sharedData->update = std::stof(dblToFl, &sz);
 		GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
 		AAcRaceGameState *raceGameState = reinterpret_cast<AAcRaceGameState*>(GWorld->GameState);
-		
-		ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);
-		if (!set)
-		{
-			set = true;
-			trackAvatar->GetFastLane()->GetSpline()->SetDrawDebug(true);
-		}
-			
+		ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);			
 		//collect all our session data
 		sharedData->sessionData.areCarsInitializated = raceManager->areCarsInitializated;
 		sharedData->sessionData.currentEventIndex = raceManager->currentEventIndex;
@@ -142,22 +171,21 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 				sharedData->track.isPolesitterOnLeft = var.bIsPolesitterOnLeft;
 			}
 		}
-
-
-
 		//ksRacing::AC2Client* client = gameInstance->ClientAvatar->client;
 		//add_log(ws2s(client->driverInfo.firstName).c_str());
 
 		//add_log("sessionInfo %i", raceGameMode->raceManager.get()->currentSessionType);
 		// In single player sessions this iteration works as player will allways be in index 0 i'm not sure this is going to be the case once it goes online.
+		// So we might have to do a propper look up by driverindex vs carindex but its all available so its just a matter of me not being lazy.
 		int playerCarIndex = 0;
 		sharedData->opponentDriverCount = GWorld->PawnList.Num();
-		if (raceGameMode->raceManager->entryList.get() != nullptr)
+		if (raceManager->entryList.get() != nullptr)
 		{
-			for each (auto var in raceGameMode->raceManager->carStateServices->liveCarStates)
+			for each (auto var in raceManager->carStateServices->liveCarStates)
 			{
 				uint16_t index = var.first;
 				ksRacing::CarState* state = var.second;
+				ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[index].Get();
 				sharedData->opponentDrivers[index].currentDelta = state->currentDelta;
 				sharedData->opponentDrivers[index].driverIndex = state->driverIndex;
 				sharedData->opponentDrivers[index].formationLapCounter = state->formationLapCounter;
@@ -168,12 +196,17 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 				sharedData->opponentDrivers[index].lapCount = state->lapCount;
 				sharedData->opponentDrivers[index].lastSectorTimeStamp = state->lastSectorTimeStamp;
 				sharedData->opponentDrivers[index].trackLocation = state->carLocation;
-				sharedData->opponentDrivers[index].position = state->splinePosition;
-				sharedData->opponentDrivers[index].realTimePosition = state->realtimePosition;
-				sharedData->opponentDrivers[index].sectorCount = state->sectorCount;
+				sharedData->opponentDrivers[index].position = state->lastStanding;
+				sharedData->opponentDrivers[index].realTimePosition = state->realtimePosition;				
 				sharedData->opponentDrivers[index].totalTime = state->totalTime;
 				sharedData->opponentDrivers[index].distanceRoundTrack = state->splineDistance * sharedData->track.length;
-				ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[index].Get();
+				UAcCarTimingServices* timings = car->CarTimingServices;
+				sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
+				sharedData->opponentDrivers[index].currentSector = timings->CurrentSector;
+				sharedData->opponentDrivers[index].trottle = car->GetGas();
+				sharedData->opponentDrivers[index].clutch = car->GetClutch();
+				sharedData->opponentDrivers[index].brake = car->GetBrake();
+				sharedData->opponentDrivers[index].rpms = car->GetRPMS();
 				FVector vec;
 				USceneComponent* screen = car->RootComponent;
 				FVector location = screen->K2_GetComponentLocation();
@@ -201,19 +234,22 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 				{
 					driverName += driverInfo.LastName.ToString().c_str();
 				}
-
 				strcpy_s(sharedData->opponentDrivers[index].name, _TRUNCATE, driverName.c_str());
-				UAcCarTimingServices* timings = car->CarTimingServices;
-				sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
+				sharedData->playerDriver = sharedData->opponentDrivers[0];
 			}
-			sharedData->playerDriver = sharedData->opponentDrivers[0];
+
 		}
-		writer.updateSharedMemory(sharedData);
+		writer.updateSharedMemory(sharedData.get());
+		//double tickEnd = TicksNow();
+		//add_log("Time to process: %Lf", tickEnd - tick);
 	}
-	//if we are runnin in AAcRaceGameMode we want to unhook here so we dont risk unloading the dll in the middle of the hooked function while we are still collecting data
+	//if we are run in a AAcRaceGameMode we want to unhook here so we dont risk unloading the dll in the middle of the hooked function while we are still collecting data
 	//Bad things will happen if we do.
 	if (unhookIt)
 	{
+		std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+		sharedData->isReady = false;
+		writer.updateSharedMemory(sharedData.get());
 		Unhook();
 		unhookIt = false;
 	}
@@ -231,19 +267,18 @@ DWORD __stdcall InitializeHook(LPVOID)
 	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
 	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
 
-	add_log("isBetweenSafetyCarLines 0x%X", offsetof(Driver, isBetweenSafetyCarLines));
-	add_log("isSessionOver 0x%X", offsetof(Driver, isSessionOver));
-	add_log("isDisqualified 0x%X", offsetof(Driver, isDisqualified));
-	add_log("isRetired 0x%X", offsetof(Driver, isRetired));
-	add_log("driverIndex 0x%X", offsetof(Driver, driverIndex));
-	add_log("formationLapCounter 0x%X", offsetof(Driver, formationLapCounter));
-	add_log("trackLocation 0x%X", offsetof(Driver, trackLocation));
-
-	add_log("0x%llX", sizeof(Driver));
-	
+	//add_log("isBetweenSafetyCarLines 0x%X", offsetof(Driver, isBetweenSafetyCarLines));
 	for (;;)
 	{
-		//add_log(writer.name.c_str());
+		if (unhookIt)
+		{
+			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+			sharedData->isReady = false;
+			writer.updateSharedMemory(sharedData.get());
+			Unhook();
+			unhookIt = false;
+			return 0;
+		}
 		GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
 		if (GWorld == nullptr || IsBadReadPtr((const void*)GWorld, sizeof(UWorld)))
 		{
@@ -256,28 +291,24 @@ DWORD __stdcall InitializeHook(LPVOID)
 		if (!GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
 		{
 			// If not in a AAcRaceGameMode state its safe to unhook the function here as its not called.
-			if (unhookIt && doOnce)
-			{
-				Unhook();
-				unhookIt = false;
-				return 0;
-			}
-			else if (!doOnce && unhookIt)
-			{ 
-				unhookIt = false;
-				return 0;
-			}
+			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+			sharedData->isReady = false;
+			writer.updateSharedMemory(sharedData.get());
 			lasttime = 0;
 			continue;
 		}
-		AAcRaceGameMode* raceGameMode = reinterpret_cast<AAcRaceGameMode*>(GWorld->AuthorityGameMode);
-		//Sleep(1000);
+		else
+		{
+			
+		}
+
 		//Hook AAcRaceGameMode::Ticks as we need to be in a game thread to run our updated to avoid being out of thread conntext.
 		if (!doOnce)
-		{
+		{	
 			FCircuitInfo circuit;
 			TArray<FName> names;
 			UAcGameInstance* instance = reinterpret_cast<UAcGameInstance*>(GWorld->OwningGameInstance);
+			AAcRaceGameMode* raceGameMode = reinterpret_cast<AAcRaceGameMode*>(GWorld->AuthorityGameMode);
 			instance->InfoManager->GetInfoList(EInfoType::EInfoType__Circuit, &names);
 			for (int i = 0; i < names.Num(); i++)
 			{
@@ -286,7 +317,6 @@ DWORD __stdcall InitializeHook(LPVOID)
 					savedCircuits.push_back(circuit);
 				}
 			}
-
 			tickAddress = GetVFunctionTableAddress(raceGameMode, 131);
 			DWORD newProtect = PAGE_READWRITE;
 			DWORD oldProtect = 0;
@@ -295,12 +325,8 @@ DWORD __stdcall InitializeHook(LPVOID)
 			*tickAddress = (intptr_t)&Tick_Detour;
 			VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
 			doOnce = true;
-			add_log("Hooked AAcRaceGameMode::Ticks");
-
-		}
-						
-
-
+			//add_log("Hooked AAcRaceGameMode::Ticks");
+		}				
 		/*
 		add_log("%s %llx", GWorld->GetFullName().c_str(), GWorld);
 		add_log("%llx", FName::GNames);
@@ -310,13 +336,16 @@ DWORD __stdcall InitializeHook(LPVOID)
 	}		
 	return 0;
 }
-
+// All this unhooking and unloading the dll is only here for me to being able to reinject the dll while working on it.
 void __stdcall WaitForUnHook()
 {
-	unhookIt = true;
-	while (unhookIt)
+	if (doOnce)
 	{
-		Sleep(500);
+		unhookIt = true;
+		while (unhookIt)
+		{
+			Sleep(50);
+		}
 	}
 }
 

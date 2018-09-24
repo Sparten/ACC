@@ -212,7 +212,7 @@ namespace ksRacing
 	};
 
 	/* 1737 */
-	enum class LapStateFlags : uint8_t
+	enum class LapStateFlags : uint16_t
 	{
 		HasCut = 0x0,
 		IsInvalidLap = 1,
@@ -681,7 +681,7 @@ namespace ksRacing
 	/* 68244 */
 	struct SessionTiming : WritableRaceStructure
 	{
-		std::vector<Lap, std::allocator<Lap> > overallLaps;
+		std::vector<Lap> overallLaps;
 		TimingRecord overallRecord;
 		std::map<unsigned short, TimingRecord > carRecords;
 		std::map<unsigned short, TimingRecord > driverRecords;
@@ -717,9 +717,9 @@ namespace ksRacing
 		Event<InvestigationEnd> onInvestigationEnd;
 		RaceManager *raceManager;
 		CarStateServices *carStateServices;
-		std::set<std::pair<unsigned short, unsigned short>, std::less<std::pair<unsigned short, unsigned short> >, std::allocator<std::pair<unsigned short, unsigned short> > > noOvertakeSectors;
+		std::set<std::pair<unsigned short, unsigned short>> noOvertakeSectors;
 		std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<unsigned short, unsigned short> > > > it;
-		std::set<unsigned short, std::less<unsigned short>, std::allocator<unsigned short> > carsToRemove;
+		std::set<unsigned short, std::less<unsigned short> > carsToRemove;
 		std::map<unsigned short, CarInvestigation> cutInvestigations;
 		std::map<unsigned short, CarPenalty > penalties;
 		bool isWetSession;

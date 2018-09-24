@@ -260,3 +260,8 @@ paket-files/
 __pycache__/
 *.pyc
 /ACarAvatar.h
+/UClientAvatar.h
+/ksracing.h
+/cuseful.h
+/cuseful.cpp
+/AC2-Win64-Shipping.h
