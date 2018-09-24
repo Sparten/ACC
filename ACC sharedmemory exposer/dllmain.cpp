@@ -172,8 +172,6 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			sharedData->marshals[i].endPos = marshal->EndPosition;
 			sharedData->marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);
 			
-			if(sharedData->marshals[i].flag != ksRacing::MarshalFlagType::EMarshalFlagType__None)
-				add_log("flag %i", sharedData->marshals[i].flag);
 		} 
 		
 		for each (auto var in savedCircuits)
