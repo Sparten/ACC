@@ -7,16 +7,20 @@
 #include <memory>
 #include <string>
 #include <Windows.h>
-//#include "SDK/ACC_KSRacing_classes.h"
-#ifdef _MSC_VER
-#pragma pack(push, 0x4)
-#endif
+
 
 struct Marshal
 {
 	float startPos;
 	float endPos;
 	ksRacing::MarshalFlagType flag;
+	
+};
+struct Marshals
+{
+	Marshal marshals[32];
+	int marchalCount;
+	uint8_t checkeredFlagMarshalIndex;
 };
 struct Vec3
 {
@@ -122,8 +126,8 @@ public:
 	Driver playerDriver;
 	Driver opponentDrivers[64];
 	__declspec(align(4))int opponentDriverCount;
-	Marshal marshals[32];
-	int marchalCount;
+	Marshals marshals;
+
 };
 
 template <typename WriteStruct>

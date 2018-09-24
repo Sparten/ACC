@@ -164,13 +164,15 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		sharedData->track.weatherState.windSpeed = raceManager->weatherServices->status.windSpeed;
 		sharedData->track.length = trackAvatar->GetFastLane()->GetSpline()->GetSplineLength() * .01f;
 		UTrackPeopleController* trackPeopleController = trackAvatar->TrackPeopleController;
-		sharedData->marchalCount = trackPeopleController->Marshals.Num();
+		sharedData->marshals.marchalCount = trackPeopleController->Marshals.Num();
+		sharedData->marshals.checkeredFlagMarshalIndex = trackPeopleController->checkeredFlagMarshalIndex;
 		for (int i = 0; i < trackPeopleController->Marshals.Num(); i++)
 		{
 			AAcMarshal* marshal = trackPeopleController->Marshals[i];
-			sharedData->marshals[i].startPos = marshal->StartPosition;
-			sharedData->marshals[i].endPos = marshal->EndPosition;
-			sharedData->marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);
+			sharedData->marshals.marshals[i].startPos = marshal->StartPosition;
+			sharedData->marshals.marshals[i].endPos = marshal->EndPosition;
+			sharedData->marshals.marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);
+
 			
 		} 
 		
