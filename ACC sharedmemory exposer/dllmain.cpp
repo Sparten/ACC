@@ -163,6 +163,19 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		sharedData->track.weatherState.windDirection = raceManager->weatherServices->status.windDirection;
 		sharedData->track.weatherState.windSpeed = raceManager->weatherServices->status.windSpeed;
 		sharedData->track.length = trackAvatar->GetFastLane()->GetSpline()->GetSplineLength() * .01f;
+		UTrackPeopleController* trackPeopleController = trackAvatar->TrackPeopleController;
+		sharedData->marchalCount = trackPeopleController->Marshals.Num();
+		for (int i = 0; i < trackPeopleController->Marshals.Num(); i++)
+		{
+			AAcMarshal* marshal = trackPeopleController->Marshals[i];
+			sharedData->marshals[i].startPos = marshal->StartPosition;
+			sharedData->marshals[i].endPos = marshal->EndPosition;
+			sharedData->marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);
+			
+			if(sharedData->marshals[i].flag != ksRacing::MarshalFlagType::EMarshalFlagType__None)
+				add_log("flag %i", sharedData->marshals[i].flag);
+		} 
+		
 		for each (auto var in savedCircuits)
 		{
 			if (var.CircuitId == raceManager->trackServices->trackId)
@@ -266,7 +279,8 @@ DWORD __stdcall InitializeHook(LPVOID)
 	LoadLibraryA(unloadDir);
 	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
 	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
-
+	//UTrackPeopleController
+	add_log("UTrackPeopleController 0x%X", sizeof(UTrackPeopleController));
 	//add_log("isBetweenSafetyCarLines 0x%X", offsetof(Driver, isBetweenSafetyCarLines));
 	for (;;)
 	{

@@ -104,10 +104,6 @@ public:
 		static auto ptr = UObject::FindClass("Class Engine.Actor");
 		return ptr;
 	}
-	inline FVector * GetTargetLocation(class FVector *result , AActor *RequestedBy)
-	{
-		return GetVFunction<FVector*(*)(AActor*, class FVector *, AActor *)>(this, 207)(this, result, RequestedBy);
-	}
 
 	bool WasRecentlyRendered(float Tolerance);
 	void UserConstructionScript();

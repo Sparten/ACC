@@ -6656,18 +6656,39 @@ public:
 	}
 
 };
-
-
+struct MarshalStruct
+{
+	uint8_t flagColor : 4;
+};
+struct MarshalLogic
+{
+	ACarAvatar *  carAvatar;
+	uint8_t warningLevel;
+	EMarshalFlagType winFlag;
+};
 // Class AC2.TrackPeopleController
 // 0x00E0 (0x01D0 - 0x00F0)
 class UTrackPeopleController : public UActorComponent
 {
 public:
-	class AAcRaceGameMode*                             RaceGameMode;                                             // 0x00F0(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x00F8(0x0008) MISSED OFFSET
-	TArray<class AAcMarshal*>                          Marshals;                                                 // 0x0100(0x0010) (ZeroConstructor)
-	TArray<class UParticleSystemComponent*>            Smokers;                                                  // 0x0110(0x0010) (ExportObject, ZeroConstructor)
-	unsigned char                                      UnknownData01[0xB0];                                      // 0x0120(0x00B0) MISSED OFFSET
+	AAcRaceGameMode *RaceGameMode;
+	ksRacing::RaceManager *raceManager;
+	TArray<class AAcMarshal *> Marshals;
+	TArray<class UParticleSystemComponent *> Smokers;
+	ATrackAvatar *TrackAvatar;
+	TArray<TArray<unsigned char>> MarshalsBySectorsStart;
+	TArray<TArray<unsigned char>> MarshalsBySectorsEnd;
+	TArray<TArray<unsigned char>> busyMarshalsByCar;
+	char checkeredFlagMarshalIndex;
+	ACarAvatar *carAvatar;
+	unsigned __int16 currentCarIndex;
+	unsigned __int16 currentDriverIndex;
+	float normalizedBlueFlagDistance;
+	MarshalStruct marshalBitField[32];
+	MarshalStruct lastMarshalBitField[32];
+	TArray<MarshalLogic> marshalLogics;
+	bool hasLeaderCrossed;
+	FVector2D lerpValues;
 
 	static UClass* StaticClass()
 	{

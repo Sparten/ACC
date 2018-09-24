@@ -12,6 +12,12 @@
 #pragma pack(push, 0x4)
 #endif
 
+struct Marshal
+{
+	float startPos;
+	float endPos;
+	ksRacing::MarshalFlagType flag;
+};
 struct Vec3
 {
 	float x;
@@ -116,7 +122,8 @@ public:
 	Driver playerDriver;
 	Driver opponentDrivers[64];
 	__declspec(align(4))int opponentDriverCount;
-
+	Marshal marshals[32];
+	int marchalCount;
 };
 
 template <typename WriteStruct>
