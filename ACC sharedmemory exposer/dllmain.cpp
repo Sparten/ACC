@@ -196,7 +196,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			sharedData->opponentDrivers[index].position = state->lastStanding;
 			sharedData->opponentDrivers[index].realTimePosition = state->realtimePosition;				
 			sharedData->opponentDrivers[index].totalTime = state->totalTime;
-			sharedData->opponentDrivers[index].distanceRoundTrack = state->splineDistance * sharedData->track.length;
+			sharedData->opponentDrivers[index].distanceRoundTrackNormalized = state->splineDistance;
 			UAcCarTimingServices* timings = car->CarTimingServices;
 			sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
 			sharedData->opponentDrivers[index].currentSector = timings->CurrentSector;
@@ -204,19 +204,22 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			sharedData->opponentDrivers[index].clutch = car->GetClutch();
 			sharedData->opponentDrivers[index].brake = car->GetBrake();
 			sharedData->opponentDrivers[index].rpms = car->GetRPMS();
+			sharedData->opponentDrivers[index].speed = car->GetSpeedKMH() * 0.277777778f;
 			FVector vec;
 			USceneComponent* screen = car->RootComponent;
 			FVector location = screen->K2_GetComponentLocation();
-			FRotator rotation = screen->K2_GetComponentRotation();
-			float speedMS = car->GetSpeedKMH() * 0.277777778f;
-			sharedData->opponentDrivers[index].speed = speedMS;
 			sharedData->opponentDrivers[index].location.x = location.X * .01f;
 			sharedData->opponentDrivers[index].location.y = location.Y * .01f;
 			sharedData->opponentDrivers[index].location.z = location.Z * .01f;
-			sharedData->opponentDrivers[index].rotation.pitch = rotation.Pitch;
-			sharedData->opponentDrivers[index].rotation.yaw = rotation.Yaw;
-			sharedData->opponentDrivers[index].rotation.roll = rotation.Roll;
-				
+			if (index == 0)
+			{
+				FRotator rotation = screen->K2_GetComponentRotation();
+				sharedData->opponentDrivers[index].rotation.pitch = rotation.Pitch;
+				sharedData->opponentDrivers[index].rotation.yaw = rotation.Yaw;
+				sharedData->opponentDrivers[index].rotation.roll = rotation.Roll;
+			}
+			sharedData->opponentDrivers[index].fuel = car->CarData->FuelData.Fuel;
+			sharedData->opponentDrivers[index].maxFuel = car->CarData->FuelData.MaxFuel;
 			FDriverInfo driverInfo = car->DriverInfo;
 			std::string driverName = "";
 			if (driverInfo.FirstName.IsValid())
@@ -261,9 +264,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 	LoadLibraryA(unloadDir);
 	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
 	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
-	//UTrackPeopleController
-	add_log("UTrackPeopleController 0x%X", sizeof(UTrackPeopleController));
-	//add_log("isBetweenSafetyCarLines 0x%X", offsetof(Driver, isBetweenSafetyCarLines));
+
 	for (;;)
 	{
 		if (unhookIt)
@@ -292,10 +293,6 @@ DWORD __stdcall InitializeHook(LPVOID)
 			writer.updateSharedMemory(sharedData.get());
 			lasttime = 0;
 			continue;
-		}
-		else
-		{
-			
 		}
 
 		//Hook AAcRaceGameMode::Ticks as we need to be in a game thread to run our updated to avoid being out of thread conntext.

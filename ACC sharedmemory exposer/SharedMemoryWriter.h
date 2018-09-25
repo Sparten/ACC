@@ -8,7 +8,7 @@
 #include <string>
 #include <Windows.h>
 
-
+#include "SDK/ACC_Engine_structs.hpp"
 struct Marshal
 {
 	float startPos;
@@ -65,7 +65,7 @@ struct Driver
 	int nation;
 	Vec3 location;
 	Rotation rotation;
-	float distanceRoundTrack;
+	float distanceRoundTrackNormalized;
 	float speed;
 	float lastSectorTimeStamp;
 	int position;
@@ -79,6 +79,8 @@ struct Driver
 	float brake;
 	float clutch;
 	float rpms;
+	float fuel;
+	float maxFuel;
 	__declspec(align(4))bool isBetweenSafetyCarLines;
 	__declspec(align(4))bool isSessionOver;
 	__declspec(align(4))bool isDisqualified;
