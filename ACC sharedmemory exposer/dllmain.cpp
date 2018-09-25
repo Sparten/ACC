@@ -107,157 +107,139 @@ double TicksNow() {
 double lasttime = 0;
 void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 {
-	//limit update rate to 60 times a sec
-	
-	if (p->raceManager->physicsTime >= lasttime + 16.777777 || p->raceManager->physicsTime <= lasttime)
+	double now = TicksNow();
+	//double tick = TicksNow();
+	std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+	sharedData->isReady = true;
+	AAcRaceGameMode* raceGameMode = p;
+	ksRacing::RaceManager* raceManager = p->raceManager.get();
+	lasttime = now;
+	sharedData->update = raceManager->physicsTime;
+	sharedData->sessionData.physicsTime = p->raceManager->physicsTime;
+	GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
+	AAcRaceGameState *raceGameState = reinterpret_cast<AAcRaceGameState*>(GWorld->GameState);
+	ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);			
+	//collect all our session data
+	sharedData->sessionData.areCarsInitializated = raceManager->areCarsInitializated;
+	sharedData->sessionData.currentEventIndex = raceManager->currentEventIndex;
+	sharedData->sessionData.currentSessionIndex = raceManager->currentSessionIndex;
+	sharedData->sessionData.currentSessionPhase = raceManager->currentSessionPhase;
+	sharedData->sessionData.currentSessionType = raceManager->currentSessionType;
+	sharedData->sessionData.isClient = raceManager->isClient;
+	sharedData->sessionData.isEventInitializated = raceManager->isEventInitializated;
+	sharedData->sessionData.isServer = raceManager->isServer;
+	sharedData->sessionData.isSessionInitializated = raceManager->isSessionInitializated;
+	sharedData->sessionData.isTimeStopped = raceManager->isTimeStopped;	
+	sharedData->sessionData.sessionStartTimeStamp = raceManager->sessionStartTimeStamp;
+	sharedData->sessionData.receivedServerTime = raceManager->receivedServerTime;
+	sharedData->sessionData.serverTimeOffset = raceManager->serverTimeOffset;
+	sharedData->sessionData.sessionStartTime = raceManager->sessionStartTime;
+	sharedData->sessionData.sessionEndTime = raceManager->sessionEndTime;
+
+	//track and weather
+	strcpy_s(sharedData->track.name, _TRUNCATE, ws2s(raceManager->trackServices->trackName).c_str());
+	sharedData->track.id = raceManager->trackServices->trackId;
+	sharedData->track.sectors = raceManager->sectorCount;
+	sharedData->track.weatherState.ambientTemperature = raceManager->weatherServices->status.ambientTemperature;
+	sharedData->track.weatherState.cloudLevel = raceManager->weatherServices->status.cloudLevel;
+	sharedData->track.weatherState.rainLevel = raceManager->weatherServices->status.rainLevel;
+	sharedData->track.weatherState.roadTemperature = raceManager->weatherServices->status.roadTemperature;
+	sharedData->track.weatherState.wetLevel = raceManager->weatherServices->status.wetLevel;
+	sharedData->track.weatherState.windDirection = raceManager->weatherServices->status.windDirection;
+	sharedData->track.weatherState.windSpeed = raceManager->weatherServices->status.windSpeed;
+	sharedData->track.length = trackAvatar->GetFastLane()->GetSpline()->GetSplineLength() * .01f;
+	UTrackPeopleController* trackPeopleController = trackAvatar->TrackPeopleController;
+	sharedData->marshals.marchalCount = trackPeopleController->Marshals.Num();
+	sharedData->marshals.checkeredFlagMarshalIndex = trackPeopleController->checkeredFlagMarshalIndex;
+	for (int i = 0; i < trackPeopleController->Marshals.Num(); i++)
 	{
-		//double tick = TicksNow();
-		std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-		sharedData->isReady = true;
-		AAcRaceGameMode* raceGameMode = p;
-		ksRacing::RaceManager* raceManager = p->raceManager.get();
-		lasttime = raceManager->physicsTime;		
-		char dblToFl[32];
-		std::string::size_type sz;
-		sprintf_s(dblToFl, _TRUNCATE, "%f", sharedData->update);
-		sharedData->update = std::stof(dblToFl, &sz);
-		GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
-		AAcRaceGameState *raceGameState = reinterpret_cast<AAcRaceGameState*>(GWorld->GameState);
-		ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);			
-		//collect all our session data
-		sharedData->sessionData.areCarsInitializated = raceManager->areCarsInitializated;
-		sharedData->sessionData.currentEventIndex = raceManager->currentEventIndex;
-		sharedData->sessionData.currentSessionIndex = raceManager->currentSessionIndex;
-		sharedData->sessionData.currentSessionPhase = raceManager->currentSessionPhase;
-		sharedData->sessionData.currentSessionType = raceManager->currentSessionType;
-		sharedData->sessionData.isClient = raceManager->isClient;
-		sharedData->sessionData.isEventInitializated = raceManager->isEventInitializated;
-		sharedData->sessionData.isServer = raceManager->isServer;
-		sharedData->sessionData.isSessionInitializated = raceManager->isSessionInitializated;
-		sharedData->sessionData.isTimeStopped = raceManager->isTimeStopped;	
-
-		sprintf_s(dblToFl, _TRUNCATE, "%.04Lf", raceManager->physicsTime);	
-		sharedData->sessionData.physicsTime = std::stof(dblToFl, &sz);
-
-		sprintf_s(dblToFl, _TRUNCATE, "%.04Lf", raceManager->sessionStartTimeStamp);
-		sharedData->sessionData.sessionStartTimeStamp = std::stof(dblToFl, &sz);
-
-		sprintf_s(dblToFl, _TRUNCATE, "%.04Lf", raceManager->receivedServerTime);
-		sharedData->sessionData.receivedServerTime = std::stof(dblToFl, &sz);
-
-		sprintf_s(dblToFl, _TRUNCATE, "%.04Lf", raceManager->serverTimeOffset);
-		sharedData->sessionData.serverTimeOffset = std::stof(dblToFl, &sz);
-
-		sharedData->sessionData.sessionStartTime = raceManager->sessionStartTime;
-		sharedData->sessionData.sessionEndTime = raceManager->sessionEndTime;
-
-		//track and weather
-		strcpy_s(sharedData->track.name, _TRUNCATE, ws2s(raceManager->trackServices->trackName).c_str());
-		sharedData->track.id = raceManager->trackServices->trackId;
-		sharedData->track.sectors = raceManager->sectorCount;
-		sharedData->track.weatherState.ambientTemperature = raceManager->weatherServices->status.ambientTemperature;
-		sharedData->track.weatherState.cloudLevel = raceManager->weatherServices->status.cloudLevel;
-		sharedData->track.weatherState.rainLevel = raceManager->weatherServices->status.rainLevel;
-		sharedData->track.weatherState.roadTemperature = raceManager->weatherServices->status.roadTemperature;
-		sharedData->track.weatherState.wetLevel = raceManager->weatherServices->status.wetLevel;
-		sharedData->track.weatherState.windDirection = raceManager->weatherServices->status.windDirection;
-		sharedData->track.weatherState.windSpeed = raceManager->weatherServices->status.windSpeed;
-		sharedData->track.length = trackAvatar->GetFastLane()->GetSpline()->GetSplineLength() * .01f;
-		UTrackPeopleController* trackPeopleController = trackAvatar->TrackPeopleController;
-		sharedData->marshals.marchalCount = trackPeopleController->Marshals.Num();
-		sharedData->marshals.checkeredFlagMarshalIndex = trackPeopleController->checkeredFlagMarshalIndex;
-		for (int i = 0; i < trackPeopleController->Marshals.Num(); i++)
-		{
-			AAcMarshal* marshal = trackPeopleController->Marshals[i];
-			sharedData->marshals.marshals[i].startPos = marshal->StartPosition;
-			sharedData->marshals.marshals[i].endPos = marshal->EndPosition;
-			sharedData->marshals.marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);
+		AAcMarshal* marshal = trackPeopleController->Marshals[i];
+		sharedData->marshals.marshals[i].startPos = marshal->StartPosition;
+		sharedData->marshals.marshals[i].endPos = marshal->EndPosition;
+		sharedData->marshals.marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);
 
 			
-		} 
-		
-		for each (auto var in savedCircuits)
+	} 		
+	for each (auto var in savedCircuits)
+	{
+		if (var.CircuitId == raceManager->trackServices->trackId)
 		{
-			if (var.CircuitId == raceManager->trackServices->trackId)
-			{
-				sharedData->track.corners = var.Corners;
-				sharedData->track.isPolesitterOnLeft = var.bIsPolesitterOnLeft;
-			}
+			sharedData->track.corners = var.Corners;
+			sharedData->track.isPolesitterOnLeft = var.bIsPolesitterOnLeft;
 		}
-		//ksRacing::AC2Client* client = gameInstance->ClientAvatar->client;
-		//add_log(ws2s(client->driverInfo.firstName).c_str());
-
-		//add_log("sessionInfo %i", raceGameMode->raceManager.get()->currentSessionType);
-		// In single player sessions this iteration works as player will allways be in index 0 i'm not sure this is going to be the case once it goes online.
-		// So we might have to do a propper look up by driverindex vs carindex but its all available so its just a matter of me not being lazy.
-		int playerCarIndex = 0;
-		sharedData->opponentDriverCount = GWorld->PawnList.Num();
-		if (raceManager->entryList.get() != nullptr)
-		{
-			for each (auto var in raceManager->carStateServices->liveCarStates)
-			{
-				uint16_t index = var.first;
-				ksRacing::CarState* state = var.second;
-				ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[index].Get();
-				sharedData->opponentDrivers[index].currentDelta = state->currentDelta;
-				sharedData->opponentDrivers[index].driverIndex = state->driverIndex;
-				sharedData->opponentDrivers[index].formationLapCounter = state->formationLapCounter;
-				sharedData->opponentDrivers[index].isBetweenSafetyCarLines = state->isBetweenSafetyCarLines;
-				sharedData->opponentDrivers[index].isDisqualified = state->isDisqualified;
-				sharedData->opponentDrivers[index].isRetired = state->isRetired;
-				sharedData->opponentDrivers[index].isSessionOver = state->isSessionOver;
-				sharedData->opponentDrivers[index].lapCount = state->lapCount;
-				sharedData->opponentDrivers[index].lastSectorTimeStamp = state->lastSectorTimeStamp;
-				sharedData->opponentDrivers[index].trackLocation = state->carLocation;
-				sharedData->opponentDrivers[index].position = state->lastStanding;
-				sharedData->opponentDrivers[index].realTimePosition = state->realtimePosition;				
-				sharedData->opponentDrivers[index].totalTime = state->totalTime;
-				sharedData->opponentDrivers[index].distanceRoundTrack = state->splineDistance * sharedData->track.length;
-				UAcCarTimingServices* timings = car->CarTimingServices;
-				sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
-				sharedData->opponentDrivers[index].currentSector = timings->CurrentSector;
-				sharedData->opponentDrivers[index].trottle = car->GetGas();
-				sharedData->opponentDrivers[index].clutch = car->GetClutch();
-				sharedData->opponentDrivers[index].brake = car->GetBrake();
-				sharedData->opponentDrivers[index].rpms = car->GetRPMS();
-				FVector vec;
-				USceneComponent* screen = car->RootComponent;
-				FVector location = screen->K2_GetComponentLocation();
-				FRotator rotation = screen->K2_GetComponentRotation();
-				float speedMS = car->GetSpeedKMH() * 0.277777778f;
-				sharedData->opponentDrivers[index].speed = speedMS;
-				sharedData->opponentDrivers[index].location.x = location.X * .01f;
-				sharedData->opponentDrivers[index].location.y = location.Y * .01f;
-				sharedData->opponentDrivers[index].location.z = location.Z * .01f;
-				sharedData->opponentDrivers[index].rotation.pitch = rotation.Pitch;
-				sharedData->opponentDrivers[index].rotation.yaw = rotation.Yaw;
-				sharedData->opponentDrivers[index].rotation.roll = rotation.Roll;
-				
-				FDriverInfo driverInfo = car->DriverInfo;
-				std::string driverName = "";
-				if (driverInfo.FirstName.IsValid())
-				{
-					driverName = driverInfo.FirstName.ToString() + " ";
-				}
-				if (driverInfo.SecondName.IsValid())
-				{
-					driverName += driverInfo.SecondName.ToString() + " ";
-				}
-				if (driverInfo.LastName.IsValid())
-				{
-					driverName += driverInfo.LastName.ToString().c_str();
-				}
-				strcpy_s(sharedData->opponentDrivers[index].name, _TRUNCATE, driverName.c_str());
-				sharedData->playerDriver = sharedData->opponentDrivers[0];
-			}
-
-		}
-		writer.updateSharedMemory(sharedData.get());
-		//double tickEnd = TicksNow();
-		//add_log("Time to process: %Lf", tickEnd - tick);
 	}
-	//if we are run in a AAcRaceGameMode we want to unhook here so we dont risk unloading the dll in the middle of the hooked function while we are still collecting data
-	//Bad things will happen if we do.
+	//ksRacing::AC2Client* client = gameInstance->ClientAvatar->client;
+	//add_log(ws2s(client->driverInfo.firstName).c_str());
+
+	//add_log("sessionInfo %i", raceGameMode->raceManager.get()->currentSessionType);
+	// In single player sessions this iteration works as player will allways be in index 0 i'm not sure this is going to be the case once it goes online.
+	// So we might have to do a propper look up by driverindex vs carindex but its all available so its just a matter of me not being lazy.
+	int playerCarIndex = 0;
+	sharedData->opponentDriverCount = GWorld->PawnList.Num();
+	if (raceManager->entryList.get() != nullptr)
+	{
+		for each (auto var in raceManager->carStateServices->liveCarStates)
+		{
+			uint16_t index = var.first;
+			ksRacing::CarState* state = var.second;
+			ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[index].Get();
+			sharedData->opponentDrivers[index].currentDelta = state->currentDelta;
+			sharedData->opponentDrivers[index].driverIndex = state->driverIndex;
+			sharedData->opponentDrivers[index].formationLapCounter = state->formationLapCounter;
+			sharedData->opponentDrivers[index].isBetweenSafetyCarLines = state->isBetweenSafetyCarLines;
+			sharedData->opponentDrivers[index].isDisqualified = state->isDisqualified;
+			sharedData->opponentDrivers[index].isRetired = state->isRetired;
+			sharedData->opponentDrivers[index].isSessionOver = state->isSessionOver;
+			sharedData->opponentDrivers[index].lapCount = state->lapCount;
+			sharedData->opponentDrivers[index].lastSectorTimeStamp = state->lastSectorTimeStamp;
+			sharedData->opponentDrivers[index].trackLocation = state->carLocation;
+			sharedData->opponentDrivers[index].position = state->lastStanding;
+			sharedData->opponentDrivers[index].realTimePosition = state->realtimePosition;				
+			sharedData->opponentDrivers[index].totalTime = state->totalTime;
+			sharedData->opponentDrivers[index].distanceRoundTrack = state->splineDistance * sharedData->track.length;
+			UAcCarTimingServices* timings = car->CarTimingServices;
+			sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
+			sharedData->opponentDrivers[index].currentSector = timings->CurrentSector;
+			sharedData->opponentDrivers[index].trottle = car->GetGas();
+			sharedData->opponentDrivers[index].clutch = car->GetClutch();
+			sharedData->opponentDrivers[index].brake = car->GetBrake();
+			sharedData->opponentDrivers[index].rpms = car->GetRPMS();
+			FVector vec;
+			USceneComponent* screen = car->RootComponent;
+			FVector location = screen->K2_GetComponentLocation();
+			FRotator rotation = screen->K2_GetComponentRotation();
+			float speedMS = car->GetSpeedKMH() * 0.277777778f;
+			sharedData->opponentDrivers[index].speed = speedMS;
+			sharedData->opponentDrivers[index].location.x = location.X * .01f;
+			sharedData->opponentDrivers[index].location.y = location.Y * .01f;
+			sharedData->opponentDrivers[index].location.z = location.Z * .01f;
+			sharedData->opponentDrivers[index].rotation.pitch = rotation.Pitch;
+			sharedData->opponentDrivers[index].rotation.yaw = rotation.Yaw;
+			sharedData->opponentDrivers[index].rotation.roll = rotation.Roll;
+				
+			FDriverInfo driverInfo = car->DriverInfo;
+			std::string driverName = "";
+			if (driverInfo.FirstName.IsValid())
+			{
+				driverName = driverInfo.FirstName.ToString() + " ";
+			}
+			if (driverInfo.SecondName.IsValid())
+			{
+				driverName += driverInfo.SecondName.ToString() + " ";
+			}
+			if (driverInfo.LastName.IsValid())
+			{
+				driverName += driverInfo.LastName.ToString().c_str();
+			}
+			strcpy_s(sharedData->opponentDrivers[index].name, _TRUNCATE, driverName.c_str());
+			sharedData->playerDriver = sharedData->opponentDrivers[0];
+		}
+
+	}
+	writer.updateSharedMemory(sharedData.get());
+	//double tickEnd = TicksNow();
+	//add_log("Time to process: %Lf", tickEnd - tick);
+
 	if (unhookIt)
 	{
 		std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();

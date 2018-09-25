@@ -152,9 +152,7 @@ public:
 	}
 	bool updateSharedMemory(WriteStruct* newData)
 	{
-		///CopyMemory(mappedData.get(), newData, sizeof(WriteStruct));
 		*mappedData.get() = *newData;
-		//memset(newData, 0x00, sizeof(WriteStruct));
 		return true;
 	}
 	std::string name;
