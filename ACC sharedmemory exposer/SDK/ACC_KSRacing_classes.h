@@ -434,11 +434,11 @@ namespace ksRacing
 		GameplayRules sessionGameplay;
 		OnlineRules sessionOnline;
 		RaceDirectorRules sessionRaceDirector;
-		std::vector<RealismRules, std::allocator<RealismRules> > sessionRealismOverride;
-		std::vector<GameplayRules, std::allocator<GameplayRules> > sessionGameplayOverride;
-		std::vector<OnlineRules, std::allocator<OnlineRules> > sessionOnlineOverride;
-		std::vector<RaceDirectorRules, std::allocator<RaceDirectorRules> > sessionRaceDirectorOverride;
-		std::vector<EventEntity, std::allocator<EventEntity> > events;
+		std::vector<RealismRules> sessionRealismOverride;
+		std::vector<GameplayRules> sessionGameplayOverride;
+		std::vector<OnlineRules> sessionOnlineOverride;
+		std::vector<RaceDirectorRules> sessionRaceDirectorOverride;
+		std::vector<EventEntity> events;
 		int eventOnlineReference;
 	};
 	/* 67357 */
@@ -520,7 +520,7 @@ namespace ksRacing
 		std::map<unsigned short, DriverEntry> driverMap;
 		RaceManager *raceManager;
 		unsigned char eventType[1];
-		std::map<unsigned short, std::set<unsigned short, std::less<unsigned short>, std::allocator<unsigned short> >, std::less<unsigned short>, std::allocator<std::pair<unsigned short const, std::set<unsigned short, std::less<unsigned short>, std::allocator<unsigned short> > > > > carDrivers;
+		std::map<unsigned short, std::set<unsigned short, std::less<unsigned short> > > carDrivers;
 	};
 	/* 68576 */
 	struct __declspec(align(8)) CarStateServices
@@ -668,14 +668,14 @@ namespace ksRacing
 	struct TimingRecord : WritableRaceStructure
 	{
 		unsigned __int16 index;
-		std::vector<unsigned short, std::allocator<unsigned short> > overallLapSet;
-		std::vector<unsigned short, std::allocator<unsigned short> > completedLapSet;
-		std::vector<unsigned short, std::allocator<unsigned short> > bestLapQueue;
-		std::vector<std::vector<unsigned short, std::allocator<unsigned short> >, std::allocator<std::vector<unsigned short, std::allocator<unsigned short> > > > bestSplitLapQueue;
+		std::vector<unsigned short> overallLapSet;
+		std::vector<unsigned short> completedLapSet;
+		std::vector<unsigned short> bestLapQueue;
+		std::vector<std::vector<unsigned short>> bestSplitLapQueue;
 		int bestLapValue;
-		std::vector<int, std::allocator<int> > bestSplitValues;
+		std::vector<int> bestSplitValues;
 		int minBestLapValue;
-		std::vector<int, std::allocator<int> > minBestSplitValues;
+		std::vector<int> minBestSplitValues;
 	};
 
 	/* 68244 */
@@ -741,7 +741,7 @@ namespace ksRacing
 	/* 67411 */
 	struct CarSet : WritableRaceStructure
 	{
-		std::vector<CarEntity, std::allocator<CarEntity> > cars;
+		std::vector<CarEntity> cars;
 	};
 
 	/* 67412 */

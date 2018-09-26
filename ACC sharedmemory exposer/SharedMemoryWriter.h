@@ -104,6 +104,9 @@ struct SessionData
 	__declspec(align(4))float serverTimeOffset;
 	__declspec(align(4))float sessionStartTime;
 	__declspec(align(4))float sessionEndTime;
+	__declspec(align(4))uint32_t pitWindowOpenAtTime;
+	__declspec(align(4))uint32_t pitWindowCloseAtTime;
+	__declspec(align(4))uint32_t maxDrivingTime;
 	__declspec(align(4))bool isServer;
 	__declspec(align(4))bool isClient;
 	__declspec(align(4))bool areCarsInitializated;
@@ -116,6 +119,8 @@ struct SessionData
 	__declspec(align(2))unsigned __int16 currentSessionIndex;
 	__declspec(align(1))ksRacing::RaceSessionType currentSessionType;
 	__declspec(align(1))ksRacing::RaceSessionPhase currentSessionPhase;
+	__declspec(align(1))uint8_t mandatoryPitStopCount;
+	__declspec(align(1))uint8_t pitlaneSpeedLimitKmh;
 };
 
 struct ACCSharedMemoryData
@@ -129,7 +134,6 @@ public:
 	Driver opponentDrivers[64];
 	__declspec(align(4))int opponentDriverCount;
 	Marshals marshals;
-
 };
 
 template <typename WriteStruct>

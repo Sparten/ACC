@@ -135,6 +135,10 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	sharedData->sessionData.serverTimeOffset = raceManager->serverTimeOffset;
 	sharedData->sessionData.sessionStartTime = raceManager->sessionStartTime;
 	sharedData->sessionData.sessionEndTime = raceManager->sessionEndTime;
+	sharedData->sessionData.pitlaneSpeedLimitKmh = raceManager->seasonEntity.rules.pitlaneSpeedLimitKmh;
+	sharedData->sessionData.mandatoryPitStopCount = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.mandatoryPitStopCount;	
+	sharedData->sessionData.pitWindowOpenAtTime = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.pitWindowOpenAtTime;
+	sharedData->sessionData.pitWindowCloseAtTime = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.pitWindowCloseAtTime;
 
 	//track and weather
 	strcpy_s(sharedData->track.name, _TRUNCATE, ws2s(raceManager->trackServices->trackName).c_str());
@@ -217,9 +221,10 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 				sharedData->opponentDrivers[index].rotation.pitch = rotation.Pitch;
 				sharedData->opponentDrivers[index].rotation.yaw = rotation.Yaw;
 				sharedData->opponentDrivers[index].rotation.roll = rotation.Roll;
+				sharedData->opponentDrivers[index].fuel = car->CarData->FuelData.Fuel;
+				sharedData->opponentDrivers[index].maxFuel = car->CarData->FuelData.MaxFuel;
 			}
-			sharedData->opponentDrivers[index].fuel = car->CarData->FuelData.Fuel;
-			sharedData->opponentDrivers[index].maxFuel = car->CarData->FuelData.MaxFuel;
+
 			FDriverInfo driverInfo = car->DriverInfo;
 			std::string driverName = "";
 			if (driverInfo.FirstName.IsValid())
@@ -264,7 +269,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 	LoadLibraryA(unloadDir);
 	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
 	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
-
+	add_log("0x%llx", offsetof(ACCSharedMemoryData, isReady));
 	for (;;)
 	{
 		if (unhookIt)
