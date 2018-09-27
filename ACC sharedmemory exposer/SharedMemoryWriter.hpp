@@ -1,7 +1,7 @@
 // Assetto Corsa Competizione (0.1.0) SDK
 
 #ifdef _MSC_VER
-#pragma pack(push, 0x4)
+#pragma pack(push, 0x8)
 #endif
 
 #include <memory>
@@ -55,7 +55,7 @@ struct Track
 	float length;
 	int sectors;
 	int corners;
-	__declspec(align(4))bool isPolesitterOnLeft;
+	bool isPolesitterOnLeft;
 	WeatherStatus weatherState;
 };
 
@@ -74,23 +74,21 @@ struct Driver
 	int lapCount;
 	int totalTime;
 	int currentDelta;
-	unsigned int currentSector;
-	unsigned int currentlaptime;
+	uint32_t currentSector;
+	uint32_t currentlaptime;
 	float trottle;
 	float brake;
 	float clutch;
 	float rpms;
 	float fuel;
 	float maxFuel;
-	__declspec(align(4))bool isBetweenSafetyCarLines;
-	__declspec(align(4))bool isSessionOver;
-	__declspec(align(4))bool isDisqualified;
-	__declspec(align(4))bool isRetired;
-	char pad1[2];
-	__declspec(align(2))uint16_t driverIndex;
-	char pad2[2];
-	__declspec(align(1))uint8_t formationLapCounter;
-	__declspec(align(1))ksRacing::CarLocation trackLocation;
+	bool isBetweenSafetyCarLines;
+	bool isSessionOver;
+	bool isDisqualified;
+	bool isRetired;
+	uint16_t driverIndex;
+	uint8_t formationLapCounter;
+	ksRacing::CarLocation trackLocation;
 	
 };
 struct PlayerDriver : Driver
@@ -99,29 +97,27 @@ struct PlayerDriver : Driver
 };
 struct SessionData
 {
-	__declspec(align(4))float physicsTime;
-	__declspec(align(4))float sessionStartTimeStamp;
-	__declspec(align(4))float receivedServerTime;
-	__declspec(align(4))float serverTimeOffset;
-	__declspec(align(4))float sessionStartTime;
-	__declspec(align(4))float sessionEndTime;
-	__declspec(align(4))uint32_t pitWindowOpenAtTime;
-	__declspec(align(4))uint32_t pitWindowCloseAtTime;
-	__declspec(align(4))uint32_t maxDrivingTime;
-	__declspec(align(4))bool isServer;
-	__declspec(align(4))bool isClient;
-	__declspec(align(4))bool areCarsInitializated;
-	alignas(4)bool isTimeStopped;
-	__declspec(align(4))bool isEventInitializated;
-	__declspec(align(4))bool isSessionInitializated;
-	__declspec(align(1))uint8_t pad1;
-	__declspec(align(1))uint8_t pad2;
-	__declspec(align(2))unsigned __int16 currentEventIndex;
-	__declspec(align(2))unsigned __int16 currentSessionIndex;
-	__declspec(align(1))ksRacing::RaceSessionType currentSessionType;
-	__declspec(align(1))ksRacing::RaceSessionPhase currentSessionPhase;
-	__declspec(align(1))uint8_t mandatoryPitStopCount;
-	__declspec(align(1))uint8_t pitlaneSpeedLimitKmh;
+	float physicsTime;
+	float sessionStartTimeStamp;
+	float receivedServerTime;
+	float serverTimeOffset;
+	float sessionStartTime;
+	float sessionEndTime;
+	uint32_t pitWindowOpenAtTime;
+	uint32_t pitWindowCloseAtTime;
+	uint32_t maxDrivingTime;
+	bool isServer;
+	bool isClient;
+	bool areCarsInitializated;
+	bool isTimeStopped;
+	bool isEventInitializated;
+	bool isSessionInitializated;
+	uint16_t currentEventIndex;
+	uint16_t currentSessionIndex;
+	ksRacing::RaceSessionType currentSessionType;
+	ksRacing::RaceSessionPhase currentSessionPhase;
+	uint8_t mandatoryPitStopCount;
+	uint8_t pitlaneSpeedLimitKmh;
 };
 
 struct ACCSharedMemoryData
@@ -129,11 +125,11 @@ struct ACCSharedMemoryData
 public:
 	SessionData sessionData;
 	Track track;
-	__declspec(align(4))bool isReady;
+	bool isReady;
 	float update;	
 	Driver playerDriver;
 	Driver opponentDrivers[64];
-	__declspec(align(4))int opponentDriverCount;
+	int opponentDriverCount;
 	Marshals marshals;
 };
 

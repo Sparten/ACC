@@ -27,9 +27,6 @@
     <ClInclude Include="SDK.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SharedMemoryWriter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDK\ACC_AC2_classes.hpp">
       <Filter>Header Files\SDK</Filter>
     </ClInclude>
@@ -58,7 +55,10 @@
       <Filter>Header Files\SDK</Filter>
     </ClInclude>
     <ClInclude Include="PatternFinder.hpp">
-      <Filter>Header Files\SDK</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedMemoryWriter.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

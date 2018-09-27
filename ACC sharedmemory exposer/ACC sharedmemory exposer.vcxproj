@@ -154,7 +154,7 @@
     <ClInclude Include="SDK\ACC_Engine_parameters.hpp" />
     <ClInclude Include="SDK\ACC_Engine_structs.hpp" />
     <ClInclude Include="SDK\ACC_KSRacing_classes.h" />
-    <ClInclude Include="SharedMemoryWriter.h" />
+    <ClInclude Include="SharedMemoryWriter.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

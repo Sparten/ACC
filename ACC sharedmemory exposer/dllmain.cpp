@@ -8,7 +8,7 @@
 #include <iostream>
 #include <locale>
 #include <codecvt>
-#include "SharedMemoryWriter.h"
+#include "SharedMemoryWriter.hpp"
 #include "PatternFinder.hpp"
 using namespace SDK;
 uintptr_t* NamesAddress = nullptr;
