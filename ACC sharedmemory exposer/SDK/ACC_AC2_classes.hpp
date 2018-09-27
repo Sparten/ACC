@@ -2535,7 +2535,8 @@ public:
 	class UCurveFloat*                                 DigitalDisplayCloudInfluenceMask;                         // 0x0740(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	struct FCarInfo                                    CarEntryInfo;                                             // 0x0748(0x0098) (Edit, BlueprintVisible, BlueprintReadOnly, EditConst)
 	struct FDriverInfo                                 DriverInfo;                                               // 0x07E0(0x00D0) (Edit, BlueprintVisible, BlueprintReadOnly, EditConst)
-	unsigned char                                      UnknownData12[0x4];                                       // 0x08B0(0x0004) MISSED OFFSET
+	uint16_t carIndex;
+	uint16_t driverIndex;
 	float                                              GearTimeToIgnoreNeutralBase;                              // 0x08B4(0x0004) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
 	struct FString                                     NeutralGearText;                                          // 0x08B8(0x0010) (Edit, ZeroConstructor, DisableEditOnInstance)
 	bool                                               hasEnduranceAnimation;                                    // 0x08C8(0x0001) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)

@@ -8,24 +8,18 @@
 #include <iostream>
 #include <locale>
 #include <codecvt>
-#include "_console.h"
 #include "SharedMemoryWriter.h"
+#include "PatternFinder.hpp"
 using namespace SDK;
-#define LOWORD(_dw)     ((WORD)(((DWORD_PTR)(_dw)) & 0xffff))
-#define HIWORD(_dw)     ((WORD)((((DWORD_PTR)(_dw)) >> 16) & 0xffff))
-#define LODWORD(_qw)    ((DWORD)(_qw))
-#define HIDWORD(_qw)    ((DWORD)(((_qw) >> 32) & 0xffffffff))
-
-intptr_t* NamesAddress = nullptr;
-intptr_t* ObjectsAddress = nullptr;
-intptr_t* GWorldAddress = nullptr;
+uintptr_t* NamesAddress = nullptr;
+uintptr_t* ObjectsAddress = nullptr;
+uintptr_t* GWorldAddress = nullptr;
 
 HANDLE monitorThread = nullptr;
 bool doOnce = false;
 typedef void(__stdcall *Tick_t)(AAcRaceGameMode*, double);
 Tick_t pTick = nullptr;
 intptr_t* tickAddress = nullptr;
-//console_window c;
 std::vector<FCircuitInfo> savedCircuits;
 SharedMemeoryWriter<ACCSharedMemoryData> writer("Local\\CrewChief_ACC");
 #ifdef DEV_ENV
@@ -296,28 +290,34 @@ DWORD __stdcall InitializeHook(LPVOID)
 	LoadLibraryA(unloadDir);
 #endif // DEV_ENV
 	HMODULE mainModule = GetModuleHandle(NULL);
-	intptr_t patternAddressNames = FindPattern((intptr_t)mainModule, 0x0000000001000000,
-		(CHAR *)"\x48\x83\xEC\x28\x48\x8B\x05\x25\xDB\xB5\x02\x48\x85\xC0\x75\x5F\xB9\x08\x04\x00\x00",
-		(CHAR *)"xxxxxxx????xxxxxxxxxx") + 7;	
 	
-	NamesAddress = reinterpret_cast<intptr_t*>(patternAddressNames + LODWORD(*(intptr_t*)patternAddressNames + 4));
+	NamesAddress = FindPatternForPointerInMemory(mainModule,
+		(unsigned char *)"\x48\x83\xEC\x28\x48\x8B\x05\x25\xDB\xB5\x02\x48\x85\xC0\x75\x5F\xB9\x08\x04\x00\x00",
+		(CHAR *)"xxxxxxx????xxxxxxxxxx", 7);
+	if (NamesAddress == nullptr)
+	{
+		return 0;
+	}
 	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*NamesAddress);
-
-	intptr_t patternAddressGObjects = FindPattern((intptr_t)mainModule, 0x0000000001000000,
-		(CHAR *)"\x48\x8D\x05\x25\x76\xC2\x02\x33\xF6\x48\x89\x01\x48\x89\x71\x10\x45\x8B\xD9\x41\xB9\xFF\xFF\xFF\xFF",
-		(CHAR *)"xxx????xxxxxxxxxxxxxxxxx") + 3;
 	
-	ObjectsAddress = reinterpret_cast<intptr_t*>(patternAddressGObjects + LODWORD(*(intptr_t*)patternAddressGObjects + 4));	
+	ObjectsAddress = FindPatternForPointerInMemory(mainModule,
+		(unsigned char *)"\x48\x8D\x05\x25\x76\xC2\x02\x33\xF6\x48\x89\x01\x48\x89\x71\x10\x45\x8B\xD9\x41\xB9\xFF\xFF\xFF\xFF",
+		(CHAR *)"xxx????xxxxxxxxxxxxxxxxx", 3);
+	if (ObjectsAddress == nullptr)
+	{
+		return 0;
+	}
 	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
 			
-	intptr_t patternAddressUWorld = FindPattern((intptr_t)mainModule, 0x0000000001000000,
-	(CHAR *)"\x48\x8B\x1D\x97\x98\x1B\x03\x48\x85\xDB\x74\x3B\x41\xB0\x01\x33\xD2\x48\x8B\xCB\xE8\xB5\xF3\x69\x01",
-		(CHAR *)"xxx????xxxxxxxxxxxxxx????") + 3;
-		
-	GWorldAddress = reinterpret_cast<intptr_t*>(patternAddressUWorld + LODWORD(*(intptr_t*)patternAddressUWorld + 4));
+	GWorldAddress = FindPatternForPointerInMemory(mainModule,
+		(unsigned char *)"\x48\x8B\x1D\x97\x98\x1B\x03\x48\x85\xDB\x74\x3B\x41\xB0\x01\x33\xD2\x48\x8B\xCB\xE8\xB5\xF3\x69\x01",
+		"xxx????xxxxxxxxxxxxxx????", 3);
+	if (GWorldAddress == nullptr)
+	{
+		return 0;
+	}
 	UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
-	//add_log("0x%llx", sizeof(BOOL));
-	//add_log("patternAddress 0x%llx", patternAddress);
+	
 	for (;;)
 	{
 #ifdef DEV_ENV
