@@ -103,6 +103,7 @@ struct SessionData
 	float serverTimeOffset;
 	float sessionStartTime;
 	float sessionEndTime;
+	int sessionDuration;
 	uint32_t pitWindowOpenAtTime;
 	uint32_t pitWindowCloseAtTime;
 	uint32_t maxDrivingTime;

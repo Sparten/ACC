@@ -784,7 +784,7 @@ namespace ksRacing
 	{
 		RaceEventType eventType;
 		EventRaceRules eventRaceRules;
-		std::vector<SessionEntity, std::allocator<SessionEntity> > sessions;
+		std::vector<SessionEntity> sessions;
 	};
 
 	/* 67421 */

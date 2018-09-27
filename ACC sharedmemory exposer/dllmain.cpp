@@ -139,7 +139,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	sharedData->update = raceManager->physicsTime;
 	sharedData->sessionData.physicsTime = p->raceManager->physicsTime;
 	UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
-	ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);			
+	ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);
 	//collect all our session data
 	sharedData->sessionData.areCarsInitializated = raceManager->areCarsInitializated;
 	sharedData->sessionData.currentEventIndex = raceManager->currentEventIndex;
@@ -150,16 +150,17 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	sharedData->sessionData.isEventInitializated = raceManager->isEventInitializated;
 	sharedData->sessionData.isServer = raceManager->isServer;
 	sharedData->sessionData.isSessionInitializated = raceManager->isSessionInitializated;
-	sharedData->sessionData.isTimeStopped = raceManager->isTimeStopped;	
+	sharedData->sessionData.isTimeStopped = raceManager->isTimeStopped;
 	sharedData->sessionData.sessionStartTimeStamp = raceManager->sessionStartTimeStamp;
 	sharedData->sessionData.receivedServerTime = raceManager->receivedServerTime;
 	sharedData->sessionData.serverTimeOffset = raceManager->serverTimeOffset;
 	sharedData->sessionData.sessionStartTime = raceManager->sessionStartTime;
 	sharedData->sessionData.sessionEndTime = raceManager->sessionEndTime;
 	sharedData->sessionData.pitlaneSpeedLimitKmh = raceManager->seasonEntity.rules.pitlaneSpeedLimitKmh;
-	sharedData->sessionData.mandatoryPitStopCount = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.mandatoryPitStopCount;	
+	sharedData->sessionData.mandatoryPitStopCount = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.mandatoryPitStopCount;
 	sharedData->sessionData.pitWindowOpenAtTime = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.pitWindowOpenAtTime;
 	sharedData->sessionData.pitWindowCloseAtTime = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.pitWindowCloseAtTime;
+	sharedData->sessionData.sessionDuration = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.sessions[raceManager->currentSessionIndex].sessionDuration;
 
 	//track and weather
 	strcpy_s(sharedData->track.name, _TRUNCATE, ws2s(raceManager->trackServices->trackName).c_str());
