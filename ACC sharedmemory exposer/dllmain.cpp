@@ -1,5 +1,8 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
-#include "stdafx.h"
+//#include "stdafx.h"
+#define WIN32_LEAN_AND_MEAN
+#define DEV_ENV
+#include <windows.h>
 #include "SDK.hpp"
 #include <fstream>
 #include <iostream>
@@ -7,40 +10,33 @@
 #include <codecvt>
 #include "_console.h"
 #include "SharedMemoryWriter.h"
-
 using namespace SDK;
+#define LOWORD(_dw)     ((WORD)(((DWORD_PTR)(_dw)) & 0xffff))
+#define HIWORD(_dw)     ((WORD)((((DWORD_PTR)(_dw)) >> 16) & 0xffff))
+#define LODWORD(_qw)    ((DWORD)(_qw))
+#define HIDWORD(_qw)    ((DWORD)(((_qw) >> 32) & 0xffffffff))
 
+intptr_t* NamesAddress = nullptr;
+intptr_t* ObjectsAddress = nullptr;
+intptr_t* GWorldAddress = nullptr;
+
+HANDLE monitorThread = nullptr;
+bool doOnce = false;
 typedef void(__stdcall *Tick_t)(AAcRaceGameMode*, double);
 Tick_t pTick = nullptr;
 intptr_t* tickAddress = nullptr;
-
-intptr_t NamesAddress = (intptr_t)GetModuleHandle(NULL) + 0x329E250;
-TNameEntryArray* FName::GNames  = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
-intptr_t ObjectsAddress = (intptr_t)GetModuleHandle(NULL) + 0x2F312A0;
-FUObjectArray* UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
-intptr_t GWorldAddress = (intptr_t)GetModuleHandle(NULL) + 0x33A1D20;
-UWorld *GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
-
-char dlldir[512] = "";
-HANDLE monitorThread = nullptr;
-DWORD exitCode = 0;
 //console_window c;
 std::vector<FCircuitInfo> savedCircuits;
 SharedMemeoryWriter<ACCSharedMemoryData> writer("Local\\CrewChief_ACC");
-volatile bool unhookIt = false;
+#ifdef DEV_ENV
 
+char dlldir[512] = "";
+volatile bool unhookIt = false;
 double TicksNow();
 static double const MILLISECONDS_IN_SECOND = 1000.0;
 static double const MICROSECONDS_IN_MILLISECOND = 1000.0;
 static double const MICROSECONDS_IN_SECOND = MILLISECONDS_IN_SECOND * MICROSECONDS_IN_MILLISECOND;
 
-std::string ws2s(const std::wstring& wstr)
-{
-	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX;
-
-	return converterX.to_bytes(wstr);
-}
 void __cdecl add_log(const char *fmt, ...)
 {
 
@@ -104,20 +100,51 @@ double TicksNow() {
 #endif
 
 }
-double lasttime = 0;
+
+#endif // DEV_ENV
+
+intptr_t FindPattern(intptr_t start_offset, intptr_t size, char *pattern, char *mask)
+{
+	DWORD byteMatchedIndex = 0;
+	int searchLen = strlen(mask) - 1;
+
+	for (intptr_t scanAddress = start_offset; scanAddress < start_offset + size; scanAddress++)
+	{
+		//Do scan
+		if (*(BYTE*)scanAddress == (BYTE)pattern[byteMatchedIndex] || mask[byteMatchedIndex] == '?')
+		{
+			if (mask[byteMatchedIndex + 1] == '\0')
+			{
+				return (scanAddress - searchLen);
+			}
+			byteMatchedIndex++;
+		}
+		else
+		{
+			byteMatchedIndex = 0;
+		}
+	}
+	return NULL;
+}
+
+std::string ws2s(const std::wstring& wstr)
+{
+	using convert_typeX = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+	return converterX.to_bytes(wstr);
+}
+
 void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 {
-	double now = TicksNow();
 	//double tick = TicksNow();
 	std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
 	sharedData->isReady = true;
 	AAcRaceGameMode* raceGameMode = p;
 	ksRacing::RaceManager* raceManager = p->raceManager.get();
-	lasttime = now;
 	sharedData->update = raceManager->physicsTime;
 	sharedData->sessionData.physicsTime = p->raceManager->physicsTime;
-	GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
-	AAcRaceGameState *raceGameState = reinterpret_cast<AAcRaceGameState*>(GWorld->GameState);
+	UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
 	ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);			
 	//collect all our session data
 	sharedData->sessionData.areCarsInitializated = raceManager->areCarsInitializated;
@@ -160,9 +187,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		AAcMarshal* marshal = trackPeopleController->Marshals[i];
 		sharedData->marshals.marshals[i].startPos = marshal->StartPosition;
 		sharedData->marshals.marshals[i].endPos = marshal->EndPosition;
-		sharedData->marshals.marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);
-
-			
+		sharedData->marshals.marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);		
 	} 		
 	for each (auto var in savedCircuits)
 	{
@@ -179,14 +204,14 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	// In single player sessions this iteration works as player will allways be in index 0 i'm not sure this is going to be the case once it goes online.
 	// So we might have to do a propper look up by driverindex vs carindex but its all available so its just a matter of me not being lazy.
 	int playerCarIndex = 0;
-	sharedData->opponentDriverCount = GWorld->PawnList.Num();
+	sharedData->opponentDriverCount = UWorld::GWorld->PawnList.Num();
 	if (raceManager->entryList.get() != nullptr)
 	{
 		for each (auto var in raceManager->carStateServices->liveCarStates)
 		{
 			uint16_t index = var.first;
 			ksRacing::CarState* state = var.second;
-			ACarAvatar* car = (ACarAvatar*)GWorld->PawnList[index].Get();
+			ACarAvatar* car = (ACarAvatar*)UWorld::GWorld->PawnList[index].Get();
 			sharedData->opponentDrivers[index].currentDelta = state->currentDelta;
 			sharedData->opponentDrivers[index].driverIndex = state->driverIndex;
 			sharedData->opponentDrivers[index].formationLapCounter = state->formationLapCounter;
@@ -208,7 +233,8 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			sharedData->opponentDrivers[index].clutch = car->GetClutch();
 			sharedData->opponentDrivers[index].brake = car->GetBrake();
 			sharedData->opponentDrivers[index].rpms = car->GetRPMS();
-			sharedData->opponentDrivers[index].speed = car->GetSpeedKMH() * 0.277777778f;
+			sharedData->opponentDrivers[index].speedMS = car->GetSpeedKMH() * 0.277777778f;
+			sharedData->opponentDrivers[index].speedKMH = car->GetSpeedKMH();
 			FVector vec;
 			USceneComponent* screen = car->RootComponent;
 			FVector location = screen->K2_GetComponentLocation();
@@ -247,7 +273,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	writer.updateSharedMemory(sharedData.get());
 	//double tickEnd = TicksNow();
 	//add_log("Time to process: %Lf", tickEnd - tick);
-
+#ifdef DEV_ENV
 	if (unhookIt)
 	{
 		std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
@@ -256,22 +282,45 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		Unhook();
 		unhookIt = false;
 	}
+#endif // DEV_ENV
 	return pTick(p, time);
 }
 
-bool doOnce = false;
 
 DWORD __stdcall InitializeHook(LPVOID)
 {	
+#ifdef DEV_ENV
 	char unloadDir[1024] = "";
 	strcpy(unloadDir, dlldir);
 	strcat(unloadDir, "DllUnload.dll");
 	LoadLibraryA(unloadDir);
-	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*(intptr_t*)NamesAddress);
+#endif // DEV_ENV
+	HMODULE mainModule = GetModuleHandle(NULL);
+	intptr_t patternAddressNames = FindPattern((intptr_t)mainModule, 0x0000000001000000,
+		(CHAR *)"\x48\x83\xEC\x28\x48\x8B\x05\x25\xDB\xB5\x02\x48\x85\xC0\x75\x5F\xB9\x08\x04\x00\x00",
+		(CHAR *)"xxxxxxx????xxxxxxxxxx") + 7;	
+	
+	NamesAddress = reinterpret_cast<intptr_t*>(patternAddressNames + LODWORD(*(intptr_t*)patternAddressNames + 4));
+	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*NamesAddress);
+
+	intptr_t patternAddressGObjects = FindPattern((intptr_t)mainModule, 0x0000000001000000,
+		(CHAR *)"\x48\x8D\x05\x25\x76\xC2\x02\x33\xF6\x48\x89\x01\x48\x89\x71\x10\x45\x8B\xD9\x41\xB9\xFF\xFF\xFF\xFF",
+		(CHAR *)"xxx????xxxxxxxxxxxxxxxxx") + 3;
+	
+	ObjectsAddress = reinterpret_cast<intptr_t*>(patternAddressGObjects + LODWORD(*(intptr_t*)patternAddressGObjects + 4));	
 	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
-	add_log("0x%llx", offsetof(ACCSharedMemoryData, isReady));
+			
+	intptr_t patternAddressUWorld = FindPattern((intptr_t)mainModule, 0x0000000001000000,
+	(CHAR *)"\x48\x8B\x1D\x97\x98\x1B\x03\x48\x85\xDB\x74\x3B\x41\xB0\x01\x33\xD2\x48\x8B\xCB\xE8\xB5\xF3\x69\x01",
+		(CHAR *)"xxx????xxxxxxxxxxxxxx????") + 3;
+		
+	GWorldAddress = reinterpret_cast<intptr_t*>(patternAddressUWorld + LODWORD(*(intptr_t*)patternAddressUWorld + 4));
+	UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
+	//add_log("0x%llx", sizeof(BOOL));
+	//add_log("patternAddress 0x%llx", patternAddress);
 	for (;;)
 	{
+#ifdef DEV_ENV
 		if (unhookIt)
 		{
 			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
@@ -281,22 +330,31 @@ DWORD __stdcall InitializeHook(LPVOID)
 			unhookIt = false;
 			return 0;
 		}
-		GWorld = reinterpret_cast<decltype(GWorld)>(*(intptr_t*)GWorldAddress);
-		if (GWorld == nullptr || IsBadReadPtr((const void*)GWorld, sizeof(UWorld)))
+#endif // DEV_ENV
+		UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
+		if (UWorld::GWorld == nullptr || IsBadReadPtr((const void*)UWorld::GWorld, sizeof(UWorld)))
 		{
+			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+			sharedData->isReady = false;
+			writer.updateSharedMemory(sharedData.get());
+			Sleep(200);
 			continue;
 		}
-		if (GWorld->AuthorityGameMode == nullptr)
+		if (UWorld::GWorld->AuthorityGameMode == nullptr)
 		{
+			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+			sharedData->isReady = false;
+			writer.updateSharedMemory(sharedData.get());
+			Sleep(200);
 			continue;
 		}
-		if (!GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
+		if (!UWorld::GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
 		{
 			// If not in a AAcRaceGameMode state its safe to unhook the function here as its not called.
 			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
 			sharedData->isReady = false;
 			writer.updateSharedMemory(sharedData.get());
-			lasttime = 0;
+			Sleep(200);
 			continue;
 		}
 
@@ -305,8 +363,8 @@ DWORD __stdcall InitializeHook(LPVOID)
 		{	
 			FCircuitInfo circuit;
 			TArray<FName> names;
-			UAcGameInstance* instance = reinterpret_cast<UAcGameInstance*>(GWorld->OwningGameInstance);
-			AAcRaceGameMode* raceGameMode = reinterpret_cast<AAcRaceGameMode*>(GWorld->AuthorityGameMode);
+			UAcGameInstance* instance = reinterpret_cast<UAcGameInstance*>(UWorld::GWorld->OwningGameInstance);
+			AAcRaceGameMode* raceGameMode = reinterpret_cast<AAcRaceGameMode*>(UWorld::GWorld->AuthorityGameMode);
 			instance->InfoManager->GetInfoList(EInfoType::EInfoType__Circuit, &names);
 			for (int i = 0; i < names.Num(); i++)
 			{
@@ -334,6 +392,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 	}		
 	return 0;
 }
+#ifdef DEV_ENV
 // All this unhooking and unloading the dll is only here for me to being able to reinject the dll while working on it.
 void __stdcall WaitForUnHook()
 {
@@ -346,6 +405,7 @@ void __stdcall WaitForUnHook()
 		}
 	}
 }
+#endif // DEV_ENV
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
@@ -354,11 +414,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 	case DLL_PROCESS_ATTACH:
 
 		DisableThreadLibraryCalls(hModule);
-
+#ifdef DEV_ENV
 		GetModuleFileNameA(hModule, dlldir, 512);
-
 		for (size_t i = strlen(dlldir); i > 0; i--) { if (dlldir[i] == '\\') { dlldir[i + 1] = 0; break; } }
-
+#endif // DEV_ENV
 		monitorThread = CreateThread(NULL, 0, InitializeHook, NULL, 0, NULL);
 
 		break;
@@ -367,10 +426,17 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 	case DLL_THREAD_DETACH:
 		break;
 	case DLL_PROCESS_DETACH:
-		WaitForUnHook();
-		GetExitCodeThread(monitorThread, &exitCode);
-		TerminateThread(monitorThread, exitCode);
-		break;
+		{
+			
+#ifdef DEV_ENV
+			WaitForUnHook();
+#endif // DEV_ENV
+
+			DWORD exitCode = 0;
+			GetExitCodeThread(monitorThread, &exitCode);
+			TerminateThread(monitorThread, exitCode);
+			break;
+		}
 	}
 	return TRUE;
 }

@@ -147,14 +147,13 @@
     <ClInclude Include="SDK\ACC_AC2_classes.hpp" />
     <ClInclude Include="SDK\ACC_AC2_parameters.hpp" />
     <ClInclude Include="SDK\ACC_AC2_structs.hpp" />
+    <ClInclude Include="SDK\ACC_Basic.hpp" />
     <ClInclude Include="SDK\ACC_CoreUObject_classes.hpp" />
     <ClInclude Include="SDK\ACC_Engine_classes.hpp" />
     <ClInclude Include="SDK\ACC_Engine_parameters.hpp" />
     <ClInclude Include="SDK\ACC_Engine_structs.hpp" />
     <ClInclude Include="SDK\ACC_KSRacing_classes.h" />
     <ClInclude Include="SharedMemoryWriter.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="_console.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +175,6 @@
     <ClCompile Include="SDK\ACC_Basic.cpp" />
     <ClCompile Include="SDK\ACC_CoreUObject_functions.cpp" />
     <ClCompile Include="SDK\ACC_Engine_functions.cpp" />
-    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

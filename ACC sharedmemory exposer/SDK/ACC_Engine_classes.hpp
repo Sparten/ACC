@@ -11229,7 +11229,7 @@ public:
 		static auto ptr = UObject::FindClass("Class Engine.World");
 		return ptr;
 	}
-
+	static UWorld *GWorld;
 
 	void HandleTimelineScrubbed();
 };

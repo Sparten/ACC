@@ -66,7 +66,8 @@ struct Driver
 	Vec3 location;
 	Rotation rotation;
 	float distanceRoundTrackNormalized;
-	float speed;
+	float speedMS;
+	float speedKMH;
 	float lastSectorTimeStamp;
 	int position;
 	int realTimePosition;
@@ -110,7 +111,7 @@ struct SessionData
 	__declspec(align(4))bool isServer;
 	__declspec(align(4))bool isClient;
 	__declspec(align(4))bool areCarsInitializated;
-	__declspec(align(4))bool isTimeStopped;
+	alignas(4)bool isTimeStopped;
 	__declspec(align(4))bool isEventInitializated;
 	__declspec(align(4))bool isSessionInitializated;
 	__declspec(align(1))uint8_t pad1;
