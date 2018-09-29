@@ -290,15 +290,16 @@ DWORD __stdcall InitializeHook(LPVOID)
 	strcat(unloadDir, "DllUnload.dll");
 	LoadLibraryA(unloadDir);
 #endif // DEV_ENV
+
 	HMODULE mainModule = GetModuleHandle(NULL);
-	
-	NamesAddress = FindPatternForPointerInMemory(mainModule,
-		(unsigned char *)"\x48\x83\xEC\x28\x48\x8B\x05\x25\xDB\xB5\x02\x48\x85\xC0\x75\x5F\xB9\x08\x04\x00\x00",
-		(CHAR *)"xxxxxxx????xxxxxxxxxx", 7);
-	if (NamesAddress == nullptr)
+	while (NamesAddress == nullptr)
 	{
-		return 0;
+		NamesAddress = FindPatternForPointerInMemory(mainModule,
+			(unsigned char *)"\x48\x83\xEC\x28\x48\x8B\x05\x25\xDB\xB5\x02\x48\x85\xC0\x75\x5F\xB9\x08\x04\x00\x00",
+			(CHAR *)"xxxxxxx????xxxxxxxxxx", 7);
+		Sleep(50);
 	}
+
 	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*NamesAddress);
 	
 	ObjectsAddress = FindPatternForPointerInMemory(mainModule,
