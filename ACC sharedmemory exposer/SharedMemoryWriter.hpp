@@ -62,7 +62,7 @@ struct Track
 struct Driver
 {
 	char name[MAX_PATH];
-	int nation;
+	ksRacing::Nationality nation;
 	Vec3 location;
 	Rotation rotation;
 	float distanceRoundTrackNormalized;
@@ -86,6 +86,7 @@ struct Driver
 	bool isSessionOver;
 	bool isDisqualified;
 	bool isRetired;
+	bool isCarOutOfTrack;
 	uint16_t driverIndex;
 	uint8_t formationLapCounter;
 	ksRacing::CarLocation trackLocation;

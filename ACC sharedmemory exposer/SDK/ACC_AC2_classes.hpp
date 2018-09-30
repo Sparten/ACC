@@ -593,16 +593,56 @@ public:
 	void CycleWiperLevel(bool isUp);
 };
 
-
+class UAcGameInstance;
+class AGhostCarManager;
 // Class AC2.AcCarTimingServices
 // 0x01E8 (0x0210 - 0x0028)
 class UAcCarTimingServices : public UObject
 {
 public:
-	unsigned char                                      CurrentSector;                                            // 0x0028(0x0001) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x7];                                     // 0x0029(0x01E7) MISSED OFFSET
-	
-	unsigned char                                      UnknownData00[0x1E0];                                     // 0x0029(0x01E7) MISSED OFFSET
+	char CurrentSector;
+	unsigned char padding[0x18];
+	ACarAvatar *CarAvatar;
+	AAcRaceGameMode *raceGameMode;
+	ksRacing::RaceManager *raceManager;
+	UAcGameInstance *GameInstance;
+	char SectorCount;
+	float fastLaneUnlockTime;
+	bool bIsSplitCrossingValid;
+	float LastSplitTimeStamp;
+	float CurrentLapTime;
+	int LaptimesSum;
+	uint16_t LapCount;
+	ksRacing::Lap BestLap;
+	ksRacing::Lap LastLap;
+	int lapTimeDiff;
+	float speedDiff;
+	int predictedLapTime;
+	FLapTimeReference bestLapReference;
+	std::vector<unsigned int, std::allocator<unsigned int> > deltaTimeBestLap;
+	std::vector<unsigned int, std::allocator<unsigned int> > deltaTimeCurrentLap;
+	std::vector<float, std::allocator<float> > deltaSpeedBestLap;
+	std::vector<float, std::allocator<float> > deltaSpeedCurrentLap;
+	uint16_t deltaSectorIndex;
+	int lastDeltaIndex;
+	float deltaStep;
+	TArray<int> speedAvgs;
+	bool mustRecordSpeed;
+	float relativeSpeed;
+	bool updateRelativeSpeed;
+	bool useTrackMicroSectorTimes;
+	float startingFuelOnLastLap;
+	float totalFuelUsedInSession;
+	float fuelPerSingleLap;
+	float fuelPerKm;
+	bool isCarOutOfTrack;
+	int onCarOutOfTrackTimeStart;
+	int onCarOutOfTrackTimeEnd;
+	int onCarOutOfTrackSectorStart;
+	int onCarOutOfTrackSectorEnd;
+	int onCarOutOfTrackTimeJoin;
+	int outOfTrackRealDeltaTime;
+	AGhostCarManager *ghostCarManager;
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.AcCarTimingServices");

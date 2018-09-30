@@ -224,6 +224,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			UAcCarTimingServices* timings = car->CarTimingServices;
 			sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
 			sharedData->opponentDrivers[index].currentSector = timings->CurrentSector;
+			sharedData->opponentDrivers[index].isCarOutOfTrack = timings->isCarOutOfTrack;
 			sharedData->opponentDrivers[index].trottle = car->GetGas();
 			sharedData->opponentDrivers[index].clutch = car->GetClutch();
 			sharedData->opponentDrivers[index].brake = car->GetBrake();
@@ -291,6 +292,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 	LoadLibraryA(unloadDir);
 #endif // DEV_ENV
 
+	add_log("%llx", sizeof(std::map<ECarModelType, struct FGuiCar>));
 	HMODULE mainModule = GetModuleHandle(NULL);
 	while (NamesAddress == nullptr)
 	{
@@ -350,6 +352,13 @@ DWORD __stdcall InitializeHook(LPVOID)
 			Sleep(200);
 			continue;
 		}
+		if (UWorld::GWorld->AuthorityGameMode->IsA(AAcMenuGameMode::StaticClass()))
+		{
+			AAcMenuGameMode* currentMode = reinterpret_cast<AAcMenuGameMode*>(UWorld::GWorld->AuthorityGameMode);
+
+			add_log("currentMode 0x%llx", currentMode);
+			add_log("&currentMode->GuiCars 0x%llx", &currentMode->GuiCars);
+		}
 		if (!UWorld::GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
 		{
 			// If not in a AAcRaceGameMode state its safe to unhook the function here as its not called.
@@ -359,6 +368,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 			Sleep(200);
 			continue;
 		}
+
 
 		//Hook AAcRaceGameMode::Ticks as we need to be in a game thread to run our updated to avoid being out of thread conntext.
 		if (!doOnce)

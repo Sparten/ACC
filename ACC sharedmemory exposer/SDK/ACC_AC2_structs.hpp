@@ -2123,7 +2123,8 @@ struct FCarLightStage
 // 0x0008
 struct FLapTimeReference
 {
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0000(0x0008) MISSED OFFSET
+	unsigned int									   lapTime;
+	ELapTimeReferenceType                              referenceType;                                       // 0x0000(0x0008) MISSED OFFSET
 };
 
 // ScriptStruct AC2.BackfireFlame
