@@ -176,14 +176,14 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	sharedData->track.length = trackAvatar->GetFastLane()->GetSpline()->GetSplineLength() * .01f;
 	UTrackPeopleController* trackPeopleController = trackAvatar->TrackPeopleController;
 	sharedData->marshals.marchalCount = trackPeopleController->Marshals.Num();
-	sharedData->marshals.checkeredFlagMarshalIndex = trackPeopleController->checkeredFlagMarshalIndex;
+	sharedData->marshals.checkeredFlagMarshalIndex = trackPeopleController->checkeredFlagMarshalIndex;	
 	for (int i = 0; i < trackPeopleController->Marshals.Num(); i++)
 	{
 		AAcMarshal* marshal = trackPeopleController->Marshals[i];
 		sharedData->marshals.marshals[i].startPos = marshal->StartPosition;
 		sharedData->marshals.marshals[i].endPos = marshal->EndPosition;
-		sharedData->marshals.marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);		
-	} 		
+		sharedData->marshals.marshals[i].flag = (ksRacing::MarshalFlagType)(trackPeopleController->marshalBitField[i].flagColor & 15);
+	}
 	for each (auto var in savedCircuits)
 	{
 		if (var.CircuitId == raceManager->trackServices->trackId)
@@ -281,7 +281,12 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 #endif // DEV_ENV
 	return pTick(p, time);
 }
-
+void SetStateNotReady()
+{
+	std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+	sharedData->isReady = false;
+	writer.updateSharedMemory(sharedData.get());
+}
 
 DWORD __stdcall InitializeHook(LPVOID)
 {	
@@ -327,9 +332,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 #ifdef DEV_ENV
 		if (unhookIt)
 		{
-			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-			sharedData->isReady = false;
-			writer.updateSharedMemory(sharedData.get());
+			SetStateNotReady();
 			Unhook();
 			unhookIt = false;
 			return 0;
@@ -338,33 +341,20 @@ DWORD __stdcall InitializeHook(LPVOID)
 		UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
 		if (UWorld::GWorld == nullptr || IsBadReadPtr((const void*)UWorld::GWorld, sizeof(UWorld)))
 		{
-			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-			sharedData->isReady = false;
-			writer.updateSharedMemory(sharedData.get());
+			SetStateNotReady();
 			Sleep(200);
 			continue;
 		}
 		if (UWorld::GWorld->AuthorityGameMode == nullptr)
 		{
-			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-			sharedData->isReady = false;
-			writer.updateSharedMemory(sharedData.get());
+			SetStateNotReady();
 			Sleep(200);
 			continue;
-		}
-		if (UWorld::GWorld->AuthorityGameMode->IsA(AAcMenuGameMode::StaticClass()))
-		{
-			AAcMenuGameMode* currentMode = reinterpret_cast<AAcMenuGameMode*>(UWorld::GWorld->AuthorityGameMode);
-
-			add_log("currentMode 0x%llx", currentMode);
-			add_log("&currentMode->GuiCars 0x%llx", &currentMode->GuiCars);
 		}
 		if (!UWorld::GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
 		{
 			// If not in a AAcRaceGameMode state its safe to unhook the function here as its not called.
-			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-			sharedData->isReady = false;
-			writer.updateSharedMemory(sharedData.get());
+			SetStateNotReady();
 			Sleep(200);
 			continue;
 		}
