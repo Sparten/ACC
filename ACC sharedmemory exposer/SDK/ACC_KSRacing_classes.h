@@ -104,7 +104,7 @@ namespace ksRacing
 		EDriverCategory__Bronze = 3,
 		EDriverCategory__EDriverCategory_MAX = 4
 	};
-	enum class Nationality : uint8_t
+	enum class Nationality : uint16_t
 	{
 		ENationality__Any = 0,
 		ENationality__Italy = 1,
@@ -243,6 +243,15 @@ namespace ksRacing
 		Radiator = 0x6,
 		GearBox = 0x7,
 	};
+	enum NextSessionPenaltyType : uint8_t
+	{
+		WorsenPosition = 0x0,
+		DelayOnPit = 0x1,
+		DriveThrough = 0x2,
+		StopAndGo = 0x3,
+		NoRace = 0x4,
+		BadPoints = 0x5,
+	};
 
 	template<typename T>
 	struct Event
@@ -334,10 +343,10 @@ namespace ksRacing
 		unsigned char yellowFlags[1];
 		unsigned char fullYellowCourse[1];
 		unsigned char safetyCar[1];
+		unsigned char fastRollingStart[1];
 		unsigned char tyreFuelWear[1];
 		unsigned char unlimitedTyreSet[1];
 		unsigned char brakeFading[1];
-		float rainRealism;
 	};
 
 	/* 67374 */
@@ -348,7 +357,6 @@ namespace ksRacing
 		unsigned char canTeleportToPit[1];
 		unsigned __int16 teleportToPitPenaltyTime;
 		unsigned char superpoleVirtualSession[1];
-		unsigned char fastRollingStart[1];
 		int preSessionTime;
 		unsigned char simulateTeammates[1];
 		char skillMultiplier;
@@ -414,6 +422,8 @@ namespace ksRacing
 		int suitDetailColor2;
 		char skillLevel;
 		char aggroLevel;
+		char aiRainSkill;
+		char aiConsistency;
 		std::wstring playerID;
 	};
 	struct __declspec(align(8)) DriverEntry
@@ -441,9 +451,42 @@ namespace ksRacing
 		std::vector<EventEntity> events;
 		int eventOnlineReference;
 	};
+
+	struct  __declspec(align(8)) TeamResult : WritableRaceStructure
+	{
+		int teamGuid;
+		std::wstring teamName;
+		Nationality nationality;
+		std::wstring displayName;
+		std::wstring competitorName;
+		Nationality competitorNationality;
+	};
+
+	struct __declspec(align(8)) CarResult : WritableRaceStructure
+	{
+		int carGuid;
+		int raceNumber;
+		CarModelType carModelType;
+		CupCategory cupCategory;
+	};
+	struct  DriverResult : WritableRaceStructure
+	{
+		std::wstring firstName;
+		std::wstring secondName;
+		std::wstring lastName;
+		std::wstring nickName;
+		std::wstring shortName;
+		char weight;
+		Nationality nationality;
+		DriverCategory driverCategory;
+		std::wstring  playerID;
+	};
 	/* 67357 */
 	struct SessionResult : WritableRaceStructure
 	{
+		unsigned char sessionType;
+		unsigned char round;
+		unsigned char displayResult;
 		std::vector<TrackEvent > trackEvents;
 		std::vector<Lap> laps;
 		std::vector<NextSessionPenalty > nextSessionPenalties;
@@ -451,6 +494,8 @@ namespace ksRacing
 		std::vector<WeatherStatus> weatherForUpdateMinutes;
 		std::vector<PitStopEvent> pitstopEvents;
 		std::vector<std::vector<TyreSet>> tyresConditions;
+		std::map<unsigned short, unsigned short> startingDriverIndex;
+		std::map<unsigned short, float> carFuelStatus;
 		std::vector<unsigned short > standing;
 		std::vector<short> points;
 	};
@@ -458,8 +503,9 @@ namespace ksRacing
 	/* 67367 */
 	struct SeasonResult : WritableRaceStructure
 	{
-		std::vector<CarInfo> cars;
-		std::vector<DriverInfo> drivers;
+		std::vector<TeamResult> teams;
+		std::vector<CarResult> cars;
+		std::vector<DriverResult> drivers;
 		std::vector<EventResult> events;
 		std::vector<short> points;
 		SessionResult savedSession;
@@ -473,6 +519,7 @@ namespace ksRacing
 		Event<RaceStartTimeEvent> onRaceStartTimeEvent;
 		Event<StartSessionEvent> onStartSessionEvent;
 		Event<SwapDriverEvent> onSwapDriverEvent;
+		Event<bool> onPitWindowEvent;
 		Event<bool> onSessionOverEvent;
 		Event<bool> onSeasonOverEvent;
 		Event<bool> onCheckCarInitializatedEvent;
@@ -486,6 +533,9 @@ namespace ksRacing
 		bool isServer;
 		bool isClient;
 		bool canProceed;
+		bool isMandatoryPitWindowOpen;
+		float pitWindowOpenAtTime;
+		float pitWindowCloseAtTime;
 		bool canTick;
 		bool areCarsInitializated;
 		bool isTimeStopped;
@@ -507,6 +557,8 @@ namespace ksRacing
 		float sessionEndTime;
 		unsigned __int16 currentEventIndex;
 		unsigned __int16 currentSessionIndex;
+		unsigned __int16 currentIndexBySession;
+		RaceEventType currentEventType;
 		RaceSessionType currentSessionType;
 		RaceSessionPhase currentSessionPhase;
 		bool isEventInitializated;
@@ -519,8 +571,15 @@ namespace ksRacing
 		std::map<unsigned short, CarInfo> carMap;
 		std::map<unsigned short, DriverEntry> driverMap;
 		RaceManager *raceManager;
-		unsigned char eventType[1];
+		RaceEventType eventType;
 		std::map<unsigned short, std::set<unsigned short, std::less<unsigned short> > > carDrivers;
+	};
+
+	const struct __declspec(align(8)) UpdateCarPosition
+	{
+		long double time;
+		unsigned __int16 newPosition;
+		unsigned __int16 carIndex;
 	};
 	/* 68576 */
 	struct __declspec(align(8)) CarStateServices
@@ -534,10 +593,13 @@ namespace ksRacing
 		char sorterState;
 		std::map<unsigned short, CarState> carStates;
 		std::map<unsigned short, CarState *> liveCarStates;
+		std::map<unsigned short, UpdateCarPosition> realtimePositionsChanges;
+		std::vector<unsigned short> lastRealtimePositions;
 		std::vector<unsigned short> realtimePositions;
 		std::vector<unsigned short> splinePositions;
 		std::vector<std::vector<unsigned short>> cupStandingAsCarIndex;
 		bool doAllCarsCompleteTheSession;
+		bool realtimePositionsTriggerEnabled;
 	};
 
 	/* 68591 */
@@ -557,6 +619,7 @@ namespace ksRacing
 		float windDirection;
 		float rainLevel;
 		float cloudLevel;
+		float sunLightFactor;
 	};
 
 	/* 67420 */
@@ -579,24 +642,29 @@ namespace ksRacing
 	/* 68596 */
 	struct __declspec(align(8)) WeatherServices
 	{
+		bool isRandomInitialized;
 		RaceManager *raceManager;
 		WeatherStatus status;
-		WeatherData data;
-		bool isRandomInitialized;
+		WeatherData data;		
 		float timeOfDaySeconds;
 		float dayLenght;
 	};
 
+	/*struct __declspec(align(2)) ksRacing::SeasonItem
+	{
+		unsigned __int16 indexInSeasonList;
+		CupCategory cupCategory;
+	};*/
 	/* 68607 */
 	struct __declspec(align(8)) ResultServices
 	{
 		RaceManager *raceManager;
 		SeasonResult seasonResult;
-		EventResult *eventResult;
-		SessionResult *sessionResult;
-		unsigned char raceEventType[1];
-		std::vector<SeasonItem, std::allocator<SeasonItem> > seasonCarIndex;
-		std::vector<SeasonItem, std::allocator<SeasonItem> > seasonDriverIndex;
+		RaceEventType raceEventType;
+		std::map<unsigned short, ksRacing::SeasonItem > carToSeasonIndex;
+		std::map<unsigned short, ksRacing::SeasonItem > driverToSeasonIndex;
+		std::map<unsigned short, unsigned short > seasonIndexToCar;
+		std::map<unsigned short, unsigned short > seasonIndexToDriver;
 		unsigned __int16 lastPositionForNewCars;
 	};
 
@@ -651,6 +719,7 @@ namespace ksRacing
 	/* 68632 */
 	struct __declspec(align(8)) TrackServices
 	{
+		Event<bool> onPitAvailability;
 		RaceManager *raceManager;
 		int trackId;
 		std::wstring trackName;
@@ -697,7 +766,18 @@ namespace ksRacing
 		std::vector<int> splitTimes;
 		unsigned __int16 lapStates;
 	};
-
+	/* 78039 */
+	struct __declspec(align(4)) PitSpeedingInvestigation
+	{
+		unsigned char investigationType;
+		unsigned __int16 carIndex;
+		unsigned __int16 driverIndex;
+		float sessionTime;
+		float timeOverLimit;
+		unsigned __int16 lapIndex;
+		float notificationTriggerTime;
+		bool hasBeenNotificated;
+	};
 	/* 68664 */
 	struct TimingServices
 	{
@@ -721,6 +801,7 @@ namespace ksRacing
 		std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<unsigned short, unsigned short> > > > it;
 		std::set<unsigned short, std::less<unsigned short> > carsToRemove;
 		std::map<unsigned short, CarInvestigation> cutInvestigations;
+		std::map<unsigned short, PitSpeedingInvestigation>  pitSpeedingInvestigations;
 		std::map<unsigned short, CarPenalty > penalties;
 		bool isWetSession;
 	};
@@ -842,6 +923,7 @@ namespace ksRacing
 	/* 67362 */
 	struct EventResult : WritableRaceStructure
 	{
+		std::wstring trackName;
 		std::vector<std::pair<unsigned short, unsigned short> > carDrivers;
 		std::vector<SessionResult > sessions;
 		std::vector<short> points;
@@ -859,7 +941,7 @@ namespace ksRacing
 	struct NextSessionPenalty : WritableRaceStructure
 	{
 		unsigned __int16 carIndex;
-		unsigned char penalty[1];
+		NextSessionPenaltyType penalty;
 		unsigned int value;
 	};
 
@@ -937,9 +1019,12 @@ namespace ksRacing
 		bool isSessionOver;
 		bool isDisqualified;
 		bool isRetired;
+		bool sprintRaceSwap;
+		bool hasStoppedOnPit;
 		unsigned __int16 pitGarageIndex;
 		unsigned __int16 lastStanding;
 		unsigned __int16 driverIndex;
+		float fuel;
 		carSystemsUnion carSystems;
 	};
 	/* 68583 */
@@ -952,7 +1037,7 @@ namespace ksRacing
 	};
 
 	/* 68602 */
-	struct SeasonItem
+	struct __declspec(align(2))SeasonItem
 	{
 		unsigned __int16 indexInSeasonList;
 		unsigned char cupCategory[1];
@@ -986,6 +1071,7 @@ namespace ksRacing
 	{
 		unsigned __int16 carIndex;
 		unsigned __int16 driverIndex;
+		bool istigatorType;
 		unsigned char penaltyType[1];
 		float sessionTime;
 		unsigned __int16 lapIndex;
