@@ -46,6 +46,108 @@ void UWDG_SpecialEventsPage_C::BndEvt__Button_94_K2Node_ComponentBoundEvent_35_O
 }
 
 
+// Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnNextPage_K2Node_ComponentBoundEvent_0_OnButtonClickedEvent__DelegateSignature
+// (BlueprintEvent)
+
+void UWDG_SpecialEventsPage_C::BndEvt__btnNextPage_K2Node_ComponentBoundEvent_0_OnButtonClickedEvent__DelegateSignature()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnNextPage_K2Node_ComponentBoundEvent_0_OnButtonClickedEvent__DelegateSignature");
+
+	UWDG_SpecialEventsPage_C_BndEvt__btnNextPage_K2Node_ComponentBoundEvent_0_OnButtonClickedEvent__DelegateSignature_Params params;
+
+	auto flags = fn->FunctionFlags;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_1_OnButtonClickedEvent__DelegateSignature
+// (BlueprintEvent)
+
+void UWDG_SpecialEventsPage_C::BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_1_OnButtonClickedEvent__DelegateSignature()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_1_OnButtonClickedEvent__DelegateSignature");
+
+	UWDG_SpecialEventsPage_C_BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_1_OnButtonClickedEvent__DelegateSignature_Params params;
+
+	auto flags = fn->FunctionFlags;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_2_OnButtonHoverEvent__DelegateSignature
+// (BlueprintEvent)
+
+void UWDG_SpecialEventsPage_C::BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_2_OnButtonHoverEvent__DelegateSignature()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_2_OnButtonHoverEvent__DelegateSignature");
+
+	UWDG_SpecialEventsPage_C_BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_2_OnButtonHoverEvent__DelegateSignature_Params params;
+
+	auto flags = fn->FunctionFlags;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_3_OnButtonHoverEvent__DelegateSignature
+// (BlueprintEvent)
+
+void UWDG_SpecialEventsPage_C::BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_3_OnButtonHoverEvent__DelegateSignature()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_3_OnButtonHoverEvent__DelegateSignature");
+
+	UWDG_SpecialEventsPage_C_BndEvt__btnPreviousPage_K2Node_ComponentBoundEvent_3_OnButtonHoverEvent__DelegateSignature_Params params;
+
+	auto flags = fn->FunctionFlags;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnNextPage_K2Node_ComponentBoundEvent_4_OnButtonHoverEvent__DelegateSignature
+// (BlueprintEvent)
+
+void UWDG_SpecialEventsPage_C::BndEvt__btnNextPage_K2Node_ComponentBoundEvent_4_OnButtonHoverEvent__DelegateSignature()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnNextPage_K2Node_ComponentBoundEvent_4_OnButtonHoverEvent__DelegateSignature");
+
+	UWDG_SpecialEventsPage_C_BndEvt__btnNextPage_K2Node_ComponentBoundEvent_4_OnButtonHoverEvent__DelegateSignature_Params params;
+
+	auto flags = fn->FunctionFlags;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnNextPage_K2Node_ComponentBoundEvent_5_OnButtonHoverEvent__DelegateSignature
+// (BlueprintEvent)
+
+void UWDG_SpecialEventsPage_C::BndEvt__btnNextPage_K2Node_ComponentBoundEvent_5_OnButtonHoverEvent__DelegateSignature()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.BndEvt__btnNextPage_K2Node_ComponentBoundEvent_5_OnButtonHoverEvent__DelegateSignature");
+
+	UWDG_SpecialEventsPage_C_BndEvt__btnNextPage_K2Node_ComponentBoundEvent_5_OnButtonHoverEvent__DelegateSignature_Params params;
+
+	auto flags = fn->FunctionFlags;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
 // Function WDG_SpecialEventsPage.WDG_SpecialEventsPage_C.ExecuteUbergraph_WDG_SpecialEventsPage
 // (HasDefaults)
 // Parameters:

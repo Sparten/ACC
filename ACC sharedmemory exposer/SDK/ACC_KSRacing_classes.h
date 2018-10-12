@@ -523,7 +523,7 @@ namespace ksRacing
 		Event<bool> onSessionOverEvent;
 		Event<bool> onSeasonOverEvent;
 		Event<bool> onCheckCarInitializatedEvent;
-		Event<AddOnlineEvent> onAddOnlineEvent;
+		Event<ksRacing::AddOnlineEvent> onAddOnlineEvent;
 		char sectorCount;
 		std::wstring exportFileName;
 		long double physicsTime;
@@ -539,11 +539,12 @@ namespace ksRacing
 		bool canTick;
 		bool areCarsInitializated;
 		bool isTimeStopped;
-		std::unique_ptr<EntryList> entryList;
+		bool hasPlayerCarMoved;
+		std::unique_ptr<EntryList > entryList;
 		std::unique_ptr<CarStateServices> carStateServices;
 		std::unique_ptr<DriverStateServices> driverStateServices;
 		std::unique_ptr<WeatherServices> weatherServices;
-		std::unique_ptr<ResultServices> resultServices;
+		std::unique_ptr<ResultServices > resultServices;
 		std::unique_ptr<GarageServices> garageServices;
 		std::unique_ptr<TrackServices> trackServices;
 		std::unique_ptr<TimingServices> timingServices;
@@ -564,6 +565,7 @@ namespace ksRacing
 		bool isEventInitializated;
 		bool isSessionInitializated;
 	};
+
 	/* 68508 */
 	struct EntryList
 	{
@@ -589,6 +591,7 @@ namespace ksRacing
 		Event<UpdateCarSystems> onUpdateSystems;
 		Event<UpdateCarSystems> onUpdateReplaySystem;
 		Event<unsigned short> onSessionOverEvent;
+		Event<UpdateCarPosition> onPositionUpdate;
 		RaceManager *raceManager;
 		char sorterState;
 		std::map<unsigned short, CarState> carStates;

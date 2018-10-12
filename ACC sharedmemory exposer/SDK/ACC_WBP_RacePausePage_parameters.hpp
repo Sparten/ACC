@@ -14,17 +14,6 @@ namespace SDK
 //Parameters
 //---------------------------------------------------------------------------
 
-// Function WBP_RacePausePage.WBP_RacePausePage_C.Construct
-struct UWBP_RacePausePage_C_Construct_Params
-{
-};
-
-// Function WBP_RacePausePage.WBP_RacePausePage_C.ExecuteUbergraph_WBP_RacePausePage
-struct UWBP_RacePausePage_C_ExecuteUbergraph_WBP_RacePausePage_Params
-{
-	int                                                EntryPoint;                                               // (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData)
-};
-
 }
 
 #ifdef _MSC_VER

@@ -15,7 +15,7 @@ namespace SDK
 //---------------------------------------------------------------------------
 
 // WidgetBlueprintGeneratedClass WDG_RaceRatingDetailRacecraft.WDG_RaceRatingDetailRacecraft_C
-// 0x0000 (0x0228 - 0x0228)
+// 0x0000 (0x0238 - 0x0238)
 class UWDG_RaceRatingDetailRacecraft_C : public URatingDetailRacecraft
 {
 public:

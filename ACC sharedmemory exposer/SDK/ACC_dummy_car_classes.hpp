@@ -15,15 +15,15 @@ namespace SDK
 //---------------------------------------------------------------------------
 
 // BlueprintGeneratedClass dummy_car.dummy_car_C
-// 0x0028 (0x2130 - 0x2108)
+// 0x0028 (0x2160 - 0x2138)
 class Adummy_car_C : public ABP_Car_C
 {
 public:
-	struct FPointerToUberGraphFrame                    UberGraphFrame;                                           // 0x2108(0x0008) (Transient, DuplicateTransient)
-	class UParticleSystemComponent*                    ParticleSystem3;                                          // 0x2110(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UParticleSystemComponent*                    ParticleSystem2;                                          // 0x2118(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UParticleSystemComponent*                    ParticleSystem1;                                          // 0x2120(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UArrowComponent*                             Driver_Enter_Exit;                                        // 0x2128(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	struct FPointerToUberGraphFrame                    UberGraphFrame;                                           // 0x2138(0x0008) (Transient, DuplicateTransient)
+	class UParticleSystemComponent*                    ParticleSystem3;                                          // 0x2140(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UParticleSystemComponent*                    ParticleSystem2;                                          // 0x2148(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UParticleSystemComponent*                    ParticleSystem1;                                          // 0x2150(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UArrowComponent*                             Driver_Enter_Exit;                                        // 0x2158(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{

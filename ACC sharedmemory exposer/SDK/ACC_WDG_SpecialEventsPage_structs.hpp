@@ -7,9 +7,10 @@
 #endif
 
 #include "ACC_Basic.hpp"
-#include "ACC_UMG_classes.hpp"
-#include "ACC_Engine_classes.hpp"
 #include "ACC_AC2_classes.hpp"
+#include "ACC_Engine_classes.hpp"
+#include "ACC_SlateCore_classes.hpp"
+#include "ACC_UMG_classes.hpp"
 
 namespace SDK
 {

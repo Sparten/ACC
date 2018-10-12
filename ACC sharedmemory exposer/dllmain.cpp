@@ -161,7 +161,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	sharedData->sessionData.pitWindowOpenAtTime = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.pitWindowOpenAtTime;
 	sharedData->sessionData.pitWindowCloseAtTime = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.pitWindowCloseAtTime;
 	sharedData->sessionData.sessionDuration = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.sessions[raceManager->currentSessionIndex].sessionDuration;
-
+	
 	//track and weather
 	strcpy_s(sharedData->track.name, _TRUNCATE, ws2s(raceManager->trackServices->trackName).c_str());
 	sharedData->track.id = raceManager->trackServices->trackId;
@@ -266,6 +266,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		}
 
 	}
+	
 	writer.updateSharedMemory(sharedData.get());
 	//double tickEnd = TicksNow();
 	//add_log("Time to process: %Lf", tickEnd - tick);
@@ -279,6 +280,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 		unhookIt = false;
 	}
 #endif // DEV_ENV
+
 	return pTick(p, time);
 }
 void SetStateNotReady()
@@ -363,6 +365,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 		//Hook AAcRaceGameMode::Ticks as we need to be in a game thread to run our updated to avoid being out of thread conntext.
 		if (!doOnce)
 		{	
+			add_log("Hooked AAcRaceGameMode::Ticks");
 			FCircuitInfo circuit;
 			TArray<FName> names;
 			UAcGameInstance* instance = reinterpret_cast<UAcGameInstance*>(UWorld::GWorld->OwningGameInstance);
@@ -383,7 +386,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 			*tickAddress = (intptr_t)&Tick_Detour;
 			VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
 			doOnce = true;
-			//add_log("Hooked AAcRaceGameMode::Ticks");
+			add_log("Hooked AAcRaceGameMode::Ticks");
 		}				
 		/*
 		add_log("%s %llx", GWorld->GetFullName().c_str(), GWorld);

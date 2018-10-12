@@ -8,6 +8,7 @@
 
 #include "ACC_Basic.hpp"
 #include "ACC_AC2_classes.hpp"
+#include "ACC_Engine_classes.hpp"
 
 namespace SDK
 {

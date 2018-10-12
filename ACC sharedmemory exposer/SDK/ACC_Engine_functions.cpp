@@ -22697,28 +22697,6 @@ void APlayerController::ActivateTouchInterface(class UTouchInterface* NewTouchIn
 }
 
 
-// Function Engine.CameraActor.GetAutoActivatePlayerIndex
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// int                            ReturnValue                    (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
-
-int ACameraActor::GetAutoActivatePlayerIndex()
-{
-	static auto fn = UObject::FindObject<UFunction>("Function Engine.CameraActor.GetAutoActivatePlayerIndex");
-
-	ACameraActor_GetAutoActivatePlayerIndex_Params params;
-
-	auto flags = fn->FunctionFlags;
-	fn->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(fn, &params);
-
-	fn->FunctionFlags = flags;
-
-	return params.ReturnValue;
-}
-
-
 // Function Engine.GameInstance.ReceiveShutdown
 // (Event, Public, BlueprintEvent)
 
@@ -25297,6 +25275,28 @@ struct FString UAnimNotifyState::GetNotifyName()
 	static auto fn = UObject::FindObject<UFunction>("Function Engine.AnimNotifyState.GetNotifyName");
 
 	UAnimNotifyState_GetNotifyName_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+
+	return params.ReturnValue;
+}
+
+
+// Function Engine.CameraActor.GetAutoActivatePlayerIndex
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// int                            ReturnValue                    (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+
+int ACameraActor::GetAutoActivatePlayerIndex()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function Engine.CameraActor.GetAutoActivatePlayerIndex");
+
+	ACameraActor_GetAutoActivatePlayerIndex_Params params;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;

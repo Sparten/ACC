@@ -15,7 +15,7 @@ namespace SDK
 //---------------------------------------------------------------------------
 
 // BlueprintGeneratedClass BP_GameInstance.BP_GameInstance_C
-// 0x0000 (0x09F8 - 0x09F8)
+// 0x0000 (0x0AD0 - 0x0AD0)
 class UBP_GameInstance_C : public UAcGameInstance
 {
 public:

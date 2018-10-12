@@ -797,6 +797,11 @@ struct UAcPresetManager_GetPresetList_Params
 	TArray<struct FName>                               List;                                                     // (Parm, OutParm, ZeroConstructor)
 };
 
+// Function AC2.AcRaceGameMode.ShowPostSessionTimeNotification
+struct AAcRaceGameMode_ShowPostSessionTimeNotification_Params
+{
+};
+
 // Function AC2.AcRaceGameMode.Proceed
 struct AAcRaceGameMode_Proceed_Params
 {
@@ -812,6 +817,12 @@ struct AAcRaceGameMode_getViewLibrary_Params
 struct AAcRaceGameMode_GetSunPitch_Params
 {
 	float                                              ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+};
+
+// Function AC2.AcRaceGameMode.GetRaceRatingsManager
+struct AAcRaceGameMode_GetRaceRatingsManager_Params
+{
+	class URaceRatingsManager*                         ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
 };
 
 // Function AC2.AcRaceGameMode.GetPlayerCarAvatar
@@ -831,22 +842,10 @@ struct AAcRaceGameMode_BPPhysicsPause_Params
 	bool                                               bPause;                                                   // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
-// Function AC2.AcRaceGameState.SetRainGlobalLevel
-struct AAcRaceGameState_SetRainGlobalLevel_Params
-{
-	float                                              Value;                                                    // (Parm, ZeroConstructor, IsPlainOldData)
-};
-
 // Function AC2.AcRaceGameState.SetMainVolume
 struct AAcRaceGameState_SetMainVolume_Params
 {
 	float                                              Volume;                                                   // (Parm, ZeroConstructor, IsPlainOldData)
-};
-
-// Function AC2.AcRaceGameState.SetCloudGlobalLevel
-struct AAcRaceGameState_SetCloudGlobalLevel_Params
-{
-	float                                              Value;                                                    // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
 // Function AC2.AcRaceGameState.SetAudioVCA
@@ -1072,6 +1071,11 @@ struct UBestLapNotificationWidget_PlayShowupAnimation_Params
 {
 };
 
+// Function AC2.BlackPage.FadeAnimationFinished
+struct UBlackPage_FadeAnimationFinished_Params
+{
+};
+
 // Function AC2.CarAudio.StopSounds
 struct UCarAudio_StopSounds_Params
 {
@@ -1086,6 +1090,7 @@ struct UCarAudio_ResumeSounds_Params
 struct ACarAvatar_TeleportCar_Params
 {
 	class AAcPlayerStart*                              PlayerStart;                                              // (ConstParm, Parm, ZeroConstructor, IsPlainOldData)
+	bool                                               resetCar;                                                 // (ConstParm, Parm, ZeroConstructor, IsPlainOldData)
 };
 
 // Function AC2.CarAvatar.StopSounds
@@ -1218,6 +1223,12 @@ struct ACarAvatar_GetSuspPos_Params
 
 // Function AC2.CarAvatar.GetSteer
 struct ACarAvatar_GetSteer_Params
+{
+	float                                              ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+};
+
+// Function AC2.CarAvatar.GetSpeedMPH
+struct ACarAvatar_GetSpeedMPH_Params
 {
 	float                                              ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
 };
@@ -1370,6 +1381,11 @@ struct UCarSelectionPage_StopSequence_Params
 {
 };
 
+// Function AC2.CarSelectionPage.SetStartCamera
+struct UCarSelectionPage_SetStartCamera_Params
+{
+};
+
 // Function AC2.CarSelectionPage.PlaySequence
 struct UCarSelectionPage_PlaySequence_Params
 {
@@ -1377,6 +1393,11 @@ struct UCarSelectionPage_PlaySequence_Params
 
 // Function AC2.CarSelectionPage.FilterBy
 struct UCarSelectionPage_FilterBy_Params
+{
+};
+
+// Function AC2.CarSelectionPage.ExitShowroom
+struct UCarSelectionPage_ExitShowroom_Params
 {
 };
 
@@ -1476,6 +1497,12 @@ struct UGenericInputItem_GoCancel_Params
 // Function AC2.GenericInputItem.GoAdvanced
 struct UGenericInputItem_GoAdvanced_Params
 {
+};
+
+// Function AC2.GenericSelectorItem.SliderValueChanged
+struct UGenericSelectorItem_SliderValueChanged_Params
+{
+	float                                              Value;                                                    // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
 // Function AC2.GenericSelectorItem.ReleasedRight
@@ -1863,6 +1890,24 @@ struct UOnlineServices_GetSteamAchievement_Params
 	struct FFakeSteamAchievement                       ReturnValue;                                              // (Parm, OutParm, ReturnParm)
 };
 
+// Function AC2.PausePageContainer.ToggleBlurStrength
+struct UPausePageContainer_ToggleBlurStrength_Params
+{
+	bool                                               isStrong;                                                 // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
+// Function AC2.PausePageContainer.SetTitleText
+struct UPausePageContainer_SetTitleText_Params
+{
+	struct FText                                       TextValue;                                                // (Parm)
+};
+
+// Function AC2.PausePageContainer.SetBlurStrength
+struct UPausePageContainer_SetBlurStrength_Params
+{
+	float                                              blurStrength;                                             // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
 // Function AC2.PlayerCarController.UseAutoPitstopRequest
 struct APlayerCarController_UseAutoPitstopRequest_Params
 {
@@ -1928,11 +1973,6 @@ struct APlayerCarController_acc_TestFastLane_Params
 	int                                                CarIndex;                                                 // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
-// Function AC2.PlayerCarController.acc_TeleportAllToPit
-struct APlayerCarController_acc_TeleportAllToPit_Params
-{
-};
-
 // Function AC2.PlayerCarController.acc_SwapDriverInstant
 struct APlayerCarController_acc_SwapDriverInstant_Params
 {
@@ -1958,6 +1998,17 @@ struct APlayerCarController_acc_setTC_Params
 	unsigned char                                      Level;                                                    // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
+// Function AC2.PlayerCarController.acc_setSessionOver
+struct APlayerCarController_acc_setSessionOver_Params
+{
+};
+
+// Function AC2.PlayerCarController.acc_setDrivethruPenaltyToCarindex
+struct APlayerCarController_acc_setDrivethruPenaltyToCarindex_Params
+{
+	uint16_t                                           CarIndex;                                                 // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
 // Function AC2.PlayerCarController.acc_setABS
 struct APlayerCarController_acc_setABS_Params
 {
@@ -1980,6 +2031,13 @@ struct APlayerCarController_acc_RecordMicroSectorTimes_Params
 {
 };
 
+// Function AC2.PlayerCarController.acc_pitStopWindowTime
+struct APlayerCarController_acc_pitStopWindowTime_Params
+{
+	bool                                               IsOpen;                                                   // (Parm, ZeroConstructor, IsPlainOldData)
+	double                                             addTime;                                                  // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
 // Function AC2.PlayerCarController.acc_DetachControllers
 struct APlayerCarController_acc_DetachControllers_Params
 {
@@ -1989,6 +2047,31 @@ struct APlayerCarController_acc_DetachControllers_Params
 struct APlayerCarController_acc_DecreaseLapCount_Params
 {
 	int                                                CarIndex;                                                 // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
+// Function AC2.PlayerCarController.acc_carUpdatePitStrategy
+struct APlayerCarController_acc_carUpdatePitStrategy_Params
+{
+	uint16_t                                           CarIndex;                                                 // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
+// Function AC2.PlayerCarController.acc_carStopOnPitzone
+struct APlayerCarController_acc_carStopOnPitzone_Params
+{
+	uint16_t                                           CarIndex;                                                 // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
+// Function AC2.PlayerCarController.acc_carEngineOn
+struct APlayerCarController_acc_carEngineOn_Params
+{
+	uint16_t                                           CarIndex;                                                 // (Parm, ZeroConstructor, IsPlainOldData)
+	bool                                               Value;                                                    // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
+// Function AC2.PlayerCarController.acc_carDisqualifyCar
+struct APlayerCarController_acc_carDisqualifyCar_Params
+{
+	uint16_t                                           CarIndex;                                                 // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
 // Function AC2.PlayerCarController.acc_CancelPitstop
@@ -2137,6 +2220,41 @@ struct URaceNotificationManagerWidget_StartIntroForCurrentAnimation_Params
 
 // Function AC2.RaceNotificationManagerWidget.EndCurrentAnimation
 struct URaceNotificationManagerWidget_EndCurrentAnimation_Params
+{
+};
+
+// Function AC2.RacePausePageBase.GoToSetup
+struct URacePausePageBase_GoToSetup_Params
+{
+};
+
+// Function AC2.RacePausePageBase.GoToResults
+struct URacePausePageBase_GoToResults_Params
+{
+};
+
+// Function AC2.RacePausePageBase.GoToOptions
+struct URacePausePageBase_GoToOptions_Params
+{
+};
+
+// Function AC2.RacePausePageBase.GoToMain
+struct URacePausePageBase_GoToMain_Params
+{
+};
+
+// Function AC2.RacePausePageBase.GoToHotlapLeaderboard
+struct URacePausePageBase_GoToHotlapLeaderboard_Params
+{
+};
+
+// Function AC2.RacePausePageBase.GoToFOV
+struct URacePausePageBase_GoToFOV_Params
+{
+};
+
+// Function AC2.RacePausePageBase.ExitPausePage
+struct URacePausePageBase_ExitPausePage_Params
 {
 };
 
@@ -2351,6 +2469,21 @@ struct UReplayHUD_DecreaseSpeedClick_Params
 {
 };
 
+// Function AC2.SetupManager.GetSetupList
+struct USetupManager_GetSetupList_Params
+{
+	TArray<struct FName>                               List;                                                     // (Parm, OutParm, ZeroConstructor)
+	bool                                               ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+};
+
+// Function AC2.SetupManager.GetSetup
+struct USetupManager_GetSetup_Params
+{
+	struct FName                                       RowName;                                                  // (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData)
+	struct FCarSetup                                   Destination;                                              // (Parm, OutParm, ReferenceParm)
+	bool                                               ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+};
+
 // Function AC2.SetupManager.GetDamperLutList
 struct USetupManager_GetDamperLutList_Params
 {
@@ -2366,6 +2499,11 @@ struct USetupManager_GetDamperLut_Params
 	struct FDamperLut                                  Destination;                                              // (Parm, OutParm, ReferenceParm)
 	int                                                Axle;                                                     // (Parm, ZeroConstructor, IsPlainOldData)
 	bool                                               ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+};
+
+// Function AC2.SetupPage.OpenYesNoPopup
+struct USetupPage_OpenYesNoPopup_Params
+{
 };
 
 // Function AC2.SetupPage.OpenLoadSaveDialogBox
@@ -2475,6 +2613,42 @@ struct USpecialEventsPage_OnHotlapData_Params
 	struct FOnlineServicesHotlapUpdate                 rankUpdate;                                               // (ConstParm, Parm, OutParm, ReferenceParm)
 	TArray<struct FOnlineServicesHotlapEntry>          entries;                                                  // (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm)
 	bool                                               ignoreMe;                                                 // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
+// Function AC2.SpecialEventsPage.ClickRightShoulder
+struct USpecialEventsPage_ClickRightShoulder_Params
+{
+};
+
+// Function AC2.SpecialEventsPage.ClickPreviousPage
+struct USpecialEventsPage_ClickPreviousPage_Params
+{
+};
+
+// Function AC2.SpecialEventsPage.ClickNextPage
+struct USpecialEventsPage_ClickNextPage_Params
+{
+};
+
+// Function AC2.SpecialEventsPage.ClickLeftShoulder
+struct USpecialEventsPage_ClickLeftShoulder_Params
+{
+};
+
+// Function AC2.TimeGraphPanel.DrawLinesThick
+struct UTimeGraphPanel_DrawLinesThick_Params
+{
+	struct FPaintContext                               Context;                                                  // (Parm, OutParm, ReferenceParm)
+	TArray<struct FVector2D>                           Points;                                                   // (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm)
+	struct FLinearColor                                Tint;                                                     // (Parm, IsPlainOldData)
+	float                                              Thickness;                                                // (Parm, ZeroConstructor, IsPlainOldData)
+	bool                                               bAntiAlias;                                               // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
+// Function AC2.TimeTable.OnItemFocused
+struct UTimeTable_OnItemFocused_Params
+{
+	class UTimeTableItem*                              Source;                                                   // (Parm, ZeroConstructor, InstancedReference, IsPlainOldData)
 };
 
 // Function AC2.TrackAvatar.UpdateGarageLights
@@ -2599,6 +2773,12 @@ struct UViewOptionsLibrary_SetTemporalAAEnabled_Params
 	bool                                               Value;                                                    // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
+// Function AC2.ViewOptionsLibrary.SetSharpen
+struct UViewOptionsLibrary_SetSharpen_Params
+{
+	float                                              Value;                                                    // (Parm, ZeroConstructor, IsPlainOldData)
+};
+
 // Function AC2.ViewOptionsLibrary.SetSetting
 struct UViewOptionsLibrary_SetSetting_Params
 {
@@ -2643,6 +2823,7 @@ struct UViewOptionsLibrary_SaveToFile_Params
 	bool                                               AATemporal;                                               // (Parm, ZeroConstructor, IsPlainOldData)
 	float                                              ColorSaturation;                                          // (Parm, ZeroConstructor, IsPlainOldData)
 	bool                                               isHDR;                                                    // (Parm, ZeroConstructor, IsPlainOldData)
+	float                                              sharpen;                                                  // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
 // Function AC2.ViewOptionsLibrary.SaveSettings
@@ -2682,6 +2863,12 @@ struct UViewOptionsLibrary_GetValue_Params
 struct UViewOptionsLibrary_GetTemporalAAEnabled_Params
 {
 	bool                                               ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+};
+
+// Function AC2.ViewOptionsLibrary.GetSharpen
+struct UViewOptionsLibrary_GetSharpen_Params
+{
+	float                                              ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
 };
 
 // Function AC2.ViewOptionsLibrary.GetSetting
@@ -2774,6 +2961,7 @@ struct UViewOptionsSaves_SaveGraphicOptions_Params
 	bool                                               isTemporal;                                               // (Parm, ZeroConstructor, IsPlainOldData)
 	float                                              colourSaturation;                                         // (Parm, ZeroConstructor, IsPlainOldData)
 	bool                                               IsHDREnabled;                                             // (Parm, ZeroConstructor, IsPlainOldData)
+	float                                              sharpness;                                                // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
 // Function AC2.ViewOptionsSaves.GetTemporalEnabled

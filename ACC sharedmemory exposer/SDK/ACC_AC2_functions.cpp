@@ -2739,6 +2739,24 @@ void UAcPresetManager::GetPresetList(EPresetType PresetType, TArray<struct FName
 }
 
 
+// Function AC2.AcRaceGameMode.ShowPostSessionTimeNotification
+// (Final, Native, Public, BlueprintCallable)
+
+void AAcRaceGameMode::ShowPostSessionTimeNotification()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.AcRaceGameMode.ShowPostSessionTimeNotification");
+
+	AAcRaceGameMode_ShowPostSessionTimeNotification_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
 // Function AC2.AcRaceGameMode.Proceed
 // (Final, Native, Public, BlueprintCallable)
 
@@ -2789,6 +2807,28 @@ float AAcRaceGameMode::GetSunPitch()
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.AcRaceGameMode.GetSunPitch");
 
 	AAcRaceGameMode_GetSunPitch_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+
+	return params.ReturnValue;
+}
+
+
+// Function AC2.AcRaceGameMode.GetRaceRatingsManager
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class URaceRatingsManager*     ReturnValue                    (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+
+class URaceRatingsManager* AAcRaceGameMode::GetRaceRatingsManager()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.AcRaceGameMode.GetRaceRatingsManager");
+
+	AAcRaceGameMode_GetRaceRatingsManager_Params params;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -2861,27 +2901,6 @@ void AAcRaceGameMode::BPPhysicsPause(bool bPause)
 }
 
 
-// Function AC2.AcRaceGameState.SetRainGlobalLevel
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// float                          Value                          (Parm, ZeroConstructor, IsPlainOldData)
-
-void AAcRaceGameState::SetRainGlobalLevel(float Value)
-{
-	static auto fn = UObject::FindObject<UFunction>("Function AC2.AcRaceGameState.SetRainGlobalLevel");
-
-	AAcRaceGameState_SetRainGlobalLevel_Params params;
-	params.Value = Value;
-
-	auto flags = fn->FunctionFlags;
-	fn->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(fn, &params);
-
-	fn->FunctionFlags = flags;
-}
-
-
 // Function AC2.AcRaceGameState.SetMainVolume
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -2893,27 +2912,6 @@ void AAcRaceGameState::SetMainVolume(float Volume)
 
 	AAcRaceGameState_SetMainVolume_Params params;
 	params.Volume = Volume;
-
-	auto flags = fn->FunctionFlags;
-	fn->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(fn, &params);
-
-	fn->FunctionFlags = flags;
-}
-
-
-// Function AC2.AcRaceGameState.SetCloudGlobalLevel
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// float                          Value                          (Parm, ZeroConstructor, IsPlainOldData)
-
-void AAcRaceGameState::SetCloudGlobalLevel(float Value)
-{
-	static auto fn = UObject::FindObject<UFunction>("Function AC2.AcRaceGameState.SetCloudGlobalLevel");
-
-	AAcRaceGameState_SetCloudGlobalLevel_Params params;
-	params.Value = Value;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -3689,6 +3687,24 @@ void UBestLapNotificationWidget::PlayShowupAnimation()
 }
 
 
+// Function AC2.BlackPage.FadeAnimationFinished
+// (Final, Native, Protected)
+
+void UBlackPage::FadeAnimationFinished()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.BlackPage.FadeAnimationFinished");
+
+	UBlackPage_FadeAnimationFinished_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
 // Function AC2.CarAudio.StopSounds
 // (Final, Native, Public, BlueprintCallable)
 
@@ -3729,13 +3745,15 @@ void UCarAudio::ResumeSounds()
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
 // class AAcPlayerStart*          PlayerStart                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData)
+// bool                           resetCar                       (ConstParm, Parm, ZeroConstructor, IsPlainOldData)
 
-void ACarAvatar::TeleportCar(class AAcPlayerStart* PlayerStart)
+void ACarAvatar::TeleportCar(class AAcPlayerStart* PlayerStart, bool resetCar)
 {
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.CarAvatar.TeleportCar");
 
 	ACarAvatar_TeleportCar_Params params;
 	params.PlayerStart = PlayerStart;
+	params.resetCar = resetCar;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -4201,6 +4219,28 @@ float ACarAvatar::GetSteer()
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.CarAvatar.GetSteer");
 
 	ACarAvatar_GetSteer_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+
+	return params.ReturnValue;
+}
+
+
+// Function AC2.CarAvatar.GetSpeedMPH
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// float                          ReturnValue                    (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+
+float ACarAvatar::GetSpeedMPH()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.CarAvatar.GetSpeedMPH");
+
+	ACarAvatar_GetSpeedMPH_Params params;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -4747,6 +4787,24 @@ void UCarSelectionPage::StopSequence()
 }
 
 
+// Function AC2.CarSelectionPage.SetStartCamera
+// (Final, Native, Private, BlueprintCallable)
+
+void UCarSelectionPage::SetStartCamera()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.CarSelectionPage.SetStartCamera");
+
+	UCarSelectionPage_SetStartCamera_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
 // Function AC2.CarSelectionPage.PlaySequence
 // (Event, Public, BlueprintEvent)
 
@@ -4772,6 +4830,24 @@ void UCarSelectionPage::FilterBy()
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.CarSelectionPage.FilterBy");
 
 	UCarSelectionPage_FilterBy_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.CarSelectionPage.ExitShowroom
+// (Final, Native, Private)
+
+void UCarSelectionPage::ExitShowroom()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.CarSelectionPage.ExitShowroom");
+
+	UCarSelectionPage_ExitShowroom_Params params;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -5116,6 +5192,27 @@ void UGenericInputItem::GoAdvanced()
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.GenericInputItem.GoAdvanced");
 
 	UGenericInputItem_GoAdvanced_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.GenericSelectorItem.SliderValueChanged
+// (Final, Native, Protected)
+// Parameters:
+// float                          Value                          (Parm, ZeroConstructor, IsPlainOldData)
+
+void UGenericSelectorItem::SliderValueChanged(float Value)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.GenericSelectorItem.SliderValueChanged");
+
+	UGenericSelectorItem_SliderValueChanged_Params params;
+	params.Value = Value;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -6425,6 +6522,69 @@ struct FFakeSteamAchievement UOnlineServices::GetSteamAchievement(int ID)
 }
 
 
+// Function AC2.PausePageContainer.ToggleBlurStrength
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                           isStrong                       (Parm, ZeroConstructor, IsPlainOldData)
+
+void UPausePageContainer::ToggleBlurStrength(bool isStrong)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PausePageContainer.ToggleBlurStrength");
+
+	UPausePageContainer_ToggleBlurStrength_Params params;
+	params.isStrong = isStrong;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.PausePageContainer.SetTitleText
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// struct FText                   TextValue                      (Parm)
+
+void UPausePageContainer::SetTitleText(const struct FText& TextValue)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PausePageContainer.SetTitleText");
+
+	UPausePageContainer_SetTitleText_Params params;
+	params.TextValue = TextValue;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.PausePageContainer.SetBlurStrength
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// float                          blurStrength                   (Parm, ZeroConstructor, IsPlainOldData)
+
+void UPausePageContainer::SetBlurStrength(float blurStrength)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PausePageContainer.SetBlurStrength");
+
+	UPausePageContainer_SetBlurStrength_Params params;
+	params.blurStrength = blurStrength;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
 // Function AC2.PlayerCarController.UseAutoPitstopRequest
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -6657,24 +6817,6 @@ void APlayerCarController::acc_TestFastLane(int CarIndex)
 }
 
 
-// Function AC2.PlayerCarController.acc_TeleportAllToPit
-// (Final, Exec, Native, Public)
-
-void APlayerCarController::acc_TeleportAllToPit()
-{
-	static auto fn = UObject::FindObject<UFunction>("Function AC2.PlayerCarController.acc_TeleportAllToPit");
-
-	APlayerCarController_acc_TeleportAllToPit_Params params;
-
-	auto flags = fn->FunctionFlags;
-	fn->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(fn, &params);
-
-	fn->FunctionFlags = flags;
-}
-
-
 // Function AC2.PlayerCarController.acc_SwapDriverInstant
 // (Final, Exec, Native, Public)
 // Parameters:
@@ -6750,6 +6892,45 @@ void APlayerCarController::acc_setTC(unsigned char Level)
 
 	APlayerCarController_acc_setTC_Params params;
 	params.Level = Level;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.PlayerCarController.acc_setSessionOver
+// (Final, Exec, Native, Public)
+
+void APlayerCarController::acc_setSessionOver()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PlayerCarController.acc_setSessionOver");
+
+	APlayerCarController_acc_setSessionOver_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.PlayerCarController.acc_setDrivethruPenaltyToCarindex
+// (Final, Exec, Native, Public)
+// Parameters:
+// uint16_t                       CarIndex                       (Parm, ZeroConstructor, IsPlainOldData)
+
+void APlayerCarController::acc_setDrivethruPenaltyToCarindex(uint16_t CarIndex)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PlayerCarController.acc_setDrivethruPenaltyToCarindex");
+
+	APlayerCarController_acc_setDrivethruPenaltyToCarindex_Params params;
+	params.CarIndex = CarIndex;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -6838,6 +7019,29 @@ void APlayerCarController::acc_RecordMicroSectorTimes()
 }
 
 
+// Function AC2.PlayerCarController.acc_pitStopWindowTime
+// (Final, Exec, Native, Public)
+// Parameters:
+// bool                           IsOpen                         (Parm, ZeroConstructor, IsPlainOldData)
+// double                         addTime                        (Parm, ZeroConstructor, IsPlainOldData)
+
+void APlayerCarController::acc_pitStopWindowTime(bool IsOpen, double addTime)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PlayerCarController.acc_pitStopWindowTime");
+
+	APlayerCarController_acc_pitStopWindowTime_Params params;
+	params.IsOpen = IsOpen;
+	params.addTime = addTime;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
 // Function AC2.PlayerCarController.acc_DetachControllers
 // (Final, Exec, Native, Public)
 
@@ -6866,6 +7070,92 @@ void APlayerCarController::acc_DecreaseLapCount(int CarIndex)
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.PlayerCarController.acc_DecreaseLapCount");
 
 	APlayerCarController_acc_DecreaseLapCount_Params params;
+	params.CarIndex = CarIndex;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.PlayerCarController.acc_carUpdatePitStrategy
+// (Final, Exec, Native, Public)
+// Parameters:
+// uint16_t                       CarIndex                       (Parm, ZeroConstructor, IsPlainOldData)
+
+void APlayerCarController::acc_carUpdatePitStrategy(uint16_t CarIndex)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PlayerCarController.acc_carUpdatePitStrategy");
+
+	APlayerCarController_acc_carUpdatePitStrategy_Params params;
+	params.CarIndex = CarIndex;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.PlayerCarController.acc_carStopOnPitzone
+// (Final, Exec, Native, Public)
+// Parameters:
+// uint16_t                       CarIndex                       (Parm, ZeroConstructor, IsPlainOldData)
+
+void APlayerCarController::acc_carStopOnPitzone(uint16_t CarIndex)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PlayerCarController.acc_carStopOnPitzone");
+
+	APlayerCarController_acc_carStopOnPitzone_Params params;
+	params.CarIndex = CarIndex;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.PlayerCarController.acc_carEngineOn
+// (Final, Exec, Native, Public)
+// Parameters:
+// uint16_t                       CarIndex                       (Parm, ZeroConstructor, IsPlainOldData)
+// bool                           Value                          (Parm, ZeroConstructor, IsPlainOldData)
+
+void APlayerCarController::acc_carEngineOn(uint16_t CarIndex, bool Value)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PlayerCarController.acc_carEngineOn");
+
+	APlayerCarController_acc_carEngineOn_Params params;
+	params.CarIndex = CarIndex;
+	params.Value = Value;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.PlayerCarController.acc_carDisqualifyCar
+// (Final, Exec, Native, Public)
+// Parameters:
+// uint16_t                       CarIndex                       (Parm, ZeroConstructor, IsPlainOldData)
+
+void APlayerCarController::acc_carDisqualifyCar(uint16_t CarIndex)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.PlayerCarController.acc_carDisqualifyCar");
+
+	APlayerCarController_acc_carDisqualifyCar_Params params;
 	params.CarIndex = CarIndex;
 
 	auto flags = fn->FunctionFlags;
@@ -7394,6 +7684,132 @@ void URaceNotificationManagerWidget::EndCurrentAnimation()
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.RaceNotificationManagerWidget.EndCurrentAnimation");
 
 	URaceNotificationManagerWidget_EndCurrentAnimation_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.RacePausePageBase.GoToSetup
+// (Final, Native, Protected)
+
+void URacePausePageBase::GoToSetup()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.RacePausePageBase.GoToSetup");
+
+	URacePausePageBase_GoToSetup_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.RacePausePageBase.GoToResults
+// (Final, Native, Protected)
+
+void URacePausePageBase::GoToResults()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.RacePausePageBase.GoToResults");
+
+	URacePausePageBase_GoToResults_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.RacePausePageBase.GoToOptions
+// (Final, Native, Protected)
+
+void URacePausePageBase::GoToOptions()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.RacePausePageBase.GoToOptions");
+
+	URacePausePageBase_GoToOptions_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.RacePausePageBase.GoToMain
+// (Final, Native, Protected)
+
+void URacePausePageBase::GoToMain()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.RacePausePageBase.GoToMain");
+
+	URacePausePageBase_GoToMain_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.RacePausePageBase.GoToHotlapLeaderboard
+// (Final, Native, Protected)
+
+void URacePausePageBase::GoToHotlapLeaderboard()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.RacePausePageBase.GoToHotlapLeaderboard");
+
+	URacePausePageBase_GoToHotlapLeaderboard_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.RacePausePageBase.GoToFOV
+// (Final, Native, Protected)
+
+void URacePausePageBase::GoToFOV()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.RacePausePageBase.GoToFOV");
+
+	URacePausePageBase_GoToFOV_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.RacePausePageBase.ExitPausePage
+// (Final, Native, Protected)
+
+void URacePausePageBase::ExitPausePage()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.RacePausePageBase.ExitPausePage");
+
+	URacePausePageBase_ExitPausePage_Params params;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -8140,6 +8556,60 @@ void UReplayHUD::DecreaseSpeedClick()
 }
 
 
+// Function AC2.SetupManager.GetSetupList
+// (Final, Native, Public, HasOutParms, BlueprintCallable)
+// Parameters:
+// TArray<struct FName>           List                           (Parm, OutParm, ZeroConstructor)
+// bool                           ReturnValue                    (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+
+bool USetupManager::GetSetupList(TArray<struct FName>* List)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.SetupManager.GetSetupList");
+
+	USetupManager_GetSetupList_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+
+	if (List != nullptr)
+		*List = params.List;
+
+	return params.ReturnValue;
+}
+
+
+// Function AC2.SetupManager.GetSetup
+// (Final, Native, Public, HasOutParms, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// struct FName                   RowName                        (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData)
+// struct FCarSetup               Destination                    (Parm, OutParm, ReferenceParm)
+// bool                           ReturnValue                    (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+
+bool USetupManager::GetSetup(const struct FName& RowName, struct FCarSetup* Destination)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.SetupManager.GetSetup");
+
+	USetupManager_GetSetup_Params params;
+	params.RowName = RowName;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+
+	if (Destination != nullptr)
+		*Destination = params.Destination;
+
+	return params.ReturnValue;
+}
+
+
 // Function AC2.SetupManager.GetDamperLutList
 // (Final, Native, Public, HasOutParms, BlueprintCallable)
 // Parameters:
@@ -8195,6 +8665,24 @@ bool USetupManager::GetDamperLut(const struct FName& RowName, int Axle, struct F
 		*Destination = params.Destination;
 
 	return params.ReturnValue;
+}
+
+
+// Function AC2.SetupPage.OpenYesNoPopup
+// (Final, Native, Protected)
+
+void USetupPage::OpenYesNoPopup()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.SetupPage.OpenYesNoPopup");
+
+	USetupPage_OpenYesNoPopup_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
 }
 
 
@@ -8564,6 +9052,130 @@ void USpecialEventsPage::OnHotlapData(const struct FOnlineServicesHotlapUpdate& 
 	params.rankUpdate = rankUpdate;
 	params.entries = entries;
 	params.ignoreMe = ignoreMe;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.SpecialEventsPage.ClickRightShoulder
+// (Final, Native, Private, BlueprintCallable)
+
+void USpecialEventsPage::ClickRightShoulder()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.SpecialEventsPage.ClickRightShoulder");
+
+	USpecialEventsPage_ClickRightShoulder_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.SpecialEventsPage.ClickPreviousPage
+// (Final, Native, Protected)
+
+void USpecialEventsPage::ClickPreviousPage()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.SpecialEventsPage.ClickPreviousPage");
+
+	USpecialEventsPage_ClickPreviousPage_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.SpecialEventsPage.ClickNextPage
+// (Final, Native, Protected)
+
+void USpecialEventsPage::ClickNextPage()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.SpecialEventsPage.ClickNextPage");
+
+	USpecialEventsPage_ClickNextPage_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.SpecialEventsPage.ClickLeftShoulder
+// (Final, Native, Private, BlueprintCallable)
+
+void USpecialEventsPage::ClickLeftShoulder()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.SpecialEventsPage.ClickLeftShoulder");
+
+	USpecialEventsPage_ClickLeftShoulder_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
+// Function AC2.TimeGraphPanel.DrawLinesThick
+// (Final, Native, Static, Public, HasOutParms, HasDefaults, BlueprintCallable)
+// Parameters:
+// struct FPaintContext           Context                        (Parm, OutParm, ReferenceParm)
+// TArray<struct FVector2D>       Points                         (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm)
+// struct FLinearColor            Tint                           (Parm, IsPlainOldData)
+// float                          Thickness                      (Parm, ZeroConstructor, IsPlainOldData)
+// bool                           bAntiAlias                     (Parm, ZeroConstructor, IsPlainOldData)
+
+void UTimeGraphPanel::STATIC_DrawLinesThick(TArray<struct FVector2D> Points, const struct FLinearColor& Tint, float Thickness, bool bAntiAlias, struct FPaintContext* Context)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.TimeGraphPanel.DrawLinesThick");
+
+	UTimeGraphPanel_DrawLinesThick_Params params;
+	params.Points = Points;
+	params.Tint = Tint;
+	params.Thickness = Thickness;
+	params.bAntiAlias = bAntiAlias;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+
+	if (Context != nullptr)
+		*Context = params.Context;
+}
+
+
+// Function AC2.TimeTable.OnItemFocused
+// (Final, Native, Public)
+// Parameters:
+// class UTimeTableItem*          Source                         (Parm, ZeroConstructor, InstancedReference, IsPlainOldData)
+
+void UTimeTable::OnItemFocused(class UTimeTableItem* Source)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.TimeTable.OnItemFocused");
+
+	UTimeTable_OnItemFocused_Params params;
+	params.Source = Source;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -8992,6 +9604,27 @@ void UViewOptionsLibrary::SetTemporalAAEnabled(bool Value)
 }
 
 
+// Function AC2.ViewOptionsLibrary.SetSharpen
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// float                          Value                          (Parm, ZeroConstructor, IsPlainOldData)
+
+void UViewOptionsLibrary::SetSharpen(float Value)
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.ViewOptionsLibrary.SetSharpen");
+
+	UViewOptionsLibrary_SetSharpen_Params params;
+	params.Value = Value;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
 // Function AC2.ViewOptionsLibrary.SetSetting
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -9119,8 +9752,9 @@ bool UViewOptionsLibrary::SaveVideoSettings()
 // bool                           AATemporal                     (Parm, ZeroConstructor, IsPlainOldData)
 // float                          ColorSaturation                (Parm, ZeroConstructor, IsPlainOldData)
 // bool                           isHDR                          (Parm, ZeroConstructor, IsPlainOldData)
+// float                          sharpen                        (Parm, ZeroConstructor, IsPlainOldData)
 
-void UViewOptionsLibrary::SaveToFile(unsigned char maxCars, unsigned char mirrorQuality, bool isMBlurEnabled, bool AATemporal, float ColorSaturation, bool isHDR)
+void UViewOptionsLibrary::SaveToFile(unsigned char maxCars, unsigned char mirrorQuality, bool isMBlurEnabled, bool AATemporal, float ColorSaturation, bool isHDR, float sharpen)
 {
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.ViewOptionsLibrary.SaveToFile");
 
@@ -9131,6 +9765,7 @@ void UViewOptionsLibrary::SaveToFile(unsigned char maxCars, unsigned char mirror
 	params.AATemporal = AATemporal;
 	params.ColorSaturation = ColorSaturation;
 	params.isHDR = isHDR;
+	params.sharpen = sharpen;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -9256,6 +9891,28 @@ bool UViewOptionsLibrary::GetTemporalAAEnabled()
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.ViewOptionsLibrary.GetTemporalAAEnabled");
 
 	UViewOptionsLibrary_GetTemporalAAEnabled_Params params;
+
+	auto flags = fn->FunctionFlags;
+	fn->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+
+	return params.ReturnValue;
+}
+
+
+// Function AC2.ViewOptionsLibrary.GetSharpen
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// float                          ReturnValue                    (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
+
+float UViewOptionsLibrary::GetSharpen()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function AC2.ViewOptionsLibrary.GetSharpen");
+
+	UViewOptionsLibrary_GetSharpen_Params params;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;
@@ -9566,8 +10223,9 @@ void UViewOptionsLibrary::ApplyVSync()
 // bool                           isTemporal                     (Parm, ZeroConstructor, IsPlainOldData)
 // float                          colourSaturation               (Parm, ZeroConstructor, IsPlainOldData)
 // bool                           IsHDREnabled                   (Parm, ZeroConstructor, IsPlainOldData)
+// float                          sharpness                      (Parm, ZeroConstructor, IsPlainOldData)
 
-void UViewOptionsSaves::SaveGraphicOptions(unsigned char MirrorLevel, unsigned char maxCars, bool isBlur, bool isTemporal, float colourSaturation, bool IsHDREnabled)
+void UViewOptionsSaves::SaveGraphicOptions(unsigned char MirrorLevel, unsigned char maxCars, bool isBlur, bool isTemporal, float colourSaturation, bool IsHDREnabled, float sharpness)
 {
 	static auto fn = UObject::FindObject<UFunction>("Function AC2.ViewOptionsSaves.SaveGraphicOptions");
 
@@ -9578,6 +10236,7 @@ void UViewOptionsSaves::SaveGraphicOptions(unsigned char MirrorLevel, unsigned c
 	params.isTemporal = isTemporal;
 	params.colourSaturation = colourSaturation;
 	params.IsHDREnabled = IsHDREnabled;
+	params.sharpness = sharpness;
 
 	auto flags = fn->FunctionFlags;
 	fn->FunctionFlags |= 0x400;

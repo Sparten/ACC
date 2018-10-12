@@ -9,10 +9,10 @@
 #include "ACC_Basic.hpp"
 #include "ACC_CoreUObject_classes.hpp"
 #include "ACC_InputCore_classes.hpp"
-#include "ACC_AudioPlatformConfiguration_classes.hpp"
-#include "ACC_PacketHandler_classes.hpp"
-#include "ACC_SlateCore_classes.hpp"
 #include "ACC_Slate_classes.hpp"
+#include "ACC_SlateCore_classes.hpp"
+#include "ACC_PacketHandler_classes.hpp"
+#include "ACC_AudioPlatformConfiguration_classes.hpp"
 
 namespace SDK
 {

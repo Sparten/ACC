@@ -15,11 +15,11 @@ namespace SDK
 //---------------------------------------------------------------------------
 
 // BlueprintGeneratedClass lamborghini_huracan_gt3_2020.lamborghini_huracan_gt3_2019_C
-// 0x0008 (0x21C0 - 0x21B8)
+// 0x0008 (0x21F0 - 0x21E8)
 class Alamborghini_huracan_gt3_2019_C : public Alamborghini_huracan_gt3_C
 {
 public:
-	struct FPointerToUberGraphFrame                    UberGraphFrame;                                           // 0x21B8(0x0008) (Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame                    UberGraphFrame;                                           // 0x21E8(0x0008) (Transient, DuplicateTransient)
 
 	static UClass* StaticClass()
 	{

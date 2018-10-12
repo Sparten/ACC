@@ -205,25 +205,20 @@ public:
 class UClass : public UStruct
 {
 public:
-	unsigned char                                      UnknownData00[0x70];
-	UObject*										   ClassDefaultObject;
-	unsigned char                                      UnknownData01[0xF8];                                     // 0x0088(0x0170) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x170];                                     // 0x0088(0x0170) MISSED OFFSET
 
 	template<typename T>
 	inline T* CreateDefaultObject()
 	{
 		return static_cast<T*>(CreateDefaultObject());
 	}
-	
+
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class CoreUObject.Class");
 		return ptr;
 	}
-	inline UObject* GetDefaultObject()
-	{
-		return ClassDefaultObject;
-	}
+
 	inline UObject* CreateDefaultObject()
 	{
 		return GetVFunction<UObject*(*)(UClass*)>(this, 102)(this);

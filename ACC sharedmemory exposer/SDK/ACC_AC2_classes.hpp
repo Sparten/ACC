@@ -38,11 +38,11 @@ public:
 
 
 // Class AC2.Ac2TelemHUD
-// 0x00D0 (0x0520 - 0x0450)
+// 0x00C0 (0x0510 - 0x0450)
 class AAc2TelemHUD : public AAcChildHUD
 {
 public:
-	unsigned char                                      UnknownData00[0xD0];                                      // 0x0450(0x00D0) MISSED OFFSET
+	unsigned char                                      UnknownData00[0xC0];                                      // 0x0450(0x00C0) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -146,11 +146,11 @@ public:
 
 
 // Class AC2.AcAssistController
-// 0x0030 (0x0058 - 0x0028)
+// 0x0038 (0x0060 - 0x0028)
 class UAcAssistController : public UObject
 {
 public:
-	unsigned char                                      UnknownData00[0x30];                                      // 0x0028(0x0030) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x38];                                      // 0x0028(0x0038) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -259,7 +259,7 @@ public:
 
 
 // Class AC2.AcCarDigitalDisplay
-// 0x01B0 (0x03B8 - 0x0208)
+// 0x01A8 (0x03B0 - 0x0208)
 class UAcCarDigitalDisplay : public UUserWidget
 {
 public:
@@ -276,7 +276,7 @@ public:
 	TArray<struct FCarDigitalDisplayCanvas>            PopUps;                                                   // 0x0268(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate)
 	TArray<struct FCarDigitalDisplayNeedle>            Needles;                                                  // 0x0278(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate)
 	TArray<struct FCarDigitalDisplayLight>             lights;                                                   // 0x0288(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate)
-	unsigned char                                      UnknownData02[0x120];                                     // 0x0298(0x0120) MISSED OFFSET
+	unsigned char                                      UnknownData02[0x118];                                     // 0x0298(0x0118) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -404,7 +404,7 @@ public:
 
 
 // Class AC2.AcCarLightingSystem
-// 0x0400 (0x04F0 - 0x00F0)
+// 0x03F8 (0x04E8 - 0x00F0)
 class UAcCarLightingSystem : public UActorComponent
 {
 public:
@@ -451,7 +451,7 @@ public:
 	class UMaterialInstanceDynamic*                    FrontGlassMaterial;                                       // 0x02E8(0x0008) (ZeroConstructor, IsPlainOldData)
 	class UMaterialInstanceDynamic*                    RearGlassMaterial;                                        // 0x02F0(0x0008) (ZeroConstructor, IsPlainOldData)
 	class UMaterialInstanceDynamic*                    intAuxLightMaterial;                                      // 0x02F8(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x1F0];                                     // 0x0300(0x01F0) MISSED OFFSET
+	unsigned char                                      UnknownData02[0x1E8];                                     // 0x0300(0x01E8) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -592,6 +592,7 @@ public:
 	void EnableDriverDoor(bool isOpening);
 	void CycleWiperLevel(bool isUp);
 };
+
 
 class UAcGameInstance;
 class AGhostCarManager;
@@ -810,7 +811,7 @@ public:
 
 
 // Class AC2.AcExhaustComponent
-// 0x00E0 (0x01D0 - 0x00F0)
+// 0x00D8 (0x01C8 - 0x00F0)
 class UAcExhaustComponent : public UActorComponent
 {
 public:
@@ -838,7 +839,7 @@ public:
 	struct FBackfireFlame                              Flame_Type3;                                              // 0x014C(0x0002) (Edit, BlueprintVisible, BlueprintReadOnly)
 	struct FBackfireFlame                              Flame_Type4;                                              // 0x014E(0x0002) (Edit, BlueprintVisible, BlueprintReadOnly)
 	struct FBackfireFlame                              Flame_Type5;                                              // 0x0150(0x0002) (Edit, BlueprintVisible, BlueprintReadOnly)
-	unsigned char                                      UnknownData02[0x7E];                                      // 0x0152(0x007E) MISSED OFFSET
+	unsigned char                                      UnknownData02[0x76];                                      // 0x0152(0x0076) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -895,11 +896,14 @@ public:
 
 
 // Class AC2.AcFreeCameraActor
-// 0x0040 (0x08C0 - 0x0880)
-class AAcFreeCameraActor : public ACameraActor
+// 0x0058 (0x0380 - 0x0328)
+class AAcFreeCameraActor : public AActor
 {
 public:
-	unsigned char                                      UnknownData00[0x40];                                      // 0x0880(0x0040) MISSED OFFSET
+	class USceneComponent*                             SceneComponent;                                           // 0x0328(0x0008) (Edit, ExportObject, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
+	class UCameraComponent*                            CameraComponent;                                          // 0x0330(0x0008) (Edit, ExportObject, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
+	class UCameraComponent*                            VRCamera;                                                 // 0x0338(0x0008) (Edit, ExportObject, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x40];                                      // 0x0340(0x0040) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -911,7 +915,7 @@ public:
 
 
 // Class AC2.AcGameInstance
-// 0x0958 (0x09F8 - 0x00A0)
+// 0x0A30 (0x0AD0 - 0x00A0)
 class UAcGameInstance : public UGameInstance
 {
 public:
@@ -921,31 +925,38 @@ public:
 	class UMenuManager*                                MenuManager;                                              // 0x00B8(0x0008) (ZeroConstructor, IsPlainOldData)
 	struct FName                                       MenuLevel;                                                // 0x00C0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
 	class UClass*                                      LoadingWidgetClass;                                       // 0x00C8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      StartSessionsLoadingClass;                                // 0x00D0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      LaunchGameLoadingClass;                                   // 0x00D8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      ReturnToMenuLoadingClass;                                 // 0x00E0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      PageToLoadOnStart;                                        // 0x00E8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      ExpoModeOutroPage;                                        // 0x00F0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UUserWidget*                                 LoadingWidget;                                            // 0x00F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	struct FDebugStruct                                DebugStruct;                                              // 0x0100(0x00F0) (Edit, BlueprintVisible)
-	bool                                               isOnline;                                                 // 0x01F0(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               IsFirstLaunch;                                            // 0x01F1(0x0001) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x21E];                                     // 0x01F2(0x021E) MISSED OFFSET
-	class UFMODEvent*                                  guiEvent;                                                 // 0x0410(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UFMODEvent*                                  musicEvent;                                               // 0x0418(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
-	class UAcInputDeviceManager*                       InputDeviceManager;                                       // 0x0420(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0xC8];                                      // 0x0428(0x00C8) MISSED OFFSET
-	class UClientAvatar*                               ClientAvatar;                                             // 0x04F0(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UAcMenuData*                                 MenuData;                                                 // 0x04F8(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UOnlineServices*                             OnlineServices;                                           // 0x0500(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UAudioManager*                               AudioManager;                                             // 0x0508(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UFMODBank*                                   MasterBank;                                               // 0x0510(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UFMODBank*                                   GuiBank;                                                  // 0x0518(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UFMODBank*                                   MusicBank;                                                // 0x0520(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UExpoModeManager*                            ExpoModeManager;                                          // 0x0528(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UAcUserOptionsManager*                       UserOptions;                                              // 0x0530(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UGamePlatformServices*                       GamePlatformServices;                                     // 0x0538(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x4B8];                                     // 0x0540(0x04B8) MISSED OFFSET
+	class UTexture2D*                                  VRSplashLaunchGame;                                       // 0x00D0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  VRSplashStartSessions;                                    // 0x00D8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  VRSplashReturnToMenu;                                     // 0x00E0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      StartSessionsLoadingClass;                                // 0x00E8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      LaunchGameLoadingClass;                                   // 0x00F0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      ReturnToMenuLoadingClass;                                 // 0x00F8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      PageToLoadOnStart;                                        // 0x0100(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      ExpoModeOutroPage;                                        // 0x0108(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UUserWidget*                                 LoadingWidget;                                            // 0x0110(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	struct FDebugStruct                                DebugStruct;                                              // 0x0118(0x00E8) (Edit, BlueprintVisible)
+	struct FACVRSettings                               VRSettings;                                               // 0x0200(0x0028) (Edit)
+	class UTextureRenderTarget2D*                      WidgetTarget;                                             // 0x0228(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UAcStereoLayerComponent*                     StereoLayer;                                              // 0x0230(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x2C];                                      // 0x0238(0x002C) MISSED OFFSET
+	bool                                               isOnline;                                                 // 0x0264(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               IsFirstLaunch;                                            // 0x0265(0x0001) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x222];                                     // 0x0266(0x0222) MISSED OFFSET
+	class UFMODEvent*                                  guiEvent;                                                 // 0x0488(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UFMODEvent*                                  musicEvent;                                               // 0x0490(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
+	class UAcInputDeviceManager*                       InputDeviceManager;                                       // 0x0498(0x0008) (ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0xC8];                                      // 0x04A0(0x00C8) MISSED OFFSET
+	class UClientAvatar*                               ClientAvatar;                                             // 0x0568(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UAcMenuData*                                 MenuData;                                                 // 0x0570(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UOnlineServices*                             OnlineServices;                                           // 0x0578(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UAudioManager*                               AudioManager;                                             // 0x0580(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UFMODBank*                                   MasterBank;                                               // 0x0588(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UFMODBank*                                   GuiBank;                                                  // 0x0590(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UFMODBank*                                   MusicBank;                                                // 0x0598(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UExpoModeManager*                            ExpoModeManager;                                          // 0x05A0(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UAcUserOptionsManager*                       UserOptions;                                              // 0x05A8(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UGamePlatformServices*                       GamePlatformServices;                                     // 0x05B0(0x0008) (ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData03[0x518];                                     // 0x05B8(0x0518) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1102,7 +1113,7 @@ public:
 
 
 // Class AC2.AcLedSystem
-// 0x0240 (0x0330 - 0x00F0)
+// 0x0238 (0x0328 - 0x00F0)
 class UAcLedSystem : public UActorComponent
 {
 public:
@@ -1146,7 +1157,7 @@ public:
 	unsigned char                                      UnknownData02[0xC];                                       // 0x02CC(0x000C) MISSED OFFSET
 	float                                              FuelTimeOn;                                               // 0x02D8(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate, IsPlainOldData)
 	float                                              FuelTimeOff;                                              // 0x02DC(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate, IsPlainOldData)
-	unsigned char                                      UnknownData03[0x50];                                      // 0x02E0(0x0050) MISSED OFFSET
+	unsigned char                                      UnknownData03[0x48];                                      // 0x02E0(0x0048) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1186,7 +1197,7 @@ public:
 
 
 // Class AC2.AcMarshal
-// 0x0040 (0x0368 - 0x0328)
+// 0x0048 (0x0370 - 0x0328)
 class AAcMarshal : public AActor
 {
 public:
@@ -1202,8 +1213,9 @@ public:
 	float                                              ForcedMiddlePosition;                                     // 0x0340(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData03[0x4];                                       // 0x0344(0x0004) MISSED OFFSET
 	class UBoxComponent*                               StartBox;                                                 // 0x0348(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate, InstancedReference, IsPlainOldData)
-	class UBoxComponent*                               EndBox;                                                   // 0x0350(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData04[0x10];                                      // 0x0358(0x0010) MISSED OFFSET
+	class UBoxComponent*                               MiddleBox;                                                // 0x0350(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate, InstancedReference, IsPlainOldData)
+	class UBoxComponent*                               EndBox;                                                   // 0x0358(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData04[0x10];                                      // 0x0360(0x0010) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1242,7 +1254,7 @@ public:
 
 
 // Class AC2.AcMenuGameMode
-// 0x02D8 (0x06A0 - 0x03C8)
+// 0x0298 (0x0660 - 0x03C8)
 class AAcMenuGameMode : public AGameModeBase
 {
 public:
@@ -1252,15 +1264,13 @@ public:
 	ECarModelType                                      ScreenSaverCarModel;                                      // 0x0528(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData02[0x7];                                       // 0x0529(0x0007) MISSED OFFSET
 	struct FName                                       ScreenSaverCarName;                                       // 0x0530(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UTextureRenderTarget2D*                      WidgetTarget;                                             // 0x0538(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UAcStereoLayerComponent*                     StereoLayer;                                              // 0x0540(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcGameInstance*                             GameInstance;                                             // 0x0548(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UAcInputDeviceManager*                       InputDeviceManager;                                       // 0x0550(0x0008) (ZeroConstructor, IsPlainOldData)
-	struct FString                                     RaceGameModePath;                                         // 0x0558(0x0010) (Edit, ZeroConstructor, DisableEditOnInstance)
-	class UViewOptionsLibrary*                         ViewOptions;                                              // 0x0568(0x0008) (ZeroConstructor, IsPlainOldData)
-	TMap<ECarModelType, struct FGuiCar>                GuiCars;                                                  // 0x0570(0x0050) (ZeroConstructor)
-	class UAcRaceEventGenerator*                       RaceEventGenerator;                                       // 0x05C0(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData03[0xD8];                                      // 0x05C8(0x00D8) MISSED OFFSET
+	class UAcGameInstance*                             GameInstance;                                             // 0x0538(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UAcInputDeviceManager*                       InputDeviceManager;                                       // 0x0540(0x0008) (ZeroConstructor, IsPlainOldData)
+	struct FString                                     RaceGameModePath;                                         // 0x0548(0x0010) (Edit, ZeroConstructor, DisableEditOnInstance)
+	class UViewOptionsLibrary*                         ViewOptions;                                              // 0x0558(0x0008) (ZeroConstructor, IsPlainOldData)
+	TMap<ECarModelType, struct FGuiCar>                GuiCars;                                                  // 0x0560(0x0050) (ZeroConstructor)
+	class UAcRaceEventGenerator*                       RaceEventGenerator;                                       // 0x05B0(0x0008) (ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData03[0xA8];                                      // 0x05B8(0x00A8) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1274,7 +1284,7 @@ public:
 
 
 // Class AC2.AcMenuState
-// 0x01C0 (0x01E8 - 0x0028)
+// 0x01C8 (0x01F0 - 0x0028)
 class UAcMenuState : public USaveGame
 {
 public:
@@ -1292,10 +1302,11 @@ public:
 	ECarModelType                                      ModelType;                                                // 0x00A5(0x0001) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
 	bool                                               bUseEnduranceKit;                                         // 0x00A6(0x0001) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
 	unsigned char                                      UnknownData02[0x1];                                       // 0x00A7(0x0001) MISSED OFFSET
-	struct FAudioSave                                  audio;                                                    // 0x00A8(0x0028) (Edit, EditConst)
-	struct FGuiLoadingScreenInfo                       LoadingScreenInfo;                                        // 0x00D0(0x0110) (Edit, EditConst)
-	EGuiLanguages                                      CurrentLanguage;                                          // 0x01E0(0x0001) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
-	unsigned char                                      UnknownData03[0x7];                                       // 0x01E1(0x0007) MISSED OFFSET
+	struct FAudioSave                                  audio;                                                    // 0x00A8(0x002C) (Edit, EditConst)
+	unsigned char                                      UnknownData03[0x4];                                       // 0x00D4(0x0004) MISSED OFFSET
+	struct FGuiLoadingScreenInfo                       LoadingScreenInfo;                                        // 0x00D8(0x0110) (Edit, EditConst)
+	EGuiLanguages                                      CurrentLanguage;                                          // 0x01E8(0x0001) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
+	unsigned char                                      UnknownData04[0x7];                                       // 0x01E9(0x0007) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1307,26 +1318,26 @@ public:
 
 
 // Class AC2.AcPageBase
-// 0x0218 (0x0420 - 0x0208)
+// 0x0228 (0x0430 - 0x0208)
 class UAcPageBase : public UUserWidget
 {
 public:
-	unsigned char                                      UnknownData00[0x120];                                     // 0x0208(0x0120) MISSED OFFSET
-	class UHelpInMenu*                                 HelpWidget;                                               // 0x0328(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	bool                                               canHandleForward;                                         // 0x0330(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               canHandleBackward;                                        // 0x0331(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               HasShowroomTimer;                                         // 0x0332(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x1];                                       // 0x0333(0x0001) MISSED OFFSET
-	float                                              ShowroomTimeOut;                                          // 0x0334(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x10];                                      // 0x0338(0x0010) MISSED OFFSET
-	class ALevelSequenceActor*                         ShowroomLevelSequence;                                    // 0x0348(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	TMap<struct FName, class UClass*>                  PageClasses;                                              // 0x0350(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	unsigned char                                      UnknownData03[0x14];                                      // 0x03A0(0x0014) MISSED OFFSET
-	float                                              TimeToFirstClick;                                         // 0x03B4(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeToSecondClick;                                        // 0x03B8(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeStepFirstClick;                                       // 0x03BC(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeStepSecondClick;                                      // 0x03C0(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData04[0x5C];                                      // 0x03C4(0x005C) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x130];                                     // 0x0208(0x0130) MISSED OFFSET
+	class UHelpInMenu*                                 HelpWidget;                                               // 0x0338(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	bool                                               canHandleForward;                                         // 0x0340(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               canHandleBackward;                                        // 0x0341(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               HasShowroomTimer;                                         // 0x0342(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x1];                                       // 0x0343(0x0001) MISSED OFFSET
+	float                                              ShowroomTimeOut;                                          // 0x0344(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x10];                                      // 0x0348(0x0010) MISSED OFFSET
+	class ALevelSequenceActor*                         ShowroomLevelSequence;                                    // 0x0358(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	TMap<struct FName, class UClass*>                  PageClasses;                                              // 0x0360(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	unsigned char                                      UnknownData03[0x14];                                      // 0x03B0(0x0014) MISSED OFFSET
+	float                                              TimeToFirstClick;                                         // 0x03C4(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeToSecondClick;                                        // 0x03C8(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeStepFirstClick;                                       // 0x03CC(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeStepSecondClick;                                      // 0x03D0(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData04[0x5C];                                      // 0x03D4(0x005C) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1341,7 +1352,7 @@ public:
 
 
 // Class AC2.AcPanelBase
-// 0x02C8 (0x04D0 - 0x0208)
+// 0x02E0 (0x04E8 - 0x0208)
 class UAcPanelBase : public UUserWidget
 {
 public:
@@ -1352,19 +1363,20 @@ public:
 	bool                                               canHandleBackward;                                        // 0x025B(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData00[0x4];                                       // 0x025C(0x0004) MISSED OFFSET
 	struct FText                                       PageInfo;                                                 // 0x0260(0x0018) (Edit, BlueprintVisible)
-	int                                                PanelIndex;                                               // 0x0278(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                UpDirectionIndex;                                         // 0x027C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                LeftDirectionIndex;                                       // 0x0280(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                RightDirectionIndex;                                      // 0x0284(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                DownDirectionIndex;                                       // 0x0288(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                ShoulderLeftDirectionIndex;                               // 0x028C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                ShoulderRightDirectionIndex;                              // 0x0290(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x4];                                       // 0x0294(0x0004) MISSED OFFSET
-	class UTexture2D*                                  NormalImage;                                              // 0x0298(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UTexture2D*                                  HoveredImage;                                             // 0x02A0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UUserWidget*                                 SetupElement;                                             // 0x02A8(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	TArray<struct FText>                               HelpInfos;                                                // 0x02B0(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
-	unsigned char                                      UnknownData02[0x210];                                     // 0x02C0(0x0210) MISSED OFFSET
+	struct FString                                     PanelGroup;                                               // 0x0278(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	int                                                PanelIndex;                                               // 0x0288(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                UpDirectionIndex;                                         // 0x028C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                LeftDirectionIndex;                                       // 0x0290(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                RightDirectionIndex;                                      // 0x0294(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                DownDirectionIndex;                                       // 0x0298(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                ShoulderLeftDirectionIndex;                               // 0x029C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                ShoulderRightDirectionIndex;                              // 0x02A0(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x4];                                       // 0x02A4(0x0004) MISSED OFFSET
+	class UTexture2D*                                  NormalImage;                                              // 0x02A8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  HoveredImage;                                             // 0x02B0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UUserWidget*                                 SetupElement;                                             // 0x02B8(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	TArray<struct FText>                               HelpInfos;                                                // 0x02C0(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	unsigned char                                      UnknownData02[0x218];                                     // 0x02D0(0x0218) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1512,9 +1524,9 @@ class AACPlayerCameraManager : public APlayerCameraManager
 public:
 	class AAcFreeCameraActor*                          FreeCameraActor;                                          // 0x25F0(0x0008) (ZeroConstructor, IsPlainOldData)
 	class ACameraActor*                                HelicamActor;                                             // 0x25F8(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x40];                                      // 0x2600(0x0040) MISSED OFFSET
-	struct FACCameraSettings                           CameraSettings;                                           // 0x2640(0x0068) (Edit)
-	unsigned char                                      UnknownData01[0xD8];                                      // 0x26A8(0x00D8) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x48];                                      // 0x2600(0x0048) MISSED OFFSET
+	struct FACCameraSettings                           CameraSettings;                                           // 0x2648(0x0068) (Edit)
+	unsigned char                                      UnknownData01[0xD0];                                      // 0x26B0(0x00D0) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1533,7 +1545,7 @@ public:
 
 
 // Class AC2.AcPlayerStart
-// 0x0020 (0x0378 - 0x0358)
+// 0x0028 (0x0380 - 0x0358)
 class AAcPlayerStart : public APlayerStart
 {
 public:
@@ -1544,7 +1556,7 @@ public:
 	bool                                               IsSharedZone;                                             // 0x035C(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
 	bool                                               IsSecondaryZone;                                          // 0x035D(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      SharedWithPosition;                                       // 0x035E(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x19];                                      // 0x035F(0x0019) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x21];                                      // 0x035F(0x0021) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1632,36 +1644,38 @@ public:
 	float                                              AiRainIntensityRandomVariation;                           // 0x03E0(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData00[0x4];                                       // 0x03E4(0x0004) MISSED OFFSET
 	class UClass*                                      PausePage;                                                // 0x03E8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      TransitionPageClass;                                      // 0x03F0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UClass*                                      IntroPageClass;                                           // 0x03F8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UClass*                                      EndPageClass;                                             // 0x0400(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UClass*                                      ReplayPageClass;                                          // 0x0408(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              EndSessionReplayMinSeconds;                               // 0x0410(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              EndSessionReplayOffsetSeconds;                            // 0x0414(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UDataTable*                                  AudioComms;                                               // 0x0418(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UDataTable*                                  HighLigthEvents;                                          // 0x0420(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UPhysicsSettingsAC*                          PhysicsSettings;                                          // 0x0428(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UTextureRenderTarget2D*                      WidgetTarget;                                             // 0x0430(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UAcStereoLayerComponent*                     StereoLayer;                                              // 0x0438(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class AAiCarController*                            aiTeammate;                                               // 0x0440(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UAcRaceManager*                              ueRaceManager;                                            // 0x0448(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UAcParticlesManager*                         ParticlesManager;                                         // 0x0450(0x0008) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UMaterialParameterCollection*                MaterialParameterCollection;                              // 0x0458(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UClass*                                      PitstopClass;                                             // 0x0460(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UClass*                                      DummyCarClass;                                            // 0x0468(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UClass*                                      IdealLineClass;                                           // 0x0470(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UFMODBank*                                   Accessories;                                              // 0x0478(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UFMODBank*                                   Environment;                                              // 0x0480(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UFMODBank*                                   Damage;                                                   // 0x0488(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UFMODBank*                                   AudioCommsBank;                                           // 0x0490(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UClass*                                      GhostCarManager;                                          // 0x0498(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UViewOptionsLibrary*                         ViewOptions;                                              // 0x04A0(0x0008) (ZeroConstructor, IsPlainOldData)
-	struct FVector2D                                   yellowFlagLimitSpeeds;                                    // 0x04A8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, DisableEditOnInstance, IsPlainOldData)
-	struct FVector2D                                   yellowFlagLimitRelative;                                  // 0x04B0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, DisableEditOnInstance, IsPlainOldData)
-	float                                              blueFlagLimit;                                            // 0x04B8(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              blueFlagDistance;                                         // 0x04BC(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	uintptr_t										   GameInstance;
-	AGameStateBase*									   RaceGameState;
+	class UClass*                                      StartPage;                                                // 0x03F0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      TransitionPageClass;                                      // 0x03F8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UClass*                                      IntroPageClass;                                           // 0x0400(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UClass*                                      EndPageClass;                                             // 0x0408(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UClass*                                      PostSessionPageClass;                                     // 0x0410(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UClass*                                      ReplayPageClass;                                          // 0x0418(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              EndSessionReplayMinSeconds;                               // 0x0420(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              EndSessionReplayOffsetSeconds;                            // 0x0424(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UDataTable*                                  AudioComms;                                               // 0x0428(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UDataTable*                                  HighLigthEvents;                                          // 0x0430(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UPhysicsSettingsAC*                          PhysicsSettings;                                          // 0x0438(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UTextureRenderTarget2D*                      HUDWidgetTarget;                                          // 0x0440(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UAcStereoLayerComponent*                     HUDStereoLayer;                                           // 0x0448(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class AAiCarController*                            aiTeammate;                                               // 0x0450(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UAcRaceManager*                              ueRaceManager;                                            // 0x0458(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UAcParticlesManager*                         ParticlesManager;                                         // 0x0460(0x0008) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class URaceRatingsManager*                         RaceRatingsManager;                                       // 0x0468(0x0008) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UMaterialParameterCollection*                MaterialParameterCollection;                              // 0x0470(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UClass*                                      PitstopClass;                                             // 0x0478(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UClass*                                      DummyCarClass;                                            // 0x0480(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UClass*                                      IdealLineClass;                                           // 0x0488(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UFMODBank*                                   Accessories;                                              // 0x0490(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UFMODBank*                                   Environment;                                              // 0x0498(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UFMODBank*                                   Damage;                                                   // 0x04A0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UFMODBank*                                   AudioCommsBank;                                           // 0x04A8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UClass*                                      GhostCarManager;                                          // 0x04B0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UViewOptionsLibrary*                         ViewOptions;                                              // 0x04B8(0x0008) (ZeroConstructor, IsPlainOldData)
+	struct FVector2D                                   yellowFlagLimitSpeeds;                                    // 0x04C0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, DisableEditOnInstance, IsPlainOldData)
+	struct FVector2D                                   yellowFlagLimitRelative;                                  // 0x04C8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, DisableEditOnInstance, IsPlainOldData)
+	float                                              blueFlagLimit;                                            // 0x04D0(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              blueFlagDistance;                                         // 0x04D4(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	unsigned char                                      UnknownData08[0x10];
 	std::unique_ptr<ksRacing::RaceManager>			   raceManager;												 // TUniquePtr<ksRacing::RaceManager,TDefaultDelete<ksRacing::RaceManager> > ?
 	bool											   areControlsLocked;
 	unsigned char                                      UnknownData01[0x7];
@@ -1670,27 +1684,28 @@ public:
 	AAcPlayerStartManager*							   PlayerStartManager;
 	uintptr_t										   SunLight;
 	AAcIdealLineActor*								   idealLine;
-	unsigned char                                      UnknownData02[0x90];                                      // 0x04C0(0x00D8) MISSED OFFSET
+	unsigned char                                      UnknownData02[0x78];                                      // 0x04C0(0x00D8) MISSED OFFSET
 	class UTrackSectionServices*                       TrackSectionServices;                                     // 0x0598(0x0008) (ZeroConstructor, IsPlainOldData)
 	class UAcTeamStrategyController*                   TeamStrategyController;                                   // 0x05A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	unsigned char                                      UnknownData03[0x18];                                      // 0x05A8(0x0018) MISSED OFFSET
 	class AAudioActor*                                 AudioActor;                                               // 0x05C0(0x0008) (ZeroConstructor, IsPlainOldData)
-	class AAcSpotter*                                  spotterActor;                                             // 0x05C8(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData04[0x190];                                     // 0x05D0(0x0190) MISSED OFFSET
-	//TMap<unsigned short, ACarAvatar *>				   carAvatarMap;
+	class AAcSpotter*                                  spotterActor;                                       // 0x05C0(0x0008) (ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData04[0x198];                                     // 0x05C8(0x0198) MISSED OFFSET
+
+                                       // 0x05C8(0x0008) (ZeroConstructor, IsPlainOldData)
+
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.AcRaceGameMode");
 		return ptr;
 	}
-	inline void Tick(double time)
-	{
-		return GetVFunction<void(*)(AAcRaceGameMode*, double)>(this, 131)(this, time);
-	}
 
+
+	void ShowPostSessionTimeNotification();
 	void Proceed();
 	class UViewOptionsLibrary* getViewLibrary();
 	float GetSunPitch();
+	class URaceRatingsManager* GetRaceRatingsManager();
 	class ACarAvatar* GetPlayerCarAvatar();
 	void CloseLevel();
 	void BPPhysicsPause(bool bPause);
@@ -1733,13 +1748,14 @@ public:
 	int                                                NumOpponentsVolumeReductionExt;                           // 0x03E4(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	float                                              OpponentListenerReductionFactorExt;                       // 0x03E8(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	float                                              TestMinOpponentDirt;                                      // 0x03EC(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               LogAudio;                                                 // 0x03F0(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               EngineExtEnabled;                                         // 0x03F1(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               EngineIntEnabled;                                         // 0x03F2(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               BodyWorkEnabled;                                          // 0x03F3(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               WheelEnabled;                                             // 0x03F4(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               WindEnabled;                                              // 0x03F5(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x2];                                       // 0x03F6(0x0002) MISSED OFFSET
+	EAudioLog                                          LogAudio;                                                 // 0x03F0(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               DebugAudio;                                               // 0x03F1(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               EngineExtEnabled;                                         // 0x03F2(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               EngineIntEnabled;                                         // 0x03F3(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               BodyWorkEnabled;                                          // 0x03F4(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               WheelEnabled;                                             // 0x03F5(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               WindEnabled;                                              // 0x03F6(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x1];                                       // 0x03F7(0x0001) MISSED OFFSET
 	class AWindDirectionalSource*                      WindSource;                                               // 0x03F8(0x0008) (ZeroConstructor, IsPlainOldData)
 	class ARainBase*                                   RainActor;                                                // 0x0400(0x0008) (ZeroConstructor, IsPlainOldData)
 	class AAcParticles*                                ParticlesActor;                                           // 0x0408(0x0008) (ZeroConstructor, IsPlainOldData)
@@ -1750,9 +1766,9 @@ public:
 		static auto ptr = UObject::FindClass("Class AC2.AcRaceGameState");
 		return ptr;
 	}
-	void SetRainGlobalLevel(float Value);
+
+
 	void SetMainVolume(float Volume);
-	void SetCloudGlobalLevel(float Value);
 	void SetAudioVCA(EAudioVCA Vca, float Volume);
 	void RestartSession();
 	void NextSession();
@@ -1772,9 +1788,7 @@ public:
 class UAcRaceManager : public UObject
 {
 public:
-	UAcGameInstance*								   gameInstance;
-	uintptr_t										   rgm;
-	unsigned char                                      UnknownData00[0x60];                                      // 0x0028(0x0070) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x70];                                      // 0x0028(0x0070) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1786,12 +1800,12 @@ public:
 
 
 // Class AC2.AcRacePlayerState
-// 0x0168 (0x0558 - 0x03F0)
+// 0x0170 (0x0560 - 0x03F0)
 class AAcRacePlayerState : public APlayerState
 {
 public:
-	struct FCarInfo                                    CarInfo;                                                  // 0x03F0(0x0098) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FDriverInfo                                 DriverInfo;                                               // 0x0488(0x00D0) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FCarInfo                                    CarInfo;                                                  // 0x03F0(0x00A0) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FDriverInfo                                 DriverInfo;                                               // 0x0490(0x00D0) (Edit, BlueprintVisible, BlueprintReadOnly)
 
 	static UClass* StaticClass()
 	{
@@ -1888,13 +1902,13 @@ public:
 
 
 // Class AC2.AcSpotter
-// 0x0118 (0x0440 - 0x0328)
+// 0x0148 (0x0470 - 0x0328)
 class AAcSpotter : public AActor
 {
 public:
 	unsigned char                                      UnknownData00[0x20];                                      // 0x0328(0x0020) MISSED OFFSET
 	class UAudioComms*                                 AudioComms;                                               // 0x0348(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0xF0];                                      // 0x0350(0x00F0) MISSED OFFSET
+	unsigned char                                      UnknownData01[0x120];                                     // 0x0350(0x0120) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1943,12 +1957,17 @@ public:
 
 
 // Class AC2.AcTeamStrategyController
-// 0x01A0 (0x0290 - 0x00F0)
+// 0x0210 (0x0300 - 0x00F0)
 class UAcTeamStrategyController : public UActorComponent
 {
 public:
-	unsigned char                                      UnknownData00[0x198];                                     // 0x00F0(0x0198) MISSED OFFSET
-	class AAcRaceGameMode*                             RaceGameMode;                                             // 0x0288(0x0008) (ZeroConstructor, IsPlainOldData)
+	struct FCarSetup                                   playerCarSetup;                                           // 0x00F0(0x0178)
+	bool                                               isSetupChanged;                                           // 0x0268(0x0001) (ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x7];                                       // 0x0269(0x0007) MISSED OFFSET
+	struct FString                                     setupName;                                                // 0x0270(0x0010) (ZeroConstructor)
+	struct FString                                     setupPreset;                                              // 0x0280(0x0010) (ZeroConstructor)
+	class AAcRaceGameMode*                             RaceGameMode;                                             // 0x0290(0x0008) (ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x68];                                      // 0x0298(0x0068) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -1960,14 +1979,14 @@ public:
 
 
 // Class AC2.AcTogglePanel
-// 0x0010 (0x04E0 - 0x04D0)
+// 0x0010 (0x04F8 - 0x04E8)
 class UAcTogglePanel : public UAcPanelBase
 {
 public:
-	bool                                               IsPanelSelected;                                          // 0x04D0(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x3];                                       // 0x04D1(0x0003) MISSED OFFSET
-	int                                                GroupIndex;                                               // 0x04D4(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x04D8(0x0008) MISSED OFFSET
+	bool                                               IsPanelSelected;                                          // 0x04E8(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x3];                                       // 0x04E9(0x0003) MISSED OFFSET
+	int                                                GroupIndex;                                               // 0x04EC(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x04F0(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2038,7 +2057,7 @@ public:
 
 
 // Class AC2.AcUserOptionsManager
-// 0x04B0 (0x04D8 - 0x0028)
+// 0x04E0 (0x0508 - 0x0028)
 class UAcUserOptionsManager : public UObject
 {
 public:
@@ -2046,9 +2065,9 @@ public:
 	struct FScriptMulticastDelegate                    OnHUDOptionsChanged;                                      // 0x0038(0x0010) (ZeroConstructor, InstancedReference, BlueprintAssignable)
 	struct FScriptMulticastDelegate                    OnGhostCarOptionsChanged;                                 // 0x0048(0x0010) (ZeroConstructor, InstancedReference, BlueprintAssignable)
 	unsigned char                                      UnknownData00[0x30];                                      // 0x0058(0x0030) MISSED OFFSET
-	struct FUserOptions                                options;                                                  // 0x0088(0x0170) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FUserOptions                                LastSavedOptions;                                         // 0x01F8(0x0170) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FUserOptions                                LastBroadcastedOptions;                                   // 0x0368(0x0170) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FUserOptions                                options;                                                  // 0x0088(0x0180) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FUserOptions                                LastSavedOptions;                                         // 0x0208(0x0180) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FUserOptions                                LastBroadcastedOptions;                                   // 0x0388(0x0180) (Edit, BlueprintVisible, BlueprintReadOnly)
 
 	static UClass* StaticClass()
 	{
@@ -2155,24 +2174,40 @@ public:
 };
 
 
+// Class AC2.AIInfoHUD
+// 0x0038 (0x0488 - 0x0450)
+class AAIInfoHUD : public AAcChildHUD
+{
+public:
+	unsigned char                                      UnknownData00[0x38];                                      // 0x0450(0x0038) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.AIInfoHUD");
+		return ptr;
+	}
+
+};
+
+
 // Class AC2.AssistsPage
-// 0x0078 (0x0498 - 0x0420)
+// 0x0078 (0x04A8 - 0x0430)
 class UAssistsPage : public UAcPageBase
 {
 public:
-	class UClass*                                      presetPopupClass;                                         // 0x0420(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0428(0x0008) MISSED OFFSET
-	class UGenericSelectorItem*                        Gear;                                                     // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        Clutch;                                                   // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        stabilityControl;                                         // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        EngineStart;                                              // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        Wiper;                                                    // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        lights;                                                   // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        PitLimiter;                                               // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        PitProcedure;                                             // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        PitRequest;                                               // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        showIdealLine;                                            // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x18];                                      // 0x0480(0x0018) MISSED OFFSET
+	class UClass*                                      presetPopupClass;                                         // 0x0430(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0438(0x0008) MISSED OFFSET
+	class UGenericSelectorItem*                        Gear;                                                     // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Clutch;                                                   // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        stabilityControl;                                         // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        EngineStart;                                              // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Wiper;                                                    // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        lights;                                                   // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        PitLimiter;                                               // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        PitProcedure;                                             // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        PitRequest;                                               // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        showIdealLine;                                            // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x18];                                      // 0x0490(0x0018) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2237,11 +2272,11 @@ public:
 
 
 // Class AC2.AudioManager
-// 0x0108 (0x0130 - 0x0028)
+// 0x0110 (0x0138 - 0x0028)
 class UAudioManager : public UObject
 {
 public:
-	unsigned char                                      UnknownData00[0x108];                                     // 0x0028(0x0108) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x110];                                     // 0x0028(0x0110) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2253,11 +2288,11 @@ public:
 
 
 // Class AC2.AudioOptionsPage
-// 0x0070 (0x0490 - 0x0420)
+// 0x0078 (0x04A8 - 0x0430)
 class UAudioOptionsPage : public UAcPageBase
 {
 public:
-	unsigned char                                      UnknownData00[0x70];                                      // 0x0420(0x0070) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x78];                                      // 0x0430(0x0078) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2269,42 +2304,43 @@ public:
 
 
 // Class AC2.BasicCar01Widget
-// 0x0148 (0x0438 - 0x02F0)
+// 0x0160 (0x0450 - 0x02F0)
 class UBasicCar01Widget : public UAcRaceWidgetBase
 {
 public:
-	class UTextBlock*                                  txtRPMS;                                                  // 0x02F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtGear;                                                  // 0x02F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtSpeed;                                                 // 0x0300(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UProgressBar*                                barRPMS;                                                  // 0x0308(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgRpms;                                                  // 0x0310(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtABSSetting;                                            // 0x0318(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtTCSetting;                                             // 0x0320(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtBBSetting;                                             // 0x0328(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x10];                                      // 0x0330(0x0010) MISSED OFFSET
-	class UProgressBar*                                barThrottle;                                              // 0x0340(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UProgressBar*                                barBrake;                                                 // 0x0348(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UProgressBar*                                barFFB;                                                   // 0x0350(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UBorder*                                     borderThrottleMinIndicator;                               // 0x0358(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UBorder*                                     borderThrottleMaxIndicator;                               // 0x0360(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UBorder*                                     borderBrakeMinIndicator;                                  // 0x0368(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UBorder*                                     borderBrakeMaxIndicator;                                  // 0x0370(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UBorder*                                     borderFFBMinIndicator;                                    // 0x0378(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UBorder*                                     borderFFBMaxIndicator;                                    // 0x0380(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	struct FLinearColor                                ThrottleIndicatorColor;                                   // 0x0388(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	struct FLinearColor                                BrakeIndicatorColor;                                      // 0x0398(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	struct FLinearColor                                PedalIndicatorAntiColor;                                  // 0x03A8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	struct FLinearColor                                FFIndicatorColor;                                         // 0x03B8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	struct FLinearColor                                FFClippingColor;                                          // 0x03C8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	struct FLinearColor                                RpmNormalColor;                                           // 0x03D8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	struct FLinearColor                                RpmSuggestedShiftColor;                                   // 0x03E8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	struct FLinearColor                                RpmLimiterColor;                                          // 0x03F8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	float                                              StartMaterialArcValue;                                    // 0x0408(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              EndMaterialArcValue;                                      // 0x040C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              FFMinLevelDisplay;                                        // 0x0410(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x4];                                       // 0x0414(0x0004) MISSED OFFSET
-	class UMaterialInstance*                           miRpms;                                                   // 0x0418(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x18];                                      // 0x0420(0x0018) MISSED OFFSET
+	class UTextBlock*                                  txtUnit;                                                  // 0x02F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRPMS;                                                  // 0x02F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtGear;                                                  // 0x0300(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtSpeed;                                                 // 0x0308(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UProgressBar*                                barRPMS;                                                  // 0x0310(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgRpms;                                                  // 0x0318(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtABSSetting;                                            // 0x0320(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtTCSetting;                                             // 0x0328(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtBBSetting;                                             // 0x0330(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x18];                                      // 0x0338(0x0018) MISSED OFFSET
+	class UProgressBar*                                barThrottle;                                              // 0x0350(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UProgressBar*                                barBrake;                                                 // 0x0358(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UProgressBar*                                barFFB;                                                   // 0x0360(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UBorder*                                     borderThrottleMinIndicator;                               // 0x0368(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UBorder*                                     borderThrottleMaxIndicator;                               // 0x0370(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UBorder*                                     borderBrakeMinIndicator;                                  // 0x0378(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UBorder*                                     borderBrakeMaxIndicator;                                  // 0x0380(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UBorder*                                     borderFFBMinIndicator;                                    // 0x0388(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UBorder*                                     borderFFBMaxIndicator;                                    // 0x0390(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	struct FLinearColor                                ThrottleIndicatorColor;                                   // 0x0398(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	struct FLinearColor                                BrakeIndicatorColor;                                      // 0x03A8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	struct FLinearColor                                PedalIndicatorAntiColor;                                  // 0x03B8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	struct FLinearColor                                FFIndicatorColor;                                         // 0x03C8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	struct FLinearColor                                FFClippingColor;                                          // 0x03D8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	struct FLinearColor                                RpmNormalColor;                                           // 0x03E8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	struct FLinearColor                                RpmSuggestedShiftColor;                                   // 0x03F8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	struct FLinearColor                                RpmLimiterColor;                                          // 0x0408(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	float                                              StartMaterialArcValue;                                    // 0x0418(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              EndMaterialArcValue;                                      // 0x041C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              FFMinLevelDisplay;                                        // 0x0420(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x4];                                       // 0x0424(0x0004) MISSED OFFSET
+	class UMaterialInstance*                           miRpms;                                                   // 0x0428(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x20];                                      // 0x0430(0x0020) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2341,10 +2377,12 @@ public:
 
 
 // Class AC2.BlackPage
-// 0x0000 (0x0420 - 0x0420)
+// 0x0018 (0x0448 - 0x0430)
 class UBlackPage : public UAcPageBase
 {
 public:
+	struct FScriptMulticastDelegate                    OnFadeAnimationFinished;                                  // 0x0430(0x0010) (ZeroConstructor, InstancedReference)
+	class UWidgetAnimation*                            FadeAnimation;                                            // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -2352,6 +2390,8 @@ public:
 		return ptr;
 	}
 
+
+	void FadeAnimationFinished();
 };
 
 
@@ -2363,7 +2403,7 @@ public:
 	float                                              MassKG;                                                   // 0x0030(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	float                                              MinimumHeight;                                            // 0x0034(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	float                                              MaxFuel;                                                  // 0x0038(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	float                                              FuelUsedPerKm;                                            // 0x003C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x003C(0x0004) MISSED OFFSET
 	class UCurveFloat*                                 PowerCurve;                                               // 0x0040(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
 	TArray<struct FTurboData>                          Turbos;                                                   // 0x0048(0x0010) (Edit, ZeroConstructor)
 
@@ -2393,7 +2433,7 @@ public:
 
 
 // Class AC2.CameraTV
-// 0x00A8 (0x03D0 - 0x0328)
+// 0x00B0 (0x03D8 - 0x0328)
 class ACameraTV : public AActor
 {
 public:
@@ -2414,7 +2454,7 @@ public:
 	float                                              ActivationDistance;                                       // 0x0368(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData01[0x4];                                       // 0x036C(0x0004) MISSED OFFSET
 	bool                                               bIsFixed;                                                 // 0x0370(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x5F];                                      // 0x0371(0x005F) MISSED OFFSET
+	unsigned char                                      UnknownData02[0x67];                                      // 0x0371(0x0067) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2470,125 +2510,122 @@ public:
 
 
 // Class AC2.CarAvatar
-// 0x1AC8 (0x1E50 - 0x0388)
+// 0x1AF8 (0x1E80 - 0x0388)
 class ACarAvatar : public APawn
 {
 public:
-	unsigned char                                      UnknownData00[0x18];                                      // 0x0388(0x0018) MISSED OFFSET
-	class UCarData*                                    CarData;                                                  // 0x03A0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UAIDataAsset*                                AIData;                                                   // 0x03A8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class USetupManager*                               SetupManager;                                             // 0x03B0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UAcCarAnimations*                            CarAnimations;                                            // 0x03B8(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UStaticMeshComponent*                        ColliderMesh;                                             // 0x03C0(0x0008) (Edit, ExportObject, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
-	class UAcCarLightingSystem*                        CarLightingSystem;                                        // 0x03C8(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcCarSystems*                               CarSystems;                                               // 0x03D0(0x0008) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UAcLedSystem*                                CarLedSystem;                                             // 0x03D8(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x03E0(0x0008) MISSED OFFSET
-	class UAcCarTimingServices*                        CarTimingServices;                                        // 0x03E8(0x0008) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UCarAudio*                                   CarAudio;                                                 // 0x03F0(0x0008) (Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	TArray<struct FTyreCompoundSetDefinition>          TyreCompounds;                                            // 0x03F8(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FWingState>                          uwingstate;                                               // 0x0408(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
-	unsigned char                                      UnknownData02[0x8];                                       // 0x0418(0x0008) MISSED OFFSET
-	struct FModelCockpitCamInfo                        MirrorViewInfo;                                           // 0x0420(0x0028) (Edit, BlueprintVisible, DisableEditOnInstance)
-	unsigned char                                      UnknownData03[0x19];                                      // 0x0448(0x0019) MISSED OFFSET
-	bool                                               bIsLeftHandedDrive;                                       // 0x0461(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               bIsDummyCar;                                              // 0x0462(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData04[0x5];                                       // 0x0463(0x0005) MISSED OFFSET
-	class UAcExhaustComponent*                         ExhaustComponent;                                         // 0x0468(0x0008) (Edit, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcCarPitstopManager*                        PitstopManager;                                           // 0x0470(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	float                                              TyreBlurMinSpeed;                                         // 0x0478(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	float                                              TyreBlurMaxSpeed;                                         // 0x047C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	float                                              TempSlickRainBase;                                        // 0x0480(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData05[0x4];                                       // 0x0484(0x0004) MISSED OFFSET
-	TSoftObjectPtr<class USkeletalMesh>                SprintExternalMesh;                                       // 0x0488(0x0028) (Edit)
-	TSoftObjectPtr<class USkeletalMesh>                EnduranceExternalMesh;                                    // 0x04B0(0x0028) (Edit)
-	TArray<class UStaticMesh*>                         StaticRims_LF_RF_LR_RR;                                   // 0x04D8(0x0010) (Edit, ZeroConstructor)
-	struct FName                                       StaticRimSlotName;                                        // 0x04E8(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	struct FName                                       StaticRimDecalsSlotName;                                  // 0x04F0(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	TArray<class UStaticMesh*>                         BlurredRims_LF_RF_LR_RR;                                  // 0x04F8(0x0010) (Edit, ZeroConstructor)
-	struct FName                                       BlurredRimSlotName;                                       // 0x0508(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	struct FName                                       BlurredRimDecalsSlotName;                                 // 0x0510(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	struct FName                                       BlurredRimBlurSlotName;                                   // 0x0518(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              SuspGraphicsOffsetFront;                                  // 0x0520(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	float                                              SuspGraphicsOffsetRear;                                   // 0x0524(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	struct FString                                     carName;                                                  // 0x0528(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	struct FString                                     ConfigName;                                               // 0x0538(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	struct FVector                                     GraphicsOffset;                                           // 0x0548(0x000C) (Edit, IsPlainOldData)
-	float                                              GraphicsPitchRotation;                                    // 0x0554(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	TArray<uint16_t>                                   NextNetCarState;                                          // 0x0558(0x0010) (Net, ZeroConstructor)
-	class USkidmarks*                                  Skidmarks;                                                // 0x0568(0x0008) (Edit, ExportObject, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
-	class UCameraComponent*                            VRCamera;                                                 // 0x0570(0x0008) (Edit, ExportObject, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
-	class UAC2WaterSpray*                              spray;                                                    // 0x0578(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAC2TyreSmoke*                               Smoke;                                                    // 0x0580(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	TArray<class UStaticMeshComponent*>                TyreMeshComponents;                                       // 0x0588(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UStaticMeshComponent*>                StaticRimMeshComponents;                                  // 0x0598(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UStaticMeshComponent*>                BlurredRimMeshComponents;                                 // 0x05A8(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UMaterialInstanceDynamic*>            StaticRimMaterials;                                       // 0x05B8(0x0010) (ZeroConstructor)
-	TArray<class UMaterialInstanceDynamic*>            BLurredRimMaterials;                                      // 0x05C8(0x0010) (ZeroConstructor)
-	TArray<class UMaterialInstanceDynamic*>            StaticRimDecalsMaterials;                                 // 0x05D8(0x0010) (ZeroConstructor)
-	TArray<class UMaterialInstanceDynamic*>            BlurredRimDecalsMaterials;                                // 0x05E8(0x0010) (ZeroConstructor)
-	TArray<class UMaterialInstanceDynamic*>            BlurredRimBlurMaterials;                                  // 0x05F8(0x0010) (ZeroConstructor)
-	class UMaterialInstanceDynamic*                    ShadowPlaneMaterial;                                      // 0x0608(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UMaterialInstanceDynamic*                    ShadowTyresMaterial;                                      // 0x0610(0x0008) (ZeroConstructor, IsPlainOldData)
-	struct FName                                       ShadowPlaneMaterialName;                                  // 0x0618(0x0008) (ZeroConstructor, IsPlainOldData)
-	struct FName                                       ShadowTyresMaterialName;                                  // 0x0620(0x0008) (ZeroConstructor, IsPlainOldData)
-	float                                              ShadowPlaneCompScale;                                     // 0x0628(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              ShadowTyresCompScale;                                     // 0x062C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              ShadowPlaneOffset;                                        // 0x0630(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              ShadowTyresOffset;                                        // 0x0634(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              ShadowOffRoad;                                            // 0x0638(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	unsigned char                                      UnknownData06[0x4];                                       // 0x063C(0x0004) MISSED OFFSET
-	struct FName                                       BrakeDiskMaterialName;                                    // 0x0640(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UMaterialInstanceDynamic*                    BrakeDiskMaterial;                                        // 0x0648(0x0008) (ZeroConstructor, IsPlainOldData)
-	bool                                               usePhysicsTemp;                                           // 0x0650(0x0001) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	unsigned char                                      UnknownData07[0x3];                                       // 0x0651(0x0003) MISSED OFFSET
-	float                                              BrakeDiscEmissiveMult;                                    // 0x0654(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              BrakeDiscTemperature;                                     // 0x0658(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	unsigned char                                      UnknownData08[0x4];                                       // 0x065C(0x0004) MISSED OFFSET
-	class UCurveLinearColor*                           BrakeDiskColorCurve;                                      // 0x0660(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	struct FName                                       IntWindowsMaterialName;                                   // 0x0668(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UMaterialInstanceDynamic*                    IntWindowsMaterial;                                       // 0x0670(0x0008) (ZeroConstructor, IsPlainOldData)
-	float                                              RainStreaksSpeedMult;                                     // 0x0678(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	unsigned char                                      UnknownData09[0x4];                                       // 0x067C(0x0004) MISSED OFFSET
-	class UCurveLinearColor*                           RainStreaksColorCurve;                                    // 0x0680(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              RainStreaksDeltaSpeedFade;                                // 0x0688(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              RainStreaksFadeTime;                                      // 0x068C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	float                                              RainStreaksRandRange;                                     // 0x0690(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	unsigned char                                      UnknownData10[0x4];                                       // 0x0694(0x0004) MISSED OFFSET
-	struct FName                                       CarPaintMaterialName;                                     // 0x0698(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UCurveLinearColor*                           DirtPerChannelCurve;                                      // 0x06A0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UTexture2D*                                  DirtTexture;                                              // 0x06A8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UTexture2D*                                  IntWindowsDirtTexture;                                    // 0x06B0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UMaterialInstanceDynamic*                    CarPaintMaterial;                                         // 0x06B8(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UMaterialInstanceDynamic*                    NumberPlateMaterial;                                      // 0x06C0(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UTexture2D*                                  NumberPlateDigits;                                        // 0x06C8(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UTextureRenderTarget2D*                      NumberPlateRT;                                            // 0x06D0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      MainDisplayIndex;                                         // 0x06D8(0x0001) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	unsigned char                                      UnknownData11[0x7];                                       // 0x06D9(0x0007) MISSED OFFSET
-	TArray<class UAcCarDigitalDisplay*>                DigitalDisplays;                                          // 0x06E0(0x0010) (ExportObject, ZeroConstructor)
-	TArray<ECarDigitalDisplayPages>                    DisplayPages;                                             // 0x06F0(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	TArray<ECarDigitalDisplayPages>                    PracticeDefaultPage;                                      // 0x0700(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate)
-	TArray<ECarDigitalDisplayPages>                    QualifyingDefaultPage;                                    // 0x0710(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate)
-	TArray<ECarDigitalDisplayPages>                    RaceDefaultPage;                                          // 0x0720(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate)
-	class UCurveFloat*                                 DigitalDisplayOpacityMask;                                // 0x0730(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UCurveFloat*                                 DigitalDisplayCloudMask;                                  // 0x0738(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UCurveFloat*                                 DigitalDisplayCloudInfluenceMask;                         // 0x0740(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	struct FCarInfo                                    CarEntryInfo;                                             // 0x0748(0x0098) (Edit, BlueprintVisible, BlueprintReadOnly, EditConst)
-	struct FDriverInfo                                 DriverInfo;                                               // 0x07E0(0x00D0) (Edit, BlueprintVisible, BlueprintReadOnly, EditConst)
-	uint16_t carIndex;
-	uint16_t driverIndex;
-	float                                              GearTimeToIgnoreNeutralBase;                              // 0x08B4(0x0004) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	struct FString                                     NeutralGearText;                                          // 0x08B8(0x0010) (Edit, ZeroConstructor, DisableEditOnInstance)
-	bool                                               hasEnduranceAnimation;                                    // 0x08C8(0x0001) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	unsigned char                                      UnknownData13[0x7];                                       // 0x08C9(0x0007) MISSED OFFSET
-	class UMaterialInstance*                           GhostCarMaterial;                                         // 0x08D0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UMaterialInterface*                          VirtualMirrorMaterial;                                    // 0x08D8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
-	class UProceduralMeshComponent*                    VirtualMirrorMesh;                                        // 0x08E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCarAvatarRatingCalculator*                  RatingCalculator;                                         // 0x08E8(0x0008) (ZeroConstructor, IsPlainOldData)
-	class USkeletalMeshComponent*                      ExternalMeshComponent;                                    // 0x08F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData14[0x230];                                     // 0x08F8(0x1558) MISSED OFFSET
-	APhysicsAvatar*									   physicsAvatar;
-	unsigned char                                      UnknownData15[0x1320];                                    // 0x08F8(0x1558) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x30];                                      // 0x0388(0x0030) MISSED OFFSET
+	class UCarData*                                    CarData;                                                  // 0x03B8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UAIDataAsset*                                AIData;                                                   // 0x03C0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class USetupManager*                               SetupManager;                                             // 0x03C8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UAcCarAnimations*                            CarAnimations;                                            // 0x03D0(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UStaticMeshComponent*                        ColliderMesh;                                             // 0x03D8(0x0008) (Edit, ExportObject, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
+	class UAcCarLightingSystem*                        CarLightingSystem;                                        // 0x03E0(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcCarSystems*                               CarSystems;                                               // 0x03E8(0x0008) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UAcLedSystem*                                CarLedSystem;                                             // 0x03F0(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x03F8(0x0008) MISSED OFFSET
+	class UAcCarTimingServices*                        CarTimingServices;                                        // 0x0400(0x0008) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UCarAudio*                                   CarAudio;                                                 // 0x0408(0x0008) (Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	TArray<struct FTyreCompoundSetDefinition>          TyreCompounds;                                            // 0x0410(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FWingState>                          uwingstate;                                               // 0x0420(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	unsigned char                                      UnknownData02[0x8];                                       // 0x0430(0x0008) MISSED OFFSET
+	struct FModelCockpitCamInfo                        MirrorViewInfo;                                           // 0x0438(0x0028) (Edit, BlueprintVisible, DisableEditOnInstance)
+	unsigned char                                      UnknownData03[0x19];                                      // 0x0460(0x0019) MISSED OFFSET
+	bool                                               bIsLeftHandedDrive;                                       // 0x0479(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               bIsDummyCar;                                              // 0x047A(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData04[0x5];                                       // 0x047B(0x0005) MISSED OFFSET
+	class UAcExhaustComponent*                         ExhaustComponent;                                         // 0x0480(0x0008) (Edit, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcCarPitstopManager*                        PitstopManager;                                           // 0x0488(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	float                                              TyreBlurMinSpeed;                                         // 0x0490(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              TyreBlurMaxSpeed;                                         // 0x0494(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              TempSlickRainBase;                                        // 0x0498(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData05[0x4];                                       // 0x049C(0x0004) MISSED OFFSET
+	TSoftObjectPtr<class USkeletalMesh>                SprintExternalMesh;                                       // 0x04A0(0x0028) (Edit)
+	TSoftObjectPtr<class USkeletalMesh>                EnduranceExternalMesh;                                    // 0x04C8(0x0028) (Edit)
+	TArray<class UStaticMesh*>                         StaticRims_LF_RF_LR_RR;                                   // 0x04F0(0x0010) (Edit, ZeroConstructor)
+	struct FName                                       StaticRimSlotName;                                        // 0x0500(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	struct FName                                       StaticRimDecalsSlotName;                                  // 0x0508(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	TArray<class UStaticMesh*>                         BlurredRims_LF_RF_LR_RR;                                  // 0x0510(0x0010) (Edit, ZeroConstructor)
+	struct FName                                       BlurredRimSlotName;                                       // 0x0520(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	struct FName                                       BlurredRimDecalsSlotName;                                 // 0x0528(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	struct FName                                       BlurredRimBlurSlotName;                                   // 0x0530(0x0008) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              SuspGraphicsOffsetFront;                                  // 0x0538(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              SuspGraphicsOffsetRear;                                   // 0x053C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	struct FString                                     carName;                                                  // 0x0540(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	struct FString                                     ConfigName;                                               // 0x0550(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	struct FVector                                     GraphicsOffset;                                           // 0x0560(0x000C) (Edit, IsPlainOldData)
+	float                                              GraphicsPitchRotation;                                    // 0x056C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	TArray<uint16_t>                                   NextNetCarState;                                          // 0x0570(0x0010) (Net, ZeroConstructor)
+	class USkidmarks*                                  Skidmarks;                                                // 0x0580(0x0008) (Edit, ExportObject, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
+	class UCameraComponent*                            VRCamera;                                                 // 0x0588(0x0008) (Edit, ExportObject, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
+	class UAC2WaterSpray*                              spray;                                                    // 0x0590(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAC2TyreSmoke*                               Smoke;                                                    // 0x0598(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	TArray<class UStaticMeshComponent*>                TyreMeshComponents;                                       // 0x05A0(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UStaticMeshComponent*>                StaticRimMeshComponents;                                  // 0x05B0(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UStaticMeshComponent*>                BlurredRimMeshComponents;                                 // 0x05C0(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UMaterialInstanceDynamic*>            StaticRimMaterials;                                       // 0x05D0(0x0010) (ZeroConstructor)
+	TArray<class UMaterialInstanceDynamic*>            BLurredRimMaterials;                                      // 0x05E0(0x0010) (ZeroConstructor)
+	TArray<class UMaterialInstanceDynamic*>            StaticRimDecalsMaterials;                                 // 0x05F0(0x0010) (ZeroConstructor)
+	TArray<class UMaterialInstanceDynamic*>            BlurredRimDecalsMaterials;                                // 0x0600(0x0010) (ZeroConstructor)
+	TArray<class UMaterialInstanceDynamic*>            BlurredRimBlurMaterials;                                  // 0x0610(0x0010) (ZeroConstructor)
+	class UMaterialInstanceDynamic*                    ShadowPlaneMaterial;                                      // 0x0620(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UMaterialInstanceDynamic*                    ShadowTyresMaterial;                                      // 0x0628(0x0008) (ZeroConstructor, IsPlainOldData)
+	struct FName                                       ShadowPlaneMaterialName;                                  // 0x0630(0x0008) (ZeroConstructor, IsPlainOldData)
+	struct FName                                       ShadowTyresMaterialName;                                  // 0x0638(0x0008) (ZeroConstructor, IsPlainOldData)
+	float                                              ShadowPlaneCompScale;                                     // 0x0640(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              ShadowTyresCompScale;                                     // 0x0644(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              ShadowPlaneOffset;                                        // 0x0648(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              ShadowTyresOffset;                                        // 0x064C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              ShadowOffRoad;                                            // 0x0650(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	unsigned char                                      UnknownData06[0x4];                                       // 0x0654(0x0004) MISSED OFFSET
+	struct FName                                       BrakeDiskMaterialName;                                    // 0x0658(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UMaterialInstanceDynamic*                    BrakeDiskMaterial;                                        // 0x0660(0x0008) (ZeroConstructor, IsPlainOldData)
+	bool                                               usePhysicsTemp;                                           // 0x0668(0x0001) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	unsigned char                                      UnknownData07[0x3];                                       // 0x0669(0x0003) MISSED OFFSET
+	float                                              BrakeDiscEmissiveMult;                                    // 0x066C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              BrakeDiscTemperature;                                     // 0x0670(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	unsigned char                                      UnknownData08[0x4];                                       // 0x0674(0x0004) MISSED OFFSET
+	class UCurveLinearColor*                           BrakeDiskColorCurve;                                      // 0x0678(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	struct FName                                       IntWindowsMaterialName;                                   // 0x0680(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UMaterialInstanceDynamic*                    IntWindowsMaterial;                                       // 0x0688(0x0008) (ZeroConstructor, IsPlainOldData)
+	float                                              RainStreaksSpeedMult;                                     // 0x0690(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	unsigned char                                      UnknownData09[0x4];                                       // 0x0694(0x0004) MISSED OFFSET
+	class UCurveLinearColor*                           RainStreaksColorCurve;                                    // 0x0698(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              RainStreaksDeltaSpeedFade;                                // 0x06A0(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              RainStreaksFadeTime;                                      // 0x06A4(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	float                                              RainStreaksRandRange;                                     // 0x06A8(0x0004) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	unsigned char                                      UnknownData10[0x4];                                       // 0x06AC(0x0004) MISSED OFFSET
+	struct FName                                       CarPaintMaterialName;                                     // 0x06B0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UCurveLinearColor*                           DirtPerChannelCurve;                                      // 0x06B8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  DirtTexture;                                              // 0x06C0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  IntWindowsDirtTexture;                                    // 0x06C8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UMaterialInstanceDynamic*                    CarPaintMaterial;                                         // 0x06D0(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UMaterialInstanceDynamic*                    NumberPlateMaterial;                                      // 0x06D8(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  NumberPlateDigits;                                        // 0x06E0(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UTextureRenderTarget2D*                      NumberPlateRT;                                            // 0x06E8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      MainDisplayIndex;                                         // 0x06F0(0x0001) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	unsigned char                                      UnknownData11[0x7];                                       // 0x06F1(0x0007) MISSED OFFSET
+	TArray<class UAcCarDigitalDisplay*>                DigitalDisplays;                                          // 0x06F8(0x0010) (ExportObject, ZeroConstructor)
+	TArray<ECarDigitalDisplayPages>                    DisplayPages;                                             // 0x0708(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	TArray<ECarDigitalDisplayPages>                    PracticeDefaultPage;                                      // 0x0718(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate)
+	TArray<ECarDigitalDisplayPages>                    QualifyingDefaultPage;                                    // 0x0728(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate)
+	TArray<ECarDigitalDisplayPages>                    RaceDefaultPage;                                          // 0x0738(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate)
+	class UCurveFloat*                                 DigitalDisplayOpacityMask;                                // 0x0748(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UCurveFloat*                                 DigitalDisplayCloudMask;                                  // 0x0750(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UCurveFloat*                                 DigitalDisplayCloudInfluenceMask;                         // 0x0758(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	struct FCarInfo                                    CarEntryInfo;                                             // 0x0760(0x00A0) (Edit, BlueprintVisible, BlueprintReadOnly, EditConst)
+	struct FDriverInfo                                 DriverInfo;                                               // 0x0800(0x00D0) (Edit, BlueprintVisible, BlueprintReadOnly, EditConst)
+	unsigned char                                      UnknownData12[0x4];                                       // 0x08D0(0x0004) MISSED OFFSET
+	float                                              GearTimeToIgnoreNeutralBase;                              // 0x08D4(0x0004) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	struct FString                                     NeutralGearText;                                          // 0x08D8(0x0010) (Edit, ZeroConstructor, DisableEditOnInstance)
+	bool                                               hasEnduranceAnimation;                                    // 0x08E8(0x0001) (Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	unsigned char                                      UnknownData13[0x7];                                       // 0x08E9(0x0007) MISSED OFFSET
+	class UMaterialInstance*                           GhostCarMaterial;                                         // 0x08F0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UMaterialInterface*                          VirtualMirrorMaterial;                                    // 0x08F8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
+	class UProceduralMeshComponent*                    VirtualMirrorMesh;                                        // 0x0900(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCarAvatarRatingCalculator*                  RatingCalculator;                                         // 0x0908(0x0008) (ZeroConstructor, IsPlainOldData)
+	class USkeletalMeshComponent*                      ExternalMeshComponent;                                    // 0x0910(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData14[0x1568];                                    // 0x0918(0x1568) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2597,7 +2634,7 @@ public:
 	}
 
 
-	void TeleportCar(class AAcPlayerStart* PlayerStart);
+	void TeleportCar(class AAcPlayerStart* PlayerStart, bool resetCar);
 	void StopSounds();
 	void StartLineRecording();
 	void ShowDriver();
@@ -2620,6 +2657,7 @@ public:
 	struct FTransform GetSuspTransform(int Index);
 	struct FVector GetSuspPos(int Index);
 	float GetSteer();
+	float GetSpeedMPH();
 	float GetSpeedKMH();
 	float GetRPMS();
 	class UAcCarPitstopManager* GetPitstopManager();
@@ -2644,12 +2682,12 @@ public:
 
 
 // Class AC2.CarAvatarRatingCalculator
-// 0x0320 (0x0348 - 0x0028)
+// 0x0348 (0x0370 - 0x0028)
 class UCarAvatarRatingCalculator : public UObject
 {
 public:
 	struct FScriptMulticastDelegate                    OnCornerCompletedEvent;                                   // 0x0028(0x0010) (ZeroConstructor, InstancedReference, BlueprintAssignable)
-	unsigned char                                      UnknownData00[0x310];                                     // 0x0038(0x0310) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x338];                                     // 0x0038(0x0338) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2664,14 +2702,14 @@ public:
 
 
 // Class AC2.TyreCompoundSet
-// 0x0280 (0x02B0 - 0x0030)
+// 0x0290 (0x02C0 - 0x0030)
 class UTyreCompoundSet : public UDataAsset
 {
 public:
 	struct FString                                     TyreCompoundName;                                         // 0x0030(0x0010) (Edit, ZeroConstructor)
-	struct FTyreCompoundData                           Front;                                                    // 0x0040(0x0130) (Edit)
-	struct FTyreCompoundData                           Rear;                                                     // 0x0170(0x0130) (Edit)
-	unsigned char                                      UnknownData00[0x10];                                      // 0x02A0(0x0010) MISSED OFFSET
+	struct FTyreCompoundData                           Front;                                                    // 0x0040(0x0138) (Edit)
+	struct FTyreCompoundData                           Rear;                                                     // 0x0178(0x0138) (Edit)
+	unsigned char                                      UnknownData00[0x10];                                      // 0x02B0(0x0010) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2714,8 +2752,9 @@ public:
 	float                                              MassKG;                                                   // 0x0040(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	struct FVector                                     Inertia;                                                  // 0x0044(0x000C) (Edit, IsPlainOldData)
 	float                                              MinimumHeight;                                            // 0x0050(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	struct FSteerData                                  SteerData;                                                // 0x0054(0x0014) (Edit)
-	struct FFuelData                                   FuelData;                                                 // 0x0068(0x0020) (Edit)
+	float                                              TopArea;                                                  // 0x0054(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	struct FSteerData                                  SteerData;                                                // 0x0058(0x0014) (Edit)
+	struct FFuelData                                   FuelData;                                                 // 0x006C(0x001C) (Edit)
 	struct FBrakesData                                 BrakesData;                                               // 0x0088(0x0090) (Edit)
 	struct FEngineData                                 EngineData;                                               // 0x0118(0x00A0) (Edit)
 	struct FDrivetrainData                             Drivetrain;                                               // 0x01B8(0x00A0) (Edit)
@@ -2752,27 +2791,27 @@ public:
 
 
 // Class AC2.CarDriverSelectionPanel
-// 0x0080 (0x0550 - 0x04D0)
+// 0x0080 (0x0568 - 0x04E8)
 class UCarDriverSelectionPanel : public UAcPanelBase
 {
 public:
-	ESelectionPanelType                                PanelType;                                                // 0x04D0(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x7];                                       // 0x04D1(0x0007) MISSED OFFSET
-	class UWidgetSwitcher*                             ImageSwitcher;                                            // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnUp;                                                    // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnDown;                                                  // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  PanelTitle1;                                              // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  PanelTitle2;                                              // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  PanelTitle3;                                              // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  PanelTitle4;                                              // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      PanelImageOverlay;                                        // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgModel;                                                 // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgTeam;                                                  // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgNumber;                                                // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgDriver;                                                // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtNumber;                                                // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGridPanel*                                  TextGrid;                                                 // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x0548(0x0008) MISSED OFFSET
+	ESelectionPanelType                                PanelType;                                                // 0x04E8(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x7];                                       // 0x04E9(0x0007) MISSED OFFSET
+	class UWidgetSwitcher*                             ImageSwitcher;                                            // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnUp;                                                    // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnDown;                                                  // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  PanelTitle1;                                              // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  PanelTitle2;                                              // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  PanelTitle3;                                              // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  PanelTitle4;                                              // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      PanelImageOverlay;                                        // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgModel;                                                 // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgTeam;                                                  // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgNumber;                                                // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgDriver;                                                // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtNumber;                                                // 0x0550(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGridPanel*                                  TextGrid;                                                 // 0x0558(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x0560(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2818,24 +2857,24 @@ public:
 
 
 // Class AC2.CarSelectionPage
-// 0x02A8 (0x06C8 - 0x0420)
+// 0x02B0 (0x06E0 - 0x0430)
 class UCarSelectionPage : public UAcPageBase
 {
 public:
-	class ALevelSequenceActor*                         LevelSequenceActor;                                       // 0x0420(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               isPlayingSequence;                                        // 0x0428(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x7];                                       // 0x0429(0x0007) MISSED OFFSET
-	struct FText                                       OfficialListFilterText;                                   // 0x0430(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       FullListFilterText;                                       // 0x0448(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       SprintListFilterText;                                     // 0x0460(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       EnduranceListFilterText;                                  // 0x0478(0x0018) (Edit, BlueprintVisible)
-	class UCarDriverSelectionPanel*                    Model;                                                    // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCarDriverSelectionPanel*                    Team;                                                     // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCarDriverSelectionPanel*                    Number;                                                   // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCarDriverSelectionPanel*                    Driver;                                                   // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtShowRoomCarInfo;                                       // 0x04B0(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtFilterBy;                                              // 0x04B8(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x208];                                     // 0x04C0(0x0208) MISSED OFFSET
+	class ALevelSequenceActor*                         LevelSequenceActor;                                       // 0x0430(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               isPlayingSequence;                                        // 0x0438(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x7];                                       // 0x0439(0x0007) MISSED OFFSET
+	struct FText                                       OfficialListFilterText;                                   // 0x0440(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       FullListFilterText;                                       // 0x0458(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       SprintListFilterText;                                     // 0x0470(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       EnduranceListFilterText;                                  // 0x0488(0x0018) (Edit, BlueprintVisible)
+	class UCarDriverSelectionPanel*                    Model;                                                    // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCarDriverSelectionPanel*                    Team;                                                     // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCarDriverSelectionPanel*                    Number;                                                   // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCarDriverSelectionPanel*                    Driver;                                                   // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtShowRoomCarInfo;                                       // 0x04C0(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtFilterBy;                                              // 0x04C8(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x210];                                     // 0x04D0(0x0210) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2845,13 +2884,15 @@ public:
 
 
 	void StopSequence();
+	void SetStartCamera();
 	void PlaySequence();
 	void FilterBy();
+	void ExitShowroom();
 };
 
 
 // Class AC2.CarSelectionPanel
-// 0x0000 (0x04D0 - 0x04D0)
+// 0x0000 (0x04E8 - 0x04E8)
 class UCarSelectionPanel : public UAcPanelBase
 {
 public:
@@ -2866,19 +2907,20 @@ public:
 
 
 // Class AC2.CircuitSelectionColumnPanel
-// 0x0090 (0x0560 - 0x04D0)
+// 0x0098 (0x0580 - 0x04E8)
 class UCircuitSelectionColumnPanel : public UAcPanelBase
 {
 public:
-	TMap<struct FName, class UTexture2D*>              TrackNameImages;                                          // 0x04D0(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	class UTextBlock*                                  txtCircuitName;                                           // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  CircuitCountry;                                           // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgCircuitCountryFlag;                                    // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgCircuit;                                               // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCircuitLengthValue;                                    // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCornersValue;                                          // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCarRecord;                                             // 0x0550(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0558(0x0008) MISSED OFFSET
+	TMap<struct FName, class UTexture2D*>              TrackNameImages;                                          // 0x04E8(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	class UTextBlock*                                  txtCircuitName;                                           // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  CircuitCountry;                                           // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCircuitCountryFlag;                                    // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCircuit;                                               // 0x0550(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCircuitLengthValue;                                    // 0x0558(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCornersValue;                                          // 0x0560(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCarRecord;                                             // 0x0568(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRealRecordValue;                                       // 0x0570(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0578(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -2887,28 +2929,15 @@ public:
 	}
 
 };
-struct ServerInfo
-{
-	std::string _ip;
-	std::string password;
-	int32_t updPort;
-	int32_t tcpPort;
-	int32_t maxClients;
-	int32_t unknownData;
-};
+
 
 // Class AC2.ClientAvatar
-// 0x0088 (0x00B0 - 0x0028)
+// 0x00A0 (0x00C8 - 0x0028)
 class UClientAvatar : public UObject
 {
 public:
-	ksRacing::Event<int>								   evOnCarConnected;
-	ksRacing::Event<int>									   evOnCarDisconnected;
-	ksRacing::Event<int>									   evOnRemoteSplit;
-	ksRacing::Event<int>									   evOnRemoteLapCompleted;
-	ksRacing::Event<int>									   evOnSessionUpdate;
-	ksRacing::AC2Client*										   client;
-	APhysicsAvatar*									   physicsAvatar;
+	unsigned char                                      UnknownData00[0xA0];                                      // 0x0028(0x00A0) MISSED OFFSET
+
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.ClientAvatar");
@@ -2919,61 +2948,62 @@ public:
 
 
 // Class AC2.ControllerOptionsPage
-// 0x0298 (0x06B8 - 0x0420)
+// 0x02A0 (0x06D0 - 0x0430)
 class UControllerOptionsPage : public UAcPageBase
 {
 public:
-	unsigned char                                      UnknownData00[0x90];                                      // 0x0420(0x0090) MISSED OFFSET
-	struct FText                                       KeyboardText;                                             // 0x04B0(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	class UTexture2D*                                  PinkieIcon;                                               // 0x04C8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UTexture2D*                                  ExtendedIcon;                                             // 0x04D0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      PresetClass;                                              // 0x04D8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      InputPopupClass;                                          // 0x04E0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x04E8(0x0008) MISSED OFFSET
-	class UMainSelectorItem*                           ControllerModeSelector;                                   // 0x04F0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMainSelectorItem*                           ControlCategorySelector;                                  // 0x04F8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                DetectButton;                                             // 0x0500(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                PresetsButton;                                            // 0x0508(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                FFBButton;                                                // 0x0510(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                DeviceAdvancedButton;                                     // 0x0518(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UScrollBox*                                  InputScrollBox;                                           // 0x0520(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UScrollBox*                                  AdvancedScrollBox;                                        // 0x0528(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UWidgetSwitcher*                             Settings;                                                 // 0x0530(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UClass*                                      ItemWidget;                                               // 0x0538(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      presetPopupClass;                                         // 0x0540(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x8];                                       // 0x0548(0x0008) MISSED OFFSET
-	class UGenericSelectorItem*                        KeyboardMouseSteering;                                    // 0x0550(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        KeyboardMouseAcceleratorBrake;                            // 0x0558(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        KeyboardSteerSpeed;                                       // 0x0560(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        KeyboardSteerOppositeDirectionFactor;                     // 0x0568(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        KeyboardSteerGain;                                        // 0x0570(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        KeyboardSteerResetFactor;                                 // 0x0578(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        KeyboardlookAhead;                                        // 0x0580(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        KeyboardMouseSpeed;                                       // 0x0588(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GamepadUseSteerWithRight;                                 // 0x0590(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GamepadDeadZone;                                          // 0x0598(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GamepadRumbleIntensity;                                   // 0x05A0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GamepadSpeedSensitivity;                                  // 0x05A8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GamepadSteerFilter;                                       // 0x05B0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GamepadSteerGamma;                                        // 0x05B8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GamepadSteerSpeed;                                        // 0x05C0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GamepadUseAutoSteer;                                      // 0x05C8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        WheelForceFeedbackGain;                                   // 0x05D0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        WheelSteerScale;                                          // 0x05D8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        WheelSteerLock;                                           // 0x05E0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        WheelMinimumForceFeedback;                                // 0x05E8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        WheelBrakeGamma;                                          // 0x05F0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                GamePadAdvancedSettings;                                  // 0x05F8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                GamePadFFBSettings;                                       // 0x0600(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                SteerAdvancedSettings;                                    // 0x0608(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                KeyboardAdvancedSettings;                                 // 0x0610(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                SteerFFBSettings;                                         // 0x0618(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                KeyboardEmpty;                                            // 0x0620(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                DeviceList;                                               // 0x0628(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                PresetList;                                               // 0x0630(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                InputList;                                                // 0x0638(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                MainVerticalBox;                                          // 0x0640(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData03[0x70];                                      // 0x0648(0x0070) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x90];                                      // 0x0430(0x0090) MISSED OFFSET
+	struct FText                                       KeyboardText;                                             // 0x04C0(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	class UTexture2D*                                  PinkieIcon;                                               // 0x04D8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  ExtendedIcon;                                             // 0x04E0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      PresetClass;                                              // 0x04E8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      InputPopupClass;                                          // 0x04F0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x04F8(0x0008) MISSED OFFSET
+	class UMainSelectorItem*                           ControllerModeSelector;                                   // 0x0500(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMainSelectorItem*                           ControlCategorySelector;                                  // 0x0508(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                DetectButton;                                             // 0x0510(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                PresetsButton;                                            // 0x0518(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                FFBButton;                                                // 0x0520(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                DeviceAdvancedButton;                                     // 0x0528(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UScrollBox*                                  InputScrollBox;                                           // 0x0530(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UScrollBox*                                  AdvancedScrollBox;                                        // 0x0538(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             Settings;                                                 // 0x0540(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UClass*                                      ItemWidget;                                               // 0x0548(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      presetPopupClass;                                         // 0x0550(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x8];                                       // 0x0558(0x0008) MISSED OFFSET
+	class UGenericSelectorItem*                        KeyboardMouseSteering;                                    // 0x0560(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        KeyboardMouseAcceleratorBrake;                            // 0x0568(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        KeyboardSteerSpeed;                                       // 0x0570(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        KeyboardSteerOppositeDirectionFactor;                     // 0x0578(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        KeyboardSteerGain;                                        // 0x0580(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        KeyboardSteerResetFactor;                                 // 0x0588(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        KeyboardlookAhead;                                        // 0x0590(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        KeyboardMouseSpeed;                                       // 0x0598(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GamepadUseSteerWithRight;                                 // 0x05A0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GamepadDeadZone;                                          // 0x05A8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GamepadRumbleIntensity;                                   // 0x05B0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GamepadSpeedSensitivity;                                  // 0x05B8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GamepadSteerFilter;                                       // 0x05C0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GamepadSteerGamma;                                        // 0x05C8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GamepadSteerSpeed;                                        // 0x05D0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GamepadUseAutoSteer;                                      // 0x05D8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        WheelForceFeedbackGain;                                   // 0x05E0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        WheelSteerLock;                                           // 0x05E8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        WheelDynamicDamping;                                      // 0x05F0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        WheelRoadEffects;                                         // 0x05F8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        WheelMinimumForceFeedback;                                // 0x0600(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        WheelBrakeGamma;                                          // 0x0608(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                GamePadAdvancedSettings;                                  // 0x0610(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                GamePadFFBSettings;                                       // 0x0618(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                SteerAdvancedSettings;                                    // 0x0620(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                KeyboardAdvancedSettings;                                 // 0x0628(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                SteerFFBSettings;                                         // 0x0630(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                KeyboardEmpty;                                            // 0x0638(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                DeviceList;                                               // 0x0640(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                PresetList;                                               // 0x0648(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                InputList;                                                // 0x0650(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                MainVerticalBox;                                          // 0x0658(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData03[0x70];                                      // 0x0660(0x0070) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3044,11 +3074,11 @@ public:
 
 
 // Class AC2.DownForceDebugHUD
-// 0x0028 (0x0478 - 0x0450)
+// 0x0018 (0x0468 - 0x0450)
 class ADownForceDebugHUD : public AAcChildHUD
 {
 public:
-	unsigned char                                      UnknownData00[0x28];                                      // 0x0450(0x0028) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x18];                                      // 0x0450(0x0018) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3077,13 +3107,13 @@ public:
 
 
 // Class AC2.DriverProfileBarItem
-// 0x0020 (0x04F0 - 0x04D0)
+// 0x0020 (0x0508 - 0x04E8)
 class UDriverProfileBarItem : public UAcPanelBase
 {
 public:
-	EGuiSubPages                                       SubPage;                                                  // 0x04D0(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x7];                                       // 0x04D1(0x0007) MISSED OFFSET
-	struct FText                                       MainTitle;                                                // 0x04D8(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	EGuiSubPages                                       SubPage;                                                  // 0x04E8(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x7];                                       // 0x04E9(0x0007) MISSED OFFSET
+	struct FText                                       MainTitle;                                                // 0x04F0(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
 
 	static UClass* StaticClass()
 	{
@@ -3095,13 +3125,13 @@ public:
 
 
 // Class AC2.DriverProfilePage
-// 0x0010 (0x0430 - 0x0420)
+// 0x0010 (0x0440 - 0x0430)
 class UDriverProfilePage : public UAcPageBase
 {
 public:
-	float                                              Divide;                                                   // 0x0420(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	float                                              Multiply;                                                 // 0x0424(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UTextBlock*                                  txtDriverName;                                            // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	float                                              Divide;                                                   // 0x0430(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              Multiply;                                                 // 0x0434(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UTextBlock*                                  txtDriverName;                                            // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -3113,31 +3143,31 @@ public:
 
 
 // Class AC2.DriverProfileRatingPage
-// 0x01B8 (0x05D8 - 0x0420)
+// 0x01B8 (0x05E8 - 0x0430)
 class UDriverProfileRatingPage : public UAcPageBase
 {
 public:
-	class UCanvasPanel*                                CanvasPanel_WaitingForData;                               // 0x0420(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                CanvasPanel_NotConnected;                                 // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                CanvasPanel_Rating;                                       // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                CanvasPanel_RatingDetail;                                 // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingSelectionPanel*                       wdg_Entry_Total;                                          // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingSelectionPanel*                       wdg_Entry_Safety;                                         // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingSelectionPanel*                       wdg_Entry_TrackCompetence;                                // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingSelectionPanel*                       wdg_Entry_Consistency;                                    // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingSelectionPanel*                       wdg_Entry_CarControl;                                     // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingSelectionPanel*                       wdg_Entry_Hotlap;                                         // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingSelectionPanel*                       wdg_Entry_Racecraft;                                      // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingSelectionPanel*                       wdg_Entry_Competition;                                    // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtRatingFullName;                                        // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtRatingValue;                                           // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtRatingShortCaption;                                    // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtInfoTitle;                                             // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtInfo;                                                  // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingTCDetail*                             WDG_RatingDetailTC;                                       // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingTODetail*                             WDG_RatingDetailTO;                                       // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                testerCanvasPanel;                                        // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x118];                                     // 0x04C0(0x0118) MISSED OFFSET
+	class UCanvasPanel*                                CanvasPanel_WaitingForData;                               // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                CanvasPanel_NotConnected;                                 // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                CanvasPanel_Rating;                                       // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                CanvasPanel_RatingDetail;                                 // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingSelectionPanel*                       wdg_Entry_Total;                                          // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingSelectionPanel*                       wdg_Entry_Safety;                                         // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingSelectionPanel*                       wdg_Entry_TrackCompetence;                                // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingSelectionPanel*                       wdg_Entry_Consistency;                                    // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingSelectionPanel*                       wdg_Entry_CarControl;                                     // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingSelectionPanel*                       wdg_Entry_Hotlap;                                         // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingSelectionPanel*                       wdg_Entry_Racecraft;                                      // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingSelectionPanel*                       wdg_Entry_Competition;                                    // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRatingFullName;                                        // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRatingValue;                                           // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRatingShortCaption;                                    // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtInfoTitle;                                             // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtInfo;                                                  // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingTCDetail*                             WDG_RatingDetailTC;                                       // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingTODetail*                             WDG_RatingDetailTO;                                       // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                testerCanvasPanel;                                        // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x118];                                     // 0x04D0(0x0118) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3196,13 +3226,13 @@ public:
 
 
 // Class AC2.ExpoIntroPage
-// 0x0020 (0x0440 - 0x0420)
+// 0x0020 (0x0450 - 0x0430)
 class UExpoIntroPage : public UAcPageBase
 {
 public:
-	class UButton*                                     btnMainMenu;                                              // 0x0420(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnRestartSession;                                        // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x10];                                      // 0x0430(0x0010) MISSED OFFSET
+	class UButton*                                     btnMainMenu;                                              // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnRestartSession;                                        // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x10];                                      // 0x0440(0x0010) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3232,12 +3262,12 @@ public:
 
 
 // Class AC2.ExpoOutroPage
-// 0x0018 (0x0438 - 0x0420)
+// 0x0018 (0x0448 - 0x0430)
 class UExpoOutroPage : public UAcPageBase
 {
 public:
-	class UClass*                                      ExpoModeOutroPage;                                        // 0x0420(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x10];                                      // 0x0428(0x0010) MISSED OFFSET
+	class UClass*                                      ExpoModeOutroPage;                                        // 0x0430(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x10];                                      // 0x0438(0x0010) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3251,11 +3281,11 @@ public:
 
 
 // Class AC2.Fanatec
-// 0x0068 (0x0090 - 0x0028)
+// 0x0060 (0x0088 - 0x0028)
 class UFanatec : public UObject
 {
 public:
-	unsigned char                                      UnknownData00[0x68];                                      // 0x0028(0x0068) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x60];                                      // 0x0028(0x0060) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3321,7 +3351,7 @@ public:
 
 
 // Class AC2.FirstLaunchControllerPage
-// 0x0000 (0x0420 - 0x0420)
+// 0x0000 (0x0430 - 0x0430)
 class UFirstLaunchControllerPage : public UAcPageBase
 {
 public:
@@ -3354,7 +3384,7 @@ public:
 
 
 // Class AC2.FooterWidget
-// 0x0030 (0x0238 - 0x0208)
+// 0x0038 (0x0240 - 0x0208)
 class UFooterWidget : public UUserWidget
 {
 public:
@@ -3364,6 +3394,7 @@ public:
 	class UNamedSlot*                                  Slot4;                                                    // 0x0220(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	class UNamedSlot*                                  Slot5;                                                    // 0x0228(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	class UNamedSlot*                                  Slot6;                                                    // 0x0230(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgBlackBackground;                                       // 0x0238(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -3375,22 +3406,27 @@ public:
 
 
 // Class AC2.FovPage
-// 0x0048 (0x0468 - 0x0420)
+// 0x00D0 (0x0500 - 0x0430)
 class UFovPage : public UAcPageBase
 {
 public:
-	int                                                FovUpperLimit;                                            // 0x0420(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                FovLowerLimit;                                            // 0x0424(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                HeightUpperLimit;                                         // 0x0428(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                HeightLowerLimit;                                         // 0x042C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                DistanceUpperLimit;                                       // 0x0430(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                DistanceLowerLimit;                                       // 0x0434(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UAcPanelBase*                                btnSaveQuit;                                              // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnReset;                                                 // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        Height;                                                   // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        Distance;                                                 // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        FOV;                                                      // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0460(0x0008) MISSED OFFSET
+	int                                                FovUpperLimit;                                            // 0x0430(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                FovLowerLimit;                                            // 0x0434(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                HeightUpperLimit;                                         // 0x0438(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                HeightLowerLimit;                                         // 0x043C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                DistanceUpperLimit;                                       // 0x0440(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                DistanceLowerLimit;                                       // 0x0444(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                PitchUpperLimit;                                          // 0x0448(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                PitchLowerLimit;                                          // 0x044C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UAcPanelBase*                                btnSave;                                                  // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnReset;                                                 // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnCancel;                                                // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnQuit;                                                  // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Height;                                                   // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Distance;                                                 // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        FOV;                                                      // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Pitch;                                                    // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x70];                                      // 0x0490(0x0070) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3401,28 +3437,65 @@ public:
 };
 
 
+// Class AC2.GalleryItemPanel
+// 0x0018 (0x0500 - 0x04E8)
+class UGalleryItemPanel : public UAcPanelBase
+{
+public:
+	unsigned char                                      UnknownData00[0x8];                                       // 0x04E8(0x0008) MISSED OFFSET
+	class UTextBlock*                                  txtName;                                                  // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x04F8(0x0008) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.GalleryItemPanel");
+		return ptr;
+	}
+
+};
+
+
+// Class AC2.GalleryPage
+// 0x0038 (0x0468 - 0x0430)
+class UGalleryPage : public UAcPageBase
+{
+public:
+	class UClass*                                      GalleryItemClass;                                         // 0x0430(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
+	class UScrollBox*                                  SBox;                                                     // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                VBox;                                                     // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x20];                                      // 0x0448(0x0020) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.GalleryPage");
+		return ptr;
+	}
+
+};
+
+
 // Class AC2.GameIntroPage
-// 0x00A0 (0x04C0 - 0x0420)
+// 0x00A0 (0x04D0 - 0x0430)
 class UGameIntroPage : public UAcPageBase
 {
 public:
-	float                                              RegoularFadeSpeed;                                        // 0x0420(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              FastFadeSpeed;                                            // 0x0424(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              PagesTimeOnScreen;                                        // 0x0428(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x4];                                       // 0x042C(0x0004) MISSED OFFSET
-	class UTexture2D*                                  MainBackground;                                           // 0x0430(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UTexture2D*                                  BlackBackground;                                          // 0x0438(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UTexture2D*                                  EABackground;                                             // 0x0440(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UImage*                                      imgBackground;                                            // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgKunos;                                                 // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      img505;                                                   // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UWidgetSwitcher*                             IntroPageSwitch;                                          // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnBackEA;                                                // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnClickToContinue;                                       // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                GoToMainPanel;                                            // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                ShowEarlyPanel;                                           // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                GoBackPanel;                                              // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x30];                                      // 0x0490(0x0030) MISSED OFFSET
+	float                                              RegoularFadeSpeed;                                        // 0x0430(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              FastFadeSpeed;                                            // 0x0434(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              PagesTimeOnScreen;                                        // 0x0438(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x043C(0x0004) MISSED OFFSET
+	class UTexture2D*                                  MainBackground;                                           // 0x0440(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  BlackBackground;                                          // 0x0448(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  EABackground;                                             // 0x0450(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UImage*                                      imgBackground;                                            // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgKunos;                                                 // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      img505;                                                   // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             IntroPageSwitch;                                          // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnBackEA;                                                // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnClickToContinue;                                       // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                GoToMainPanel;                                            // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                ShowEarlyPanel;                                           // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                GoBackPanel;                                              // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x30];                                      // 0x04A0(0x0030) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3440,39 +3513,39 @@ public:
 
 
 // Class AC2.GameModeColumnPanel
-// 0x0210 (0x06E0 - 0x04D0)
+// 0x0210 (0x06F8 - 0x04E8)
 class UGameModeColumnPanel : public UAcPanelBase
 {
 public:
-	struct FText                                       DayNightTime;                                             // 0x04D0(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       StintLength;                                              // 0x04E8(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       RaceLength;                                               // 0x0500(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       StartingPosition;                                         // 0x0518(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       NOpponents;                                               // 0x0530(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       OpponentSkill;                                            // 0x0548(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       OpponentAggro;                                            // 0x0560(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       TimeMultiplier;                                           // 0x0578(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       GhostCar;                                                 // 0x0590(0x0018) (Edit, BlueprintVisible)
-	TArray<struct FText>                               DisabledEnabled;                                          // 0x05A8(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
-	TMap<EGuiGameModes, struct FText>                  GameModeTitles;                                           // 0x05B8(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	TMap<EGuiGameModes, class UTexture2D*>             GameModeImages;                                           // 0x0608(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	class UTextBlock*                                  txtEventType;                                             // 0x0658(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement01Value;                                        // 0x0660(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement02Value;                                        // 0x0668(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement03Value;                                        // 0x0670(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement04Value;                                        // 0x0678(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement05Value;                                        // 0x0680(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement06Value;                                        // 0x0688(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement07Value;                                        // 0x0690(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement01;                                             // 0x0698(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement02;                                             // 0x06A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement03;                                             // 0x06A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement04;                                             // 0x06B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement05;                                             // 0x06B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement06;                                             // 0x06C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtElement07;                                             // 0x06C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgEvent;                                                 // 0x06D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x06D8(0x0008) MISSED OFFSET
+	struct FText                                       DayNightTime;                                             // 0x04E8(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       StintLength;                                              // 0x0500(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       RaceLength;                                               // 0x0518(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       StartingPosition;                                         // 0x0530(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       NOpponents;                                               // 0x0548(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       OpponentSkill;                                            // 0x0560(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       OpponentAggro;                                            // 0x0578(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       TimeMultiplier;                                           // 0x0590(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       GhostCar;                                                 // 0x05A8(0x0018) (Edit, BlueprintVisible)
+	TArray<struct FText>                               DisabledEnabled;                                          // 0x05C0(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TMap<EGuiGameModes, struct FText>                  GameModeTitles;                                           // 0x05D0(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	TMap<EGuiGameModes, class UTexture2D*>             GameModeImages;                                           // 0x0620(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	class UTextBlock*                                  txtEventType;                                             // 0x0670(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement01Value;                                        // 0x0678(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement02Value;                                        // 0x0680(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement03Value;                                        // 0x0688(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement04Value;                                        // 0x0690(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement05Value;                                        // 0x0698(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement06Value;                                        // 0x06A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement07Value;                                        // 0x06A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement01;                                             // 0x06B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement02;                                             // 0x06B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement03;                                             // 0x06C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement04;                                             // 0x06C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement05;                                             // 0x06D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement06;                                             // 0x06D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtElement07;                                             // 0x06E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgEvent;                                                 // 0x06E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x06F0(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3484,27 +3557,37 @@ public:
 
 
 // Class AC2.GameModePage
-// 0x00A8 (0x04C8 - 0x0420)
+// 0x0100 (0x0530 - 0x0430)
 class UGameModePage : public UAcPageBase
 {
 public:
-	class UWidgetSwitcher*                             Switcher;                                                 // 0x0420(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        TimeOfDay_Quick;                                          // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        Race_Quick;                                               // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        StartingPosition_Quick;                                   // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        OpponentsNum_Quick;                                       // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        OpponentsSkill_Quick;                                     // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        OpponentsAggression_Quick;                                // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        DayNight_Pratice;                                         // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        TimeMultiplier_Practice;                                  // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        OpponentsNum_Practice;                                    // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        OpponentsSkill_Practice;                                  // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        OpponentsAggression_Practice;                             // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        DayNight_Hotlap;                                          // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GhostCar_Hotlap;                                          // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        Practice_Hotstint;                                        // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        DayNight_Hotstint;                                        // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x28];                                      // 0x04A0(0x0028) MISSED OFFSET
+	class UHelpInMenu*                                 WDG_HelpInMenu;                                           // 0x0430(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             Switcher;                                                 // 0x0438(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        TimeOfDay_Quick;                                          // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Race_Quick;                                               // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        StartingPosition_Quick;                                   // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        OpponentsNum_Quick;                                       // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        OpponentsSkill_Quick;                                     // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        OpponentsAggression_Quick;                                // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Practice_1H;                                              // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Qualifying_1H;                                            // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Race_1H;                                                  // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        StartingPosition_1H;                                      // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        OpponentsNum_1H;                                          // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        OpponentsSkill_1H;                                        // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        OpponentsAggression_1H;                                   // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        DayNight_Pratice;                                         // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        TimeMultiplier_Practice;                                  // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        OpponentsNum_Practice;                                    // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        OpponentsSkill_Practice;                                  // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        OpponentsAggression_Practice;                             // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        DayNight_Hotlap;                                          // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GhostCar_Hotlap;                                          // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Practice_Hotstint;                                        // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        DayNight_Hotstint;                                        // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        DayNight_HotlapSuperpole;                                 // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCancel;                                                // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x30];                                      // 0x0500(0x0030) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3516,7 +3599,7 @@ public:
 
 
 // Class AC2.GameModePanel
-// 0x0000 (0x04D0 - 0x04D0)
+// 0x0000 (0x04E8 - 0x04E8)
 class UGameModePanel : public UAcPanelBase
 {
 public:
@@ -3547,14 +3630,14 @@ public:
 
 
 // Class AC2.GeneralOptionsPage
-// 0x0038 (0x0458 - 0x0420)
+// 0x0038 (0x0468 - 0x0430)
 class UGeneralOptionsPage : public UAcPageBase
 {
 public:
-	class UGenericSelectorItem*                        LanguageItem;                                             // 0x0420(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        ReplayMaxLengthItem;                                      // 0x0428(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UScrollBox*                                  Scroll;                                                   // 0x0430(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x20];                                      // 0x0438(0x0020) MISSED OFFSET
+	class UGenericSelectorItem*                        LanguageItem;                                             // 0x0430(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        ReplayMaxLengthItem;                                      // 0x0438(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UScrollBox*                                  Scroll;                                                   // 0x0440(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x20];                                      // 0x0448(0x0020) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3566,17 +3649,18 @@ public:
 
 
 // Class AC2.GenericBarItem
-// 0x0060 (0x0530 - 0x04D0)
+// 0x0068 (0x0550 - 0x04E8)
 class UGenericBarItem : public UAcPanelBase
 {
 public:
-	class UFont*                                       CurrentFont;                                              // 0x04D0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               isFontRegoular;                                           // 0x04D8(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x7];                                       // 0x04D9(0x0007) MISSED OFFSET
-	struct FText                                       MainTitle;                                                // 0x04E0(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FText                                       SecondaryTitle;                                           // 0x04F8(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FText                                       ThirdTitle;                                               // 0x0510(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x0528(0x0008) MISSED OFFSET
+	class UFont*                                       CurrentFont;                                              // 0x04E8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               isFontRegoular;                                           // 0x04F0(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x7];                                       // 0x04F1(0x0007) MISSED OFFSET
+	struct FText                                       MainTitle;                                                // 0x04F8(0x0018) (Edit)
+	struct FText                                       SecondaryTitle;                                           // 0x0510(0x0018) (Edit)
+	struct FText                                       ThirdTitle;                                               // 0x0528(0x0018) (Edit)
+	class UTextBlock*                                  txtTitle;                                                 // 0x0540(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x0548(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3590,22 +3674,22 @@ public:
 
 
 // Class AC2.GenericInputItem
-// 0x0068 (0x0538 - 0x04D0)
+// 0x0068 (0x0550 - 0x04E8)
 class UGenericInputItem : public UAcPanelBase
 {
 public:
-	class UTextBlock*                                  Title;                                                    // 0x04D0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x04D8(0x0008) MISSED OFFSET
-	class UImage*                                      ControllerIcon;                                           // 0x04E0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      PinkieIcon;                                               // 0x04E8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      OptionIcon;                                               // 0x04F0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      NormalImageBox;                                           // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      HoverImageBox;                                            // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                HiddenPanel;                                              // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  DeviceName;                                               // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UFooterButton*                               clearButton;                                              // 0x0518(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UFooterButton*                               advancedButton;                                           // 0x0520(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x10];                                      // 0x0528(0x0010) MISSED OFFSET
+	class UTextBlock*                                  Title;                                                    // 0x04E8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x04F0(0x0008) MISSED OFFSET
+	class UImage*                                      ControllerIcon;                                           // 0x04F8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      PinkieIcon;                                               // 0x0500(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      OptionIcon;                                               // 0x0508(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      NormalImageBox;                                           // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      HoverImageBox;                                            // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                HiddenPanel;                                              // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  DeviceName;                                               // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UFooterButton*                               clearButton;                                              // 0x0530(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UFooterButton*                               advancedButton;                                           // 0x0538(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x10];                                      // 0x0540(0x0010) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3620,45 +3704,46 @@ public:
 
 
 // Class AC2.GenericSelectorItem
-// 0x0140 (0x0610 - 0x04D0)
+// 0x0148 (0x0630 - 0x04E8)
 class UGenericSelectorItem : public UAcPanelBase
 {
 public:
-	unsigned char                                      UnknownData00[0x1];                                       // 0x04D0(0x0001) MISSED OFFSET
-	bool                                               isFixed;                                                  // 0x04D1(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x6];                                       // 0x04D2(0x0006) MISSED OFFSET
-	struct FString                                     TextPrefix;                                               // 0x04D8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	struct FString                                     TextPostfix;                                              // 0x04E8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	unsigned char                                      Decimal;                                                  // 0x04F8(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               rightAsForward;                                           // 0x04F9(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               leftAsBackward;                                           // 0x04FA(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	EGuiGenericSelectorType                            SelectorType;                                             // 0x04FB(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	EGuiColors                                         OverColor;                                                // 0x04FC(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	EGuiColors                                         LeaveColor;                                               // 0x04FD(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	EGuiColors                                         OptionColor;                                              // 0x04FE(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x1];                                       // 0x04FF(0x0001) MISSED OFFSET
-	int                                                MinRange;                                                 // 0x0500(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                MaxRange;                                                 // 0x0504(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                Step;                                                     // 0x0508(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData03[0x4];                                       // 0x050C(0x0004) MISSED OFFSET
-	struct FText                                       FixedItemText;                                            // 0x0510(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	TArray<struct FText>                               EnumDisplayText;                                          // 0x0528(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	TArray<int>                                        CustomValues;                                             // 0x0538(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	float                                              TimeToFirstClick;                                         // 0x0548(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeToSecondClick;                                        // 0x054C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeStepFirstClick;                                       // 0x0550(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeStepSecondClick;                                      // 0x0554(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData04[0x50];                                      // 0x0558(0x0050) MISSED OFFSET
-	class UNamedSlot*                                  TitleSlot;                                                // 0x05A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtOption;                                                // 0x05B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  rightArrow;                                               // 0x05B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  leftArrow;                                                // 0x05C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      NormalImageBox;                                           // 0x05C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      HoverImageBox;                                            // 0x05D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnLeft;                                                  // 0x05D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnRight;                                                 // 0x05E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UProgressBar*                                barOption;                                                // 0x05E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData05[0x20];                                      // 0x05F0(0x0020) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x1];                                       // 0x04E8(0x0001) MISSED OFFSET
+	bool                                               isFixed;                                                  // 0x04E9(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x6];                                       // 0x04EA(0x0006) MISSED OFFSET
+	struct FString                                     TextPrefix;                                               // 0x04F0(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	struct FString                                     TextPostfix;                                              // 0x0500(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	unsigned char                                      Decimal;                                                  // 0x0510(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               rightAsForward;                                           // 0x0511(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               leftAsBackward;                                           // 0x0512(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	EGuiGenericSelectorType                            SelectorType;                                             // 0x0513(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	EGuiColors                                         OverColor;                                                // 0x0514(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	EGuiColors                                         LeaveColor;                                               // 0x0515(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	EGuiColors                                         OptionColor;                                              // 0x0516(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x1];                                       // 0x0517(0x0001) MISSED OFFSET
+	int                                                MinRange;                                                 // 0x0518(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                MaxRange;                                                 // 0x051C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                Step;                                                     // 0x0520(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData03[0x4];                                       // 0x0524(0x0004) MISSED OFFSET
+	struct FText                                       FixedItemText;                                            // 0x0528(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	TArray<struct FText>                               EnumDisplayText;                                          // 0x0540(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	TArray<int>                                        CustomValues;                                             // 0x0550(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	float                                              TimeToFirstClick;                                         // 0x0560(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeToSecondClick;                                        // 0x0564(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeStepFirstClick;                                       // 0x0568(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeStepSecondClick;                                      // 0x056C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData04[0x50];                                      // 0x0570(0x0050) MISSED OFFSET
+	class UNamedSlot*                                  TitleSlot;                                                // 0x05C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtOption;                                                // 0x05C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  rightArrow;                                               // 0x05D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  leftArrow;                                                // 0x05D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      NormalImageBox;                                           // 0x05E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      HoverImageBox;                                            // 0x05E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnLeft;                                                  // 0x05F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnRight;                                                 // 0x05F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UProgressBar*                                barOption;                                                // 0x0600(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class USlider*                                     sliderBar;                                                // 0x0608(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData05[0x20];                                      // 0x0610(0x0020) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3667,6 +3752,7 @@ public:
 	}
 
 
+	void SliderValueChanged(float Value);
 	void ReleasedRight();
 	void ReleasedLeft();
 	void PressedRight();
@@ -3675,7 +3761,7 @@ public:
 
 
 // Class AC2.GhostCarManager
-// 0x1C80 (0x1FA8 - 0x0328)
+// 0x1CB8 (0x1FE0 - 0x0328)
 class AGhostCarManager : public AActor
 {
 public:
@@ -3686,7 +3772,7 @@ public:
 	struct FLinearColor                                BaseColor;                                                // 0x0338(0x0010) (Edit, BlueprintVisible, IsPlainOldData)
 	float                                              RedVariation;                                             // 0x0348(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	float                                              GreenVariation;                                           // 0x034C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x1C58];                                    // 0x0350(0x1C58) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x1C90];                                    // 0x0350(0x1C90) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3768,32 +3854,32 @@ public:
 
 
 // Class AC2.HotlapLeaderboards
-// 0x0168 (0x0588 - 0x0420)
+// 0x0168 (0x0598 - 0x0430)
 class UHotlapLeaderboards : public UAcPageBase
 {
 public:
-	float                                              SecondsBeforeShowsUp;                                     // 0x0420(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	float                                              DelayBetweenTables;                                       // 0x0424(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x20];                                      // 0x0428(0x0020) MISSED OFFSET
-	class UClass*                                      WdgPausePageClass;                                        // 0x0448(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgStandingItemClass;                                     // 0x0450(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgRaceStandingItemClass;                                 // 0x0458(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgFinalHotlapStandingItemClass;                          // 0x0460(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgHotlapStandingSpacerItemClass;                         // 0x0468(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UFooterWidget*                               Footer;                                                   // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     ClickScreen;                                              // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCircuit;                                               // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtSession;                                               // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtNoHotlap;                                              // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UWidgetSwitcher*                             BoardSwitcher;                                            // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                boxLapList;                                               // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                boxMyRank;                                                // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                boxWorldTop10;                                            // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgFlag;                                                  // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                cvsHotlapTopList;                                         // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMainSelectorItem*                           MainSelector;                                             // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcSessionInfoContainer*                     SessionInfoContainer;                                     // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0xB0];                                      // 0x04D8(0x00B0) MISSED OFFSET
+	float                                              SecondsBeforeShowsUp;                                     // 0x0430(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              DelayBetweenTables;                                       // 0x0434(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x20];                                      // 0x0438(0x0020) MISSED OFFSET
+	class UClass*                                      WdgPausePageClass;                                        // 0x0458(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgStandingItemClass;                                     // 0x0460(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgRaceStandingItemClass;                                 // 0x0468(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgFinalHotlapStandingItemClass;                          // 0x0470(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgHotlapStandingSpacerItemClass;                         // 0x0478(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UFooterWidget*                               Footer;                                                   // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     ClickScreen;                                              // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCircuit;                                               // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtSession;                                               // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtNoHotlap;                                              // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             BoardSwitcher;                                            // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                boxLapList;                                               // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                boxMyRank;                                                // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                boxWorldTop10;                                            // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgFlag;                                                  // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                cvsHotlapTopList;                                         // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMainSelectorItem*                           MainSelector;                                             // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcSessionInfoContainer*                     SessionInfoContainer;                                     // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0xB0];                                      // 0x04E8(0x00B0) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3929,18 +4015,21 @@ public:
 
 
 // Class AC2.HUDOptionsPage
-// 0x0050 (0x0470 - 0x0420)
+// 0x0068 (0x0498 - 0x0430)
 class UHUDOptionsPage : public UAcPageBase
 {
 public:
-	class UGenericSelectorItem*                        CircuitMap;                                               // 0x0420(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        GearSpeed;                                                // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        TyreApp;                                                  // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        VirtualMirror;                                            // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        RaceStandings;                                            // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        HotlapStandings;                                          // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        InfoSession;                                              // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x18];                                      // 0x0458(0x0018) MISSED OFFSET
+	class UGenericSelectorItem*                        CircuitMap;                                               // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        GearSpeed;                                                // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        UseMPH;                                                   // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        TyreApp;                                                  // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        VirtualMirror;                                            // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        ProximityIndicators;                                      // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        RaceStandings;                                            // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        HotlapStandings;                                          // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        InfoSession;                                              // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        RatingPractice;                                           // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x18];                                      // 0x0480(0x0018) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -3952,25 +4041,26 @@ public:
 
 
 // Class AC2.InputPopup
-// 0x01A8 (0x05C8 - 0x0420)
+// 0x01B0 (0x05E0 - 0x0430)
 class UInputPopup : public UAcPageBase
 {
 public:
-	class UWidgetSwitcher*                             Switcher;                                                 // 0x0420(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UWidgetSwitcher*                             MainSwitcher;                                             // 0x0428(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UFooterButton*                               Confirm;                                                  // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UFooterButton*                               Cancel;                                                   // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     InputCancel;                                              // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        ExtendedItem;                                             // 0x0448(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        ExtendedTimeItem;                                         // 0x0450(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        PinkieItem;                                               // 0x0458(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        InvertedAxis;                                             // 0x0460(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        DeadZoneLeftItem;                                         // 0x0468(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        DeadZoneRightItem;                                        // 0x0470(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UProgressBar*                                ProgressInput;                                            // 0x0478(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UProgressBar*                                DeadZoneLeftProgress;                                     // 0x0480(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UProgressBar*                                DeadZoneRightProgress;                                    // 0x0488(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x138];                                     // 0x0490(0x0138) MISSED OFFSET
+	class UWidgetSwitcher*                             Switcher;                                                 // 0x0430(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             MainSwitcher;                                             // 0x0438(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UFooterButton*                               Confirm;                                                  // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UFooterButton*                               Cancel;                                                   // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     InputCancel;                                              // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        ExtendedItem;                                             // 0x0458(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        ExtendedTimeItem;                                         // 0x0460(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        PinkieItem;                                               // 0x0468(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        InvertedAxis;                                             // 0x0470(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        DeadZoneLeftItem;                                         // 0x0478(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        DeadZoneRightItem;                                        // 0x0480(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        ScaleItem;                                                // 0x0488(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UProgressBar*                                ProgressInput;                                            // 0x0490(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UProgressBar*                                DeadZoneLeftProgress;                                     // 0x0498(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UProgressBar*                                DeadZoneRightProgress;                                    // 0x04A0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x138];                                     // 0x04A8(0x0138) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4052,13 +4142,13 @@ public:
 
 
 // Class AC2.LanguageSelectionPage
-// 0x0020 (0x0440 - 0x0420)
+// 0x0020 (0x0450 - 0x0430)
 class ULanguageSelectionPage : public UAcPageBase
 {
 public:
-	class UAcPanelBase*                                EnglishPanel;                                             // 0x0420(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                ItalianPanel;                                             // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x10];                                      // 0x0430(0x0010) MISSED OFFSET
+	class UAcPanelBase*                                EnglishPanel;                                             // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                ItalianPanel;                                             // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x10];                                      // 0x0440(0x0010) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4141,20 +4231,20 @@ public:
 
 
 // Class AC2.ListSelectionPopup
-// 0x0060 (0x0480 - 0x0420)
+// 0x0060 (0x0490 - 0x0430)
 class UListSelectionPopup : public UAcPageBase
 {
 public:
-	class UTextBlock*                                  TitleText;                                                // 0x0420(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  MessageText;                                              // 0x0428(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                PanelItem1;                                               // 0x0430(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                PanelItem2;                                               // 0x0438(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                PanelItem3;                                               // 0x0440(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  Text1;                                                    // 0x0448(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  Text2;                                                    // 0x0450(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  Text3;                                                    // 0x0458(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	EListSelectionPopupType                            PopupType;                                                // 0x0460(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x1F];                                      // 0x0461(0x001F) MISSED OFFSET
+	class UTextBlock*                                  TitleText;                                                // 0x0430(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  MessageText;                                              // 0x0438(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                PanelItem1;                                               // 0x0440(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                PanelItem2;                                               // 0x0448(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                PanelItem3;                                               // 0x0450(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  Text1;                                                    // 0x0458(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  Text2;                                                    // 0x0460(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  Text3;                                                    // 0x0468(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	EListSelectionPopupType                            PopupType;                                                // 0x0470(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x1F];                                      // 0x0471(0x001F) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4168,7 +4258,7 @@ public:
 
 
 // Class AC2.LoadingSessionsPage
-// 0x02D0 (0x04D8 - 0x0208)
+// 0x02D8 (0x04E0 - 0x0208)
 class ULoadingSessionsPage : public UUserWidget
 {
 public:
@@ -4200,7 +4290,8 @@ public:
 	bool                                               IsRainyEvent;                                             // 0x04A0(0x0001) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData00[0x7];                                       // 0x04A1(0x0007) MISSED OFFSET
 	TArray<class UTexture2D*>                          LoadingImages;                                            // 0x04A8(0x0010) (BlueprintVisible, ZeroConstructor)
-	unsigned char                                      UnknownData01[0x20];                                      // 0x04B8(0x0020) MISSED OFFSET
+	class UTextBlock*                                  txtLoading;                                               // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x20];                                      // 0x04C0(0x0020) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4262,22 +4353,22 @@ public:
 
 
 // Class AC2.MainPage
-// 0x0110 (0x0530 - 0x0420)
+// 0x0110 (0x0540 - 0x0430)
 class UMainPage : public UAcPageBase
 {
 public:
-	struct FText                                       QuitPopUpTitle;                                           // 0x0420(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       QuitPopUpText;                                            // 0x0438(0x0018) (Edit, BlueprintVisible)
-	TMap<EGuiGameModes, struct FGuiRaceEventData>      gameModeDefaults;                                         // 0x0450(0x0050) (Edit, BlueprintVisible, ZeroConstructor)
-	TMap<EGuiGameModes, struct FText>                  GameModeTitles;                                           // 0x04A0(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	class UClass*                                      YesNoPopupClass;                                          // 0x04F0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x04F8(0x0008) MISSED OFFSET
-	class UTextBlock*                                  txtTrackName;                                             // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtSubTitle;                                              // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtInfoLine;                                              // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCarModel;                                              // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtProfileDriverName;                                     // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x0528(0x0008) MISSED OFFSET
+	struct FText                                       QuitPopUpTitle;                                           // 0x0430(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       QuitPopUpText;                                            // 0x0448(0x0018) (Edit, BlueprintVisible)
+	TMap<EGuiGameModes, struct FGuiRaceEventData>      gameModeDefaults;                                         // 0x0460(0x0050) (Edit, BlueprintVisible, ZeroConstructor)
+	TMap<EGuiGameModes, struct FText>                  GameModeTitles;                                           // 0x04B0(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	class UClass*                                      YesNoPopupClass;                                          // 0x0500(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0508(0x0008) MISSED OFFSET
+	class UTextBlock*                                  txtTrackName;                                             // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtSubTitle;                                              // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtInfoLine;                                              // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCarModel;                                              // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtProfileDriverName;                                     // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x0538(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4293,33 +4384,33 @@ public:
 
 
 // Class AC2.MainSelectorItem
-// 0x00A8 (0x0578 - 0x04D0)
+// 0x00A8 (0x0590 - 0x04E8)
 class UMainSelectorItem : public UAcPanelBase
 {
 public:
-	TArray<struct FText>                               EnumDisplayText;                                          // 0x04D0(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	TArray<int>                                        CustomValues;                                             // 0x04E0(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	class UButton*                                     btnLeft;                                                  // 0x04F0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnRight;                                                 // 0x04F8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                panel;                                                    // 0x0500(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGridPanel*                                  Grid;                                                     // 0x0508(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtOption;                                                // 0x0510(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtOptionLeft;                                            // 0x0518(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtOptionRight;                                           // 0x0520(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  rightArrow;                                               // 0x0528(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  leftArrow;                                                // 0x0530(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      Background;                                               // 0x0538(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	EGuiMainSelectorType                               SelectorType;                                             // 0x0540(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               usePreviewText;                                           // 0x0541(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x2];                                       // 0x0542(0x0002) MISSED OFFSET
-	int                                                MinRange;                                                 // 0x0544(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                MaxRange;                                                 // 0x0548(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                Step;                                                     // 0x054C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeToFirstClick;                                         // 0x0550(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeToSecondClick;                                        // 0x0554(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeStepFirstClick;                                       // 0x0558(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeStepSecondClick;                                      // 0x055C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x18];                                      // 0x0560(0x0018) MISSED OFFSET
+	TArray<struct FText>                               EnumDisplayText;                                          // 0x04E8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	TArray<int>                                        CustomValues;                                             // 0x04F8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	class UButton*                                     btnLeft;                                                  // 0x0508(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnRight;                                                 // 0x0510(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                panel;                                                    // 0x0518(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGridPanel*                                  Grid;                                                     // 0x0520(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtOption;                                                // 0x0528(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtOptionLeft;                                            // 0x0530(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtOptionRight;                                           // 0x0538(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  rightArrow;                                               // 0x0540(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  leftArrow;                                                // 0x0548(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      Background;                                               // 0x0550(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	EGuiMainSelectorType                               SelectorType;                                             // 0x0558(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               usePreviewText;                                           // 0x0559(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x2];                                       // 0x055A(0x0002) MISSED OFFSET
+	int                                                MinRange;                                                 // 0x055C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                MaxRange;                                                 // 0x0560(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                Step;                                                     // 0x0564(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeToFirstClick;                                         // 0x0568(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeToSecondClick;                                        // 0x056C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeStepFirstClick;                                       // 0x0570(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeStepSecondClick;                                      // 0x0574(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x18];                                      // 0x0578(0x0018) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4336,7 +4427,7 @@ public:
 
 
 // Class AC2.MapWidget
-// 0x0090 (0x0380 - 0x02F0)
+// 0x0098 (0x0388 - 0x02F0)
 class UMapWidget : public UAcRaceWidgetBase
 {
 public:
@@ -4345,8 +4436,9 @@ public:
 	class UClass*                                      WdgCarMapItemClass;                                       // 0x0358(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	class UCanvasPanel*                                MapPanel;                                                 // 0x0360(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	class UImage*                                      MapImage;                                                 // 0x0368(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMaterialInstanceDynamic*                    mapMaterialInstance;                                      // 0x0370(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x0378(0x0008) MISSED OFFSET
+	class UDataTable*                                  MapMaterials;                                             // 0x0370(0x0008) (Edit, ZeroConstructor, DisableEditOnTemplate, IsPlainOldData)
+	class UMaterialInstanceDynamic*                    mapMaterialInstance;                                      // 0x0378(0x0008) (ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x0380(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4378,15 +4470,16 @@ public:
 
 
 // Class AC2.MenuManager
-// 0x0080 (0x00A8 - 0x0028)
+// 0x0088 (0x00B0 - 0x0028)
 class UMenuManager : public UObject
 {
 public:
 	TArray<class UAcPageBase*>                         Pages;                                                    // 0x0028(0x0010) (ExportObject, ZeroConstructor)
 	class UAcMenuState*                                MenuState;                                                // 0x0038(0x0008) (ZeroConstructor, IsPlainOldData)
 	class UBlackPage*                                  BlackCurtain;                                             // 0x0040(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcMenuData*                                 MenuData;                                                 // 0x0048(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x58];                                      // 0x0050(0x0058) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0048(0x0008) MISSED OFFSET
+	class UAcMenuData*                                 MenuData;                                                 // 0x0050(0x0008) (ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x58];                                      // 0x0058(0x0058) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4398,14 +4491,14 @@ public:
 
 
 // Class AC2.MeteoGenericPanel
-// 0x0040 (0x0510 - 0x04D0)
+// 0x0040 (0x0528 - 0x04E8)
 class UMeteoGenericPanel : public UAcPanelBase
 {
 public:
-	struct FText                                       MainTitle;                                                // 0x04D0(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FText                                       Icon;                                                     // 0x04E8(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	class UTextBlock*                                  txtMainTitle;                                             // 0x0500(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtIcon;                                                  // 0x0508(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	struct FText                                       MainTitle;                                                // 0x04E8(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FText                                       Icon;                                                     // 0x0500(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	class UTextBlock*                                  txtMainTitle;                                             // 0x0518(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtIcon;                                                  // 0x0520(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -4417,18 +4510,18 @@ public:
 
 
 // Class AC2.MeteoPage
-// 0x0040 (0x0460 - 0x0420)
+// 0x0040 (0x0470 - 0x0430)
 class UMeteoPage : public UAcPageBase
 {
 public:
-	class UMeteoGenericPanel*                          btnSunny;                                                 // 0x0420(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMeteoGenericPanel*                          btnCloudy;                                                // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMeteoGenericPanel*                          btnLightRain;                                             // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMeteoGenericPanel*                          btnMediumRain;                                            // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMeteoGenericPanel*                          btnHeavyRain;                                             // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMeteoGenericPanel*                          btnStorm;                                                 // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMeteoGenericPanel*                          btnDynamic;                                               // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0458(0x0008) MISSED OFFSET
+	class UMeteoGenericPanel*                          btnSunny;                                                 // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMeteoGenericPanel*                          btnCloudy;                                                // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMeteoGenericPanel*                          btnLightRain;                                             // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMeteoGenericPanel*                          btnMediumRain;                                            // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMeteoGenericPanel*                          btnHeavyRain;                                             // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMeteoGenericPanel*                          btnStorm;                                                 // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMeteoGenericPanel*                          btnDynamic;                                               // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0468(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4440,7 +4533,7 @@ public:
 
 
 // Class AC2.MeteoPanel
-// 0x0000 (0x04D0 - 0x04D0)
+// 0x0000 (0x04E8 - 0x04E8)
 class UMeteoPanel : public UAcPanelBase
 {
 public:
@@ -4455,11 +4548,11 @@ public:
 
 
 // Class AC2.MultiplayerPanel
-// 0x0008 (0x04D8 - 0x04D0)
+// 0x0008 (0x04F0 - 0x04E8)
 class UMultiplayerPanel : public UAcPanelBase
 {
 public:
-	class UBorder*                                     borderInstantJoin;                                        // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UBorder*                                     borderInstantJoin;                                        // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -4576,7 +4669,7 @@ public:
 
 
 // Class AC2.OnlineServices
-// 0x01B0 (0x01D8 - 0x0028)
+// 0x02F8 (0x0320 - 0x0028)
 class UOnlineServices : public UObject
 {
 public:
@@ -4594,7 +4687,7 @@ public:
 	unsigned char                                      UnknownData02[0x4];                                       // 0x00AC(0x0004) MISSED OFFSET
 	struct FDateTime                                   lastTcpMessageSent;                                       // 0x00B0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly)
 	bool                                               expectingTcpMessage;                                      // 0x00B8(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData03[0x11F];                                     // 0x00B9(0x011F) MISSED OFFSET
+	unsigned char                                      UnknownData03[0x267];                                     // 0x00B9(0x0267) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4629,7 +4722,7 @@ public:
 
 
 // Class AC2.OpponentsPanel
-// 0x0000 (0x04D0 - 0x04D0)
+// 0x0000 (0x04E8 - 0x04E8)
 class UOpponentsPanel : public UAcPanelBase
 {
 public:
@@ -4644,15 +4737,15 @@ public:
 
 
 // Class AC2.OptionsGenericPanel
-// 0x0068 (0x0538 - 0x04D0)
+// 0x0068 (0x0550 - 0x04E8)
 class UOptionsGenericPanel : public UAcPanelBase
 {
 public:
-	struct FText                                       MainTitle;                                                // 0x04D0(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FText                                       FirstRow;                                                 // 0x04E8(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FText                                       SecondRow;                                                // 0x0500(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FText                                       Icon;                                                     // 0x0518(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	class UImage*                                      imgDisabled;                                              // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	struct FText                                       MainTitle;                                                // 0x04E8(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FText                                       FirstRow;                                                 // 0x0500(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FText                                       SecondRow;                                                // 0x0518(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FText                                       Icon;                                                     // 0x0530(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	class UImage*                                      imgDisabled;                                              // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -4664,11 +4757,11 @@ public:
 
 
 // Class AC2.OptionsPage
-// 0x0008 (0x0428 - 0x0420)
+// 0x0008 (0x0438 - 0x0430)
 class UOptionsPage : public UAcPageBase
 {
 public:
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0420(0x0008) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0430(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4676,6 +4769,33 @@ public:
 		return ptr;
 	}
 
+};
+
+
+// Class AC2.PausePageContainer
+// 0x0090 (0x0298 - 0x0208)
+class UPausePageContainer : public UUserWidget
+{
+public:
+	class UBackgroundBlur*                             BackgroundBlur;                                           // 0x0208(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtTitle;                                                 // 0x0210(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UNamedSlot*                                  slotMenu;                                                 // 0x0218(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UNamedSlot*                                  slotMain;                                                 // 0x0220(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x50];                                      // 0x0228(0x0050) MISSED OFFSET
+	float                                              LightBackgroundBlur;                                      // 0x0278(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              StrongBackgroundBlur;                                     // 0x027C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	struct FText                                       TitleText;                                                // 0x0280(0x0018) (Edit, BlueprintVisible)
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.PausePageContainer");
+		return ptr;
+	}
+
+
+	void ToggleBlurStrength(bool isStrong);
+	void SetTitleText(const struct FText& TextValue);
+	void SetBlurStrength(float blurStrength);
 };
 
 
@@ -4698,21 +4818,21 @@ public:
 
 
 // Class AC2.PhysicsInfoPanel
-// 0x0058 (0x0528 - 0x04D0)
+// 0x0058 (0x0540 - 0x04E8)
 class UPhysicsInfoPanel : public UAcPanelBase
 {
 public:
-	unsigned char                                      UnknownData00[0x8];                                       // 0x04D0(0x0008) MISSED OFFSET
-	class UTextBlock*                                  txtCamberValue;                                           // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtToeValue;                                              // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtRideHeightValue;                                       // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtIMO1;                                                  // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtIMO2;                                                  // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtIMO3;                                                  // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtWear1;                                                 // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtWear2;                                                 // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtWear3;                                                 // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtTyrePressure;                                          // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x04E8(0x0008) MISSED OFFSET
+	class UTextBlock*                                  txtCamberValue;                                           // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtToeValue;                                              // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRideHeightValue;                                       // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtIMO1;                                                  // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtIMO2;                                                  // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtIMO3;                                                  // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtWear1;                                                 // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtWear2;                                                 // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtWear3;                                                 // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtTyrePressure;                                          // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -4724,18 +4844,19 @@ public:
 
 
 // Class AC2.PlayerCarController
-// 0x0090 (0x0788 - 0x06F8)
+// 0x00A8 (0x07A0 - 0x06F8)
 class APlayerCarController : public AAcController
 {
 public:
 	unsigned char                                      UnknownData00[0x8];                                       // 0x06F8(0x0008) MISSED OFFSET
 	class UClass*                                      wReplayHud;                                               // 0x0700(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	class UUserWidget*                                 ReplayHUD;                                                // 0x0708(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcAssistController*                         assistController;                                         // 0x0710(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UFanatec*                                    Fanatec;                                                  // 0x0718(0x0008) (ZeroConstructor, IsPlainOldData)
-	class UClass*                                      RaceMainGuiClass;                                         // 0x0720(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class URaceMainGui*                                MainGui;                                                  // 0x0728(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x58];                                      // 0x0730(0x0058) MISSED OFFSET
+	unsigned char                                      UnknownData01[0x8];                                       // 0x0710(0x0008) MISSED OFFSET
+	class UAcAssistController*                         assistController;                                         // 0x0718(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UFanatec*                                    Fanatec;                                                  // 0x0720(0x0008) (ZeroConstructor, IsPlainOldData)
+	class UClass*                                      RaceMainGuiClass;                                         // 0x0728(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class URaceMainGui*                                MainGui;                                                  // 0x0730(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x68];                                      // 0x0738(0x0068) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4755,17 +4876,23 @@ public:
 	void acc_TogglePitLimiter(uint16_t CarIndex);
 	void acc_ToggleIdealLine();
 	void acc_TestFastLane(int CarIndex);
-	void acc_TeleportAllToPit();
 	void acc_SwapDriverInstant(uint16_t CarIndex, uint16_t NewDriverIndex);
 	void acc_SwapDriverFull(uint16_t CarIndex, uint16_t NewDriverIndex);
 	void acc_StartLineRecording();
 	void acc_setTC(unsigned char Level);
+	void acc_setSessionOver();
+	void acc_setDrivethruPenaltyToCarindex(uint16_t CarIndex);
 	void acc_setABS(unsigned char Level);
 	void acc_RequestPitstop(int CarIndex);
 	void acc_RecordSpeedAvgs();
 	void acc_RecordMicroSectorTimes();
+	void acc_pitStopWindowTime(bool IsOpen, double addTime);
 	void acc_DetachControllers();
 	void acc_DecreaseLapCount(int CarIndex);
+	void acc_carUpdatePitStrategy(uint16_t CarIndex);
+	void acc_carStopOnPitzone(uint16_t CarIndex);
+	void acc_carEngineOn(uint16_t CarIndex, bool Value);
+	void acc_carDisqualifyCar(uint16_t CarIndex);
 	void acc_CancelPitstop(int CarIndex);
 	void acc_BackfireFlames(unsigned char Value);
 	void acc_AddSplit(unsigned char IsValid);
@@ -4775,17 +4902,17 @@ public:
 
 
 // Class AC2.PlayerDataPage
-// 0x0030 (0x0450 - 0x0420)
+// 0x0030 (0x0460 - 0x0430)
 class UPlayerDataPage : public UAcPageBase
 {
 public:
-	int                                                MaxCharsForDataFields;                                    // 0x0420(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x4];                                       // 0x0424(0x0004) MISSED OFFSET
-	class UEditableText*                               txtNameValue;                                             // 0x0428(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UEditableText*                               txtLastnameValue;                                         // 0x0430(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UEditableText*                               txtNicknameValue;                                         // 0x0438(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtMarker1;                                               // 0x0440(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtMarker2;                                               // 0x0448(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	int                                                MaxCharsForDataFields;                                    // 0x0430(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x0434(0x0004) MISSED OFFSET
+	class UEditableText*                               txtNameValue;                                             // 0x0438(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UEditableText*                               txtLastnameValue;                                         // 0x0440(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UEditableText*                               txtNicknameValue;                                         // 0x0448(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtMarker1;                                               // 0x0450(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtMarker2;                                               // 0x0458(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -4797,14 +4924,14 @@ public:
 
 
 // Class AC2.PresetItem
-// 0x0040 (0x0510 - 0x04D0)
+// 0x0040 (0x0528 - 0x04E8)
 class UPresetItem : public UAcPanelBase
 {
 public:
-	class UTextBlock*                                  Filename;                                                 // 0x04D0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  FileDate;                                                 // 0x04D8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      Icon;                                                     // 0x04E0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x28];                                      // 0x04E8(0x0028) MISSED OFFSET
+	class UTextBlock*                                  Filename;                                                 // 0x04E8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  FileDate;                                                 // 0x04F0(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      Icon;                                                     // 0x04F8(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x28];                                      // 0x0500(0x0028) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4816,37 +4943,37 @@ public:
 
 
 // Class AC2.PresetsPopup
-// 0x01D0 (0x05F0 - 0x0420)
+// 0x01D0 (0x0600 - 0x0430)
 class UPresetsPopup : public UAcPageBase
 {
 public:
-	struct FText                                       SaveTitleText;                                            // 0x0420(0x0018) (Edit)
-	struct FText                                       LoadTitleText;                                            // 0x0438(0x0018) (Edit)
-	struct FText                                       RenameTitleText;                                          // 0x0450(0x0018) (Edit)
-	struct FText                                       DeleteTitleText;                                          // 0x0468(0x0018) (Edit)
-	struct FText                                       NewFileText;                                              // 0x0480(0x0018) (Edit)
-	struct FText                                       LoadQuestionText;                                         // 0x0498(0x0018) (Edit)
-	struct FText                                       LoadQuestionDescription;                                  // 0x04B0(0x0018) (Edit)
-	struct FText                                       OverwriteQuestionText;                                    // 0x04C8(0x0018) (Edit)
-	struct FText                                       OverwriteQuestionDescription;                             // 0x04E0(0x0018) (Edit)
-	struct FText                                       DeleteQuestionText;                                       // 0x04F8(0x0018) (Edit)
-	struct FText                                       DeleteQuestionDescription;                                // 0x0510(0x0018) (Edit)
-	class UMainSelectorItem*                           ActionSelector;                                           // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                ItemList;                                                 // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UScrollBox*                                  ScrollBox;                                                // 0x0538(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        TrackFilter;                                              // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMultiLineEditableText*                      DescriptionReadOnly;                                      // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UClass*                                      PresetItemClass;                                          // 0x0550(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
-	class UWidgetSwitcher*                             Switcher;                                                 // 0x0558(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  SaveTitle;                                                // 0x0560(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                SaveFileName;                                             // 0x0568(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                SaveDescription;                                          // 0x0570(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UFooterButton*                               Confirm;                                                  // 0x0578(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UFooterButton*                               Cancel;                                                   // 0x0580(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  QuestionText;                                             // 0x0588(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  QuestionDescription;                                      // 0x0590(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UPresetItem*                                 NewPresetItem;                                            // 0x0598(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x50];                                      // 0x05A0(0x0050) MISSED OFFSET
+	struct FText                                       SaveTitleText;                                            // 0x0430(0x0018) (Edit)
+	struct FText                                       LoadTitleText;                                            // 0x0448(0x0018) (Edit)
+	struct FText                                       RenameTitleText;                                          // 0x0460(0x0018) (Edit)
+	struct FText                                       DeleteTitleText;                                          // 0x0478(0x0018) (Edit)
+	struct FText                                       NewFileText;                                              // 0x0490(0x0018) (Edit)
+	struct FText                                       LoadQuestionText;                                         // 0x04A8(0x0018) (Edit)
+	struct FText                                       LoadQuestionDescription;                                  // 0x04C0(0x0018) (Edit)
+	struct FText                                       OverwriteQuestionText;                                    // 0x04D8(0x0018) (Edit)
+	struct FText                                       OverwriteQuestionDescription;                             // 0x04F0(0x0018) (Edit)
+	struct FText                                       DeleteQuestionText;                                       // 0x0508(0x0018) (Edit)
+	struct FText                                       DeleteQuestionDescription;                                // 0x0520(0x0018) (Edit)
+	class UMainSelectorItem*                           ActionSelector;                                           // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                ItemList;                                                 // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UScrollBox*                                  ScrollBox;                                                // 0x0548(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        TrackFilter;                                              // 0x0550(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMultiLineEditableText*                      DescriptionReadOnly;                                      // 0x0558(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UClass*                                      PresetItemClass;                                          // 0x0560(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
+	class UWidgetSwitcher*                             Switcher;                                                 // 0x0568(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  SaveTitle;                                                // 0x0570(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                SaveFileName;                                             // 0x0578(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                SaveDescription;                                          // 0x0580(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UFooterButton*                               Confirm;                                                  // 0x0588(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UFooterButton*                               Cancel;                                                   // 0x0590(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  QuestionText;                                             // 0x0598(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  QuestionDescription;                                      // 0x05A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UPresetItem*                                 NewPresetItem;                                            // 0x05A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x50];                                      // 0x05B0(0x0050) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4912,43 +5039,43 @@ public:
 
 
 // Class AC2.RaceEndPage
-// 0x0200 (0x0620 - 0x0420)
+// 0x0200 (0x0630 - 0x0430)
 class URaceEndPage : public UAcPageBase
 {
 public:
-	float                                              SecondsBeforeShowsUp;                                     // 0x0420(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	float                                              DelayBetweenTables;                                       // 0x0424(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x20];                                      // 0x0428(0x0020) MISSED OFFSET
-	class UClass*                                      WdgPausePageClass;                                        // 0x0448(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgStandingItemClass;                                     // 0x0450(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgRaceStandingItemClass;                                 // 0x0458(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgFinalHotlapStandingItemClass;                          // 0x0460(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgHotlapStandingSpacerItemClass;                         // 0x0468(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UButton*                                     ClickScreen;                                              // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCircuit;                                               // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtSession;                                               // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtNoHotlap;                                              // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtPressButton;                                           // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtFastestLapTime;                                        // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtPlayerFastestLapInRace;                                // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtPlayerBestLapTime;                                     // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtPlayerGap;                                             // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UWidgetSwitcher*                             EventSwitcher;                                            // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                RaceFinalStandingList;                                    // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                RaceFinalStandingList2;                                   // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                boxLapList;                                               // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                boxStandingHotlaps;                                       // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgFlag;                                                  // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                cvsCongrats;                                              // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                cvsYourBest;                                              // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                cvsFastestLap;                                            // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                cvsHotlapTopList;                                         // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcControllerIcon*                           ConfirmIcon;                                              // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	struct FText                                       HotstintSessionTitle;                                     // 0x0510(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       HotlapSessionTitle;                                       // 0x0528(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       RaceSessionTitle;                                         // 0x0540(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       NoValidLap;                                               // 0x0558(0x0018) (Edit, BlueprintVisible)
-	unsigned char                                      UnknownData01[0xB0];                                      // 0x0570(0x00B0) MISSED OFFSET
+	float                                              SecondsBeforeShowsUp;                                     // 0x0430(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              DelayBetweenTables;                                       // 0x0434(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x20];                                      // 0x0438(0x0020) MISSED OFFSET
+	class UClass*                                      WdgPausePageClass;                                        // 0x0458(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgStandingItemClass;                                     // 0x0460(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgRaceStandingItemClass;                                 // 0x0468(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgFinalHotlapStandingItemClass;                          // 0x0470(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgHotlapStandingSpacerItemClass;                         // 0x0478(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UButton*                                     ClickScreen;                                              // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCircuit;                                               // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtSession;                                               // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtNoHotlap;                                              // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtPressButton;                                           // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtFastestLapTime;                                        // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtPlayerFastestLapInRace;                                // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtPlayerBestLapTime;                                     // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtPlayerGap;                                             // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             EventSwitcher;                                            // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                RaceFinalStandingList;                                    // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                RaceFinalStandingList2;                                   // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                boxLapList;                                               // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                boxStandingHotlaps;                                       // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgFlag;                                                  // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                cvsCongrats;                                              // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                cvsYourBest;                                              // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                cvsFastestLap;                                            // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                cvsHotlapTopList;                                         // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcControllerIcon*                           ConfirmIcon;                                              // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	struct FText                                       HotstintSessionTitle;                                     // 0x0520(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       HotlapSessionTitle;                                       // 0x0538(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       RaceSessionTitle;                                         // 0x0550(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       NoValidLap;                                               // 0x0568(0x0018) (Edit, BlueprintVisible)
+	unsigned char                                      UnknownData01[0xB0];                                      // 0x0580(0x00B0) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -4994,29 +5121,29 @@ public:
 
 
 // Class AC2.RaceIntroPage
-// 0x0118 (0x0538 - 0x0420)
+// 0x0118 (0x0548 - 0x0430)
 class URaceIntroPage : public UAcPageBase
 {
 public:
-	unsigned char                                      UnknownData00[0x50];                                      // 0x0420(0x0050) MISSED OFFSET
-	class UClass*                                      WdgStandingItemClass;                                     // 0x0470(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgPausePageClass;                                        // 0x0478(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeGridShow;                                             // 0x0480(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeGridDelay;                                            // 0x0484(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeFlipInfo;                                             // 0x0488(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              TimeHideInfo;                                             // 0x048C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	struct FText                                       HotlapSessionTitle;                                       // 0x0490(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       HotstintSessionTitle;                                     // 0x04A8(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       PracticeSessionTitle;                                     // 0x04C0(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       RaceSessionTitle;                                         // 0x04D8(0x0018) (Edit, BlueprintVisible)
-	class UButton*                                     ClickScreen;                                              // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCircuit;                                               // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtSession;                                               // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UWidgetSwitcher*                             EventSwitcher;                                            // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                LeftLine;                                                 // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UVerticalBox*                                RightLine;                                                // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgFlag;                                                  // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x10];                                      // 0x0528(0x0010) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x50];                                      // 0x0430(0x0050) MISSED OFFSET
+	class UClass*                                      WdgStandingItemClass;                                     // 0x0480(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgPausePageClass;                                        // 0x0488(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeGridShow;                                             // 0x0490(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeGridDelay;                                            // 0x0494(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeFlipInfo;                                             // 0x0498(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              TimeHideInfo;                                             // 0x049C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	struct FText                                       HotlapSessionTitle;                                       // 0x04A0(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       HotstintSessionTitle;                                     // 0x04B8(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       PracticeSessionTitle;                                     // 0x04D0(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       RaceSessionTitle;                                         // 0x04E8(0x0018) (Edit, BlueprintVisible)
+	class UButton*                                     ClickScreen;                                              // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCircuit;                                               // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtSession;                                               // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             EventSwitcher;                                            // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                LeftLine;                                                 // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UVerticalBox*                                RightLine;                                                // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgFlag;                                                  // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x10];                                      // 0x0538(0x0010) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -5028,19 +5155,19 @@ public:
 
 
 // Class AC2.RaceMainGui
-// 0x0098 (0x04B8 - 0x0420)
+// 0x0098 (0x04C8 - 0x0430)
 class URaceMainGui : public UAcPageBase
 {
 public:
-	int                                                CurrentSplit;                                             // 0x0420(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                LapCount;                                                 // 0x0424(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                LastTime;                                                 // 0x0428(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x4];                                       // 0x042C(0x0004) MISSED OFFSET
-	TArray<int>                                        LastSplits;                                               // 0x0430(0x0010) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	int                                                BestTime;                                                 // 0x0440(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x4];                                       // 0x0444(0x0004) MISSED OFFSET
-	TArray<int>                                        BestSplits;                                               // 0x0448(0x0010) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	unsigned char                                      UnknownData02[0x60];                                      // 0x0458(0x0060) MISSED OFFSET
+	int                                                CurrentSplit;                                             // 0x0430(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                LapCount;                                                 // 0x0434(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                LastTime;                                                 // 0x0438(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x043C(0x0004) MISSED OFFSET
+	TArray<int>                                        LastSplits;                                               // 0x0440(0x0010) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	int                                                BestTime;                                                 // 0x0450(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x4];                                       // 0x0454(0x0004) MISSED OFFSET
+	TArray<int>                                        BestSplits;                                               // 0x0458(0x0010) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	unsigned char                                      UnknownData02[0x60];                                      // 0x0468(0x0060) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -5093,41 +5220,140 @@ public:
 };
 
 
-// Class AC2.RacePausePage
-// 0x0118 (0x0538 - 0x0420)
-class URacePausePage : public UAcPageBase
+// Class AC2.RacePausePageBase
+// 0x0910 (0x0D40 - 0x0430)
+class URacePausePageBase : public UAcPageBase
 {
 public:
-	float                                              Divide;                                                   // 0x0420(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	float                                              Multiply;                                                 // 0x0424(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               IsStrongBlurInUse;                                        // 0x0428(0x0001) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               DebugIsPauseMenu;                                         // 0x0429(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x6];                                       // 0x042A(0x0006) MISSED OFFSET
-	struct FText                                       PauseTitleText;                                           // 0x0430(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       PreSessionTitleText;                                      // 0x0448(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       PostSessionTitleText;                                     // 0x0460(0x0018) (Edit, BlueprintVisible)
-	float                                              LightBackgroundBlur;                                      // 0x0478(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	float                                              StrongBackgroundBlur;                                     // 0x047C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	struct FText                                       StartSessionString;                                       // 0x0480(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	class UTextBlock*                                  PauseSession_txt;                                         // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnResults;                                               // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnDrive;                                                 // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnOptions;                                               // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnWeather;                                               // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnSetup;                                                 // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnLeaderboard;                                           // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnNextSession;                                           // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnPits;                                                  // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnRestart;                                               // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnReplay;                                                // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnSave;                                                  // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnQuit;                                                  // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericBarItem*                             btnFov;                                                   // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x30];                                      // 0x0508(0x0030) MISSED OFFSET
+	class UPausePageContainer*                         Main;                                                     // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UHorizontalBox*                              TopMenu;                                                  // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	float                                              LightBackgroundBlur;                                      // 0x0440(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              StrongBackgroundBlur;                                     // 0x0444(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               IsStrongBlurInUse;                                        // 0x0448(0x0001) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x7];                                       // 0x0449(0x0007) MISSED OFFSET
+	struct FText                                       PauseTitleText;                                           // 0x0450(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       PreSessionTitleText;                                      // 0x0468(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       PostSessionTitleText;                                     // 0x0480(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       StartSessionString;                                       // 0x0498(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	class UClass*                                      WdgMenuItem;                                              // 0x04B0(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x888];                                     // 0x04B8(0x0888) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.RacePausePageBase");
+		return ptr;
+	}
+
+
+	void GoToSetup();
+	void GoToResults();
+	void GoToOptions();
+	void GoToMain();
+	void GoToHotlapLeaderboard();
+	void GoToFOV();
+	void ExitPausePage();
+};
+
+
+// Class AC2.RacePausePage
+// 0x0090 (0x0DD0 - 0x0D40)
+class URacePausePage : public URacePausePageBase
+{
+public:
+	float                                              Divide;                                                   // 0x0D40(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              Multiply;                                                 // 0x0D44(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               DebugIsPauseMenu;                                         // 0x0D48(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x7];                                       // 0x0D49(0x0007) MISSED OFFSET
+	class UGenericBarItem*                             btnResults;                                               // 0x0D50(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnDrive;                                                 // 0x0D58(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnOptions;                                               // 0x0D60(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnWeather;                                               // 0x0D68(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnSetup;                                                 // 0x0D70(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnLeaderboard;                                           // 0x0D78(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnNextSession;                                           // 0x0D80(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnPits;                                                  // 0x0D88(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnRestart;                                               // 0x0D90(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnReplay;                                                // 0x0D98(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnSave;                                                  // 0x0DA0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnQuit;                                                  // 0x0DA8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnFov;                                                   // 0x0DB0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x18];                                      // 0x0DB8(0x0018) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.RacePausePage");
+		return ptr;
+	}
+
+};
+
+
+// Class AC2.RacePausePageResults
+// 0x0050 (0x0D90 - 0x0D40)
+class URacePausePageResults : public URacePausePageBase
+{
+public:
+	class UHorizontalBox*                              SessionMenu;                                              // 0x0D40(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnReturn;                                                // 0x0D48(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericBarItem*                             btnNextSession;                                           // 0x0D50(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeTable*                                  SessionTimeTable;                                         // 0x0D58(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtSessionName;                                           // 0x0D60(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x28];                                      // 0x0D68(0x0028) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.RacePausePageResults");
+		return ptr;
+	}
+
+};
+
+
+// Class AC2.RaceRatingCarRelationship
+// 0x0048 (0x0070 - 0x0028)
+class URaceRatingCarRelationship : public UObject
+{
+public:
+	unsigned char                                      UnknownData00[0x48];                                      // 0x0028(0x0048) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.RaceRatingCarRelationship");
+		return ptr;
+	}
+
+};
+
+
+// Class AC2.RaceRatingDebugHUD
+// 0x0000 (0x0450 - 0x0450)
+class ARaceRatingDebugHUD : public AAcChildHUD
+{
+public:
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.RaceRatingDebugHUD");
+		return ptr;
+	}
+
+};
+
+
+// Class AC2.RaceRatingsManager
+// 0x0268 (0x0290 - 0x0028)
+class URaceRatingsManager : public UObject
+{
+public:
+	TMap<uint16_t, class URaceRatingCarRelationship*>  OpponentRelationships;                                    // 0x0028(0x0050) (ZeroConstructor)
+	TArray<class URaceRatingCarRelationship*>          DogfightOpponentsInFront;                                 // 0x0078(0x0010) (ZeroConstructor)
+	TArray<class URaceRatingCarRelationship*>          DogfightOpponentsBehind;                                  // 0x0088(0x0010) (ZeroConstructor)
+	TArray<struct FCircuitCornerInfo>                  CornerInfos;                                              // 0x0098(0x0010) (ZeroConstructor)
+	unsigned char                                      UnknownData00[0x1E8];                                     // 0x00A8(0x01E8) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.RaceRatingsManager");
 		return ptr;
 	}
 
@@ -5245,12 +5471,27 @@ public:
 };
 
 
+// Class AC2.RaceStartPage
+// 0x0000 (0x0430 - 0x0430)
+class URaceStartPage : public UAcPageBase
+{
+public:
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.RaceStartPage");
+		return ptr;
+	}
+
+};
+
+
 // Class AC2.RaceTransitionPage
-// 0x0020 (0x0440 - 0x0420)
+// 0x0020 (0x0450 - 0x0430)
 class URaceTransitionPage : public UAcPageBase
 {
 public:
-	unsigned char                                      UnknownData00[0x20];                                      // 0x0420(0x0020) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x20];                                      // 0x0430(0x0020) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -5444,14 +5685,34 @@ public:
 
 
 // Class AC2.RatingDetailRacecraft
-// 0x0000 (0x0228 - 0x0228)
+// 0x0010 (0x0238 - 0x0228)
 class URatingDetailRacecraft : public URatingDetailGeneric
 {
 public:
+	class URatingDetailMessageItem*                    wdgDogfightHintFront;                                     // 0x0228(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingDetailMessageItem*                    wdgDogfightHintBehind;                                    // 0x0230(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.RatingDetailRacecraft");
+		return ptr;
+	}
+
+};
+
+
+// Class AC2.RatingDetailSafetyRating
+// 0x0018 (0x0240 - 0x0228)
+class URatingDetailSafetyRating : public URatingDetailGeneric
+{
+public:
+	class URatingDetailSignalItem*                     wdgTrustPoints;                                           // 0x0228(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingDetailSignalItem*                     wdgOBWPoints;                                             // 0x0230(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingDetailSignalItem*                     wdgSpotterHint;                                           // 0x0238(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.RatingDetailSafetyRating");
 		return ptr;
 	}
 
@@ -5516,7 +5777,7 @@ public:
 
 
 // Class AC2.RatingItem
-// 0x0080 (0x0288 - 0x0208)
+// 0x0088 (0x0290 - 0x0208)
 class URatingItem : public UUserWidget
 {
 public:
@@ -5532,7 +5793,7 @@ public:
 	class UWidgetAnimation*                            Anim_Expand;                                              // 0x0268(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	class UWidgetAnimation*                            Anim_Collapse;                                            // 0x0270(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	class URatingDetailGeneric*                        DetailPage;                                               // 0x0278(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x0280(0x0008) MISSED OFFSET
+	unsigned char                                      UnknownData01[0x10];                                      // 0x0280(0x0010) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -5634,13 +5895,13 @@ public:
 
 
 // Class AC2.RatingSelectionPanel
-// 0x0018 (0x04E8 - 0x04D0)
+// 0x0018 (0x0500 - 0x04E8)
 class URatingSelectionPanel : public UAcPanelBase
 {
 public:
-	class UTextBlock*                                  txtRatingCaptionShort;                                    // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtRatingValue;                                           // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UOverlay*                                    wdgLockedForeground;                                      // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRatingCaptionShort;                                    // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRatingValue;                                           // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UOverlay*                                    wdgLockedForeground;                                      // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -5716,7 +5977,7 @@ public:
 
 
 // Class AC2.RatingWidget
-// 0x0130 (0x0420 - 0x02F0)
+// 0x0158 (0x0448 - 0x02F0)
 class URatingWidget : public UAcRaceWidgetBase
 {
 public:
@@ -5725,18 +5986,20 @@ public:
 	class URatingDetailConsistency*                    WDG_RaceRatingDetailConsistency;                          // 0x0300(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	class URatingDetailCarControl*                     WDG_RaceRatingDetailCarControl;                           // 0x0308(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	class URatingDetailPace*                           WDG_RaceRatingDetailPace;                                 // 0x0310(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingDetailRacecraft*                      WDG_RaceRatingDetailRacecraft;                            // 0x0318(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingDetailCompetition*                    WDG_RaceRatingDetailCompetition;                          // 0x0320(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingItem*                                 WDG_RaceRatingItemTC;                                     // 0x0328(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingItem*                                 WDG_RaceRatingItemCN;                                     // 0x0330(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingItem*                                 WDG_RaceRatingItemCC;                                     // 0x0338(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingItem*                                 WDG_RaceRatingItemPC;                                     // 0x0340(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingItem*                                 WDG_RaceRatingItemRC;                                     // 0x0348(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class URatingItem*                                 WDG_RaceRatingItemCP;                                     // 0x0350(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                canvas_ErrorMsgPanel;                                     // 0x0358(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txt_ErrorBig;                                             // 0x0360(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txt_ErrorHint;                                            // 0x0368(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0xB0];                                      // 0x0370(0x00B0) MISSED OFFSET
+	class URatingDetailSafetyRating*                   WDG_RaceRatingDetailSafetyRating;                         // 0x0318(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingDetailRacecraft*                      WDG_RaceRatingDetailRacecraft;                            // 0x0320(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingDetailCompetition*                    WDG_RaceRatingDetailCompetition;                          // 0x0328(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingItem*                                 WDG_RaceRatingItemTC;                                     // 0x0330(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingItem*                                 WDG_RaceRatingItemCN;                                     // 0x0338(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingItem*                                 WDG_RaceRatingItemCC;                                     // 0x0340(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingItem*                                 WDG_RaceRatingItemPC;                                     // 0x0348(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingItem*                                 WDG_RaceRatingItemSA;                                     // 0x0350(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingItem*                                 WDG_RaceRatingItemRC;                                     // 0x0358(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class URatingItem*                                 WDG_RaceRatingItemCP;                                     // 0x0360(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                canvas_ErrorMsgPanel;                                     // 0x0368(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txt_ErrorBig;                                             // 0x0370(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txt_ErrorHint;                                            // 0x0378(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0xC8];                                      // 0x0380(0x00C8) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -5753,17 +6016,17 @@ public:
 
 
 // Class AC2.RealismPage
-// 0x0050 (0x0470 - 0x0420)
+// 0x0050 (0x0480 - 0x0430)
 class URealismPage : public UAcPageBase
 {
 public:
-	class UGenericSelectorItem*                        damageRate;                                               // 0x0420(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        tyreWear;                                                 // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        unlimitedTyreSet;                                         // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        brakeFading;                                              // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        FormationLap;                                             // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UClass*                                      presetPopupClass;                                         // 0x0448(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x20];                                      // 0x0450(0x0020) MISSED OFFSET
+	class UGenericSelectorItem*                        damageRate;                                               // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        tyreWear;                                                 // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        unlimitedTyreSet;                                         // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        brakeFading;                                              // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        FormationLap;                                             // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UClass*                                      presetPopupClass;                                         // 0x0458(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x20];                                      // 0x0460(0x0020) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -5777,7 +6040,7 @@ public:
 
 
 // Class AC2.RealismPanel
-// 0x0000 (0x04D0 - 0x04D0)
+// 0x0000 (0x04E8 - 0x04E8)
 class URealismPanel : public UAcPanelBase
 {
 public:
@@ -5849,11 +6112,11 @@ public:
 
 
 // Class AC2.ReplayHighlightEvents
-// 0x0078 (0x00A0 - 0x0028)
+// 0x00D0 (0x00F8 - 0x0028)
 class UReplayHighlightEvents : public UObject
 {
 public:
-	unsigned char                                      UnknownData00[0x78];                                      // 0x0028(0x0078) MISSED OFFSET
+	unsigned char                                      UnknownData00[0xD0];                                      // 0x0028(0x00D0) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -5865,50 +6128,51 @@ public:
 
 
 // Class AC2.ReplayHUD
-// 0x0190 (0x05B0 - 0x0420)
+// 0x01A0 (0x05D0 - 0x0430)
 class UReplayHUD : public UAcPageBase
 {
 public:
-	bool                                               IsSliderPicked;                                           // 0x0420(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               CurrentPauses;                                            // 0x0421(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x2];                                       // 0x0422(0x0002) MISSED OFFSET
-	float                                              SliderPoint;                                              // 0x0424(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	float                                              TimeMultiplier;                                           // 0x0428(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               SliderPicked;                                             // 0x042C(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x3];                                       // 0x042D(0x0003) MISSED OFFSET
-	int                                                CurrentTime;                                              // 0x0430(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                StartTime;                                                // 0x0434(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	int                                                TotalTime;                                                // 0x0438(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	float                                              HideTimeout;                                              // 0x043C(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	struct FText                                       Jump5SecondsBackText;                                     // 0x0440(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       PlayText;                                                 // 0x0458(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       PauseText;                                                // 0x0470(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       SlowMotionText;                                           // 0x0488(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       ReduceSpeedText;                                          // 0x04A0(0x0018) (Edit, BlueprintVisible)
-	struct FText                                       ResetSpeedText;                                           // 0x04B8(0x0018) (Edit, BlueprintVisible)
-	class UCanvasPanel*                                CursorCanvas;                                             // 0x04D0(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                RedCursor;                                                // 0x04D8(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class USlider*                                     TimeSlider;                                               // 0x04E0(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCurrentTime;                                           // 0x04E8(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtRewindSpeed;                                           // 0x04F0(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtForwardSpeed;                                          // 0x04F8(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtPlayPause;                                             // 0x0500(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UProgressBar*                                TimeBar;                                                  // 0x0508(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgPlay;                                                  // 0x0510(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgPause;                                                 // 0x0518(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnPlayPause;                                             // 0x0520(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnDecreaseSpeed;                                         // 0x0528(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnIncreaseSpeed;                                         // 0x0530(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnQuit;                                                  // 0x0538(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnPhoto;                                                 // 0x0540(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnPrevCar;                                               // 0x0548(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnNextCar;                                               // 0x0550(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnNextCam;                                               // 0x0558(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnPrevCam;                                               // 0x0560(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UButton*                                     btnSlowMotion;                                            // 0x0568(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCar;                                                   // 0x0570(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCam;                                                   // 0x0578(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x30];                                      // 0x0580(0x0030) MISSED OFFSET
+	bool                                               IsSliderPicked;                                           // 0x0430(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               CurrentPauses;                                            // 0x0431(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x2];                                       // 0x0432(0x0002) MISSED OFFSET
+	float                                              SliderPoint;                                              // 0x0434(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              TimeMultiplier;                                           // 0x0438(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               SliderPicked;                                             // 0x043C(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x3];                                       // 0x043D(0x0003) MISSED OFFSET
+	int                                                CurrentTime;                                              // 0x0440(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                StartTime;                                                // 0x0444(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                TotalTime;                                                // 0x0448(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              HideTimeout;                                              // 0x044C(0x0004) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	struct FText                                       Jump5SecondsBackText;                                     // 0x0450(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       PlayText;                                                 // 0x0468(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       PauseText;                                                // 0x0480(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       SlowMotionText;                                           // 0x0498(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       ReduceSpeedText;                                          // 0x04B0(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       ResetSpeedText;                                           // 0x04C8(0x0018) (Edit, BlueprintVisible)
+	class UCanvasPanel*                                CursorCanvas;                                             // 0x04E0(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                RedCursor;                                                // 0x04E8(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class USlider*                                     TimeSlider;                                               // 0x04F0(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCurrentTime;                                           // 0x04F8(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRewindSpeed;                                           // 0x0500(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtForwardSpeed;                                          // 0x0508(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtPlayPause;                                             // 0x0510(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UProgressBar*                                TimeBar;                                                  // 0x0518(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgPlay;                                                  // 0x0520(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgPause;                                                 // 0x0528(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnPlayPause;                                             // 0x0530(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnDecreaseSpeed;                                         // 0x0538(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnIncreaseSpeed;                                         // 0x0540(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnQuit;                                                  // 0x0548(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnPhoto;                                                 // 0x0550(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnPrevCar;                                               // 0x0558(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnNextCar;                                               // 0x0560(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnNextCam;                                               // 0x0568(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnPrevCam;                                               // 0x0570(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnSlowMotion;                                            // 0x0578(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCar;                                                   // 0x0580(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCam;                                                   // 0x0588(0x0008) (BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UClass*                                      loadSavePopupClass;                                       // 0x0590(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x38];                                      // 0x0598(0x0038) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -5938,13 +6202,13 @@ public:
 
 
 // Class AC2.ReplayManager
-// 0x0DE0 (0x0E08 - 0x0028)
+// 0x0CD0 (0x0CF8 - 0x0028)
 class UReplayManager : public UObject
 {
 public:
-	unsigned char                                      UnknownData00[0xDB0];                                     // 0x0028(0x0DB0) MISSED OFFSET
-	class UReplayHighlightEvents*                      highLightManager;                                         // 0x0DD8(0x0008) (ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x28];                                      // 0x0DE0(0x0028) MISSED OFFSET
+	unsigned char                                      UnknownData00[0xC98];                                     // 0x0028(0x0C98) MISSED OFFSET
+	class UReplayHighlightEvents*                      highLightManager;                                         // 0x0CC0(0x0008) (ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x30];                                      // 0x0CC8(0x0030) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -5956,7 +6220,7 @@ public:
 
 
 // Class AC2.ReplayPanel
-// 0x0000 (0x04D0 - 0x04D0)
+// 0x0000 (0x04E8 - 0x04E8)
 class UReplayPanel : public UAcPanelBase
 {
 public:
@@ -5971,13 +6235,13 @@ public:
 
 
 // Class AC2.ResolutionPopup
-// 0x0048 (0x0468 - 0x0420)
+// 0x0048 (0x0478 - 0x0430)
 class UResolutionPopup : public UAcPageBase
 {
 public:
-	struct FText                                       PreText;                                                  // 0x0420(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FText                                       PostText;                                                 // 0x0438(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
-	unsigned char                                      UnknownData00[0x18];                                      // 0x0450(0x0018) MISSED OFFSET
+	struct FText                                       PreText;                                                  // 0x0430(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FText                                       PostText;                                                 // 0x0448(0x0018) (Edit, BlueprintVisible, BlueprintReadOnly)
+	unsigned char                                      UnknownData00[0x18];                                      // 0x0460(0x0018) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6094,14 +6358,38 @@ public:
 };
 
 
+// Class AC2.SessionResults
+// 0x0000 (0x0208 - 0x0208)
+class USessionResults : public UUserWidget
+{
+public:
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.SessionResults");
+		return ptr;
+	}
+
+};
+
+
 // Class AC2.SetupManager
-// 0x07D0 (0x0800 - 0x0030)
+// 0x0810 (0x0840 - 0x0030)
 class USetupManager : public UDataAsset
 {
 public:
-	struct FSetupLimits                                SetupLimits;                                              // 0x0030(0x07C0) (Edit, BlueprintVisible)
-	class UDataTable*                                  FrontDamperLuts;                                          // 0x07F0(0x0008) (Edit, ZeroConstructor, DisableEditOnTemplate, IsPlainOldData)
-	class UDataTable*                                  RearDamperLuts;                                           // 0x07F8(0x0008) (Edit, ZeroConstructor, DisableEditOnTemplate, IsPlainOldData)
+	struct FSetupLimits                                SetupLimits;                                              // 0x0030(0x07E0) (Edit, BlueprintVisible)
+	bool                                               isFrontToeArmPositive;                                    // 0x0810(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               isRearToeArmPositive;                                     // 0x0811(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x2];                                       // 0x0812(0x0002) MISSED OFFSET
+	float                                              aeroBalanceInfoOffset;                                    // 0x0814(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              aeroBalanceInfoScale;                                     // 0x0818(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              brakeBalanceInfoOffset;                                   // 0x081C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              brakeBalanceInfoScale;                                    // 0x0820(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x4];                                       // 0x0824(0x0004) MISSED OFFSET
+	class UDataTable*                                  FrontDamperLuts;                                          // 0x0828(0x0008) (Edit, ZeroConstructor, DisableEditOnTemplate, IsPlainOldData)
+	class UDataTable*                                  RearDamperLuts;                                           // 0x0830(0x0008) (Edit, ZeroConstructor, DisableEditOnTemplate, IsPlainOldData)
+	class UDataTable*                                  SetupPresets;                                             // 0x0838(0x0008) (Edit, ZeroConstructor, DisableEditOnTemplate, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -6110,98 +6398,125 @@ public:
 	}
 
 
+	bool GetSetupList(TArray<struct FName>* List);
+	bool GetSetup(const struct FName& RowName, struct FCarSetup* Destination);
 	bool GetDamperLutList(int Axle, TArray<struct FName>* List);
 	bool GetDamperLut(const struct FName& RowName, int Axle, struct FDamperLut* Destination);
 };
 
 
 // Class AC2.SetupPage
-// 0x0D00 (0x1120 - 0x0420)
+// 0x0E58 (0x1288 - 0x0430)
 class USetupPage : public UAcPageBase
 {
 public:
-	class UAcPanelBase*                                btnSafePreset;                                            // 0x0420(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnAggressivePreset;                                      // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnWetPreset;                                             // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnCurrentSetup;                                          // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	TArray<struct FName>                               CamberNames;                                              // 0x0440(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               ToeNames;                                                 // 0x0450(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               WheelRateNames;                                           // 0x0460(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               BumpSlowNames;                                            // 0x0470(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               ReboundSlowNames;                                         // 0x0480(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               BumpFastNames;                                            // 0x0490(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               ReboundFastNames;                                         // 0x04A0(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               RideHeightNames;                                          // 0x04B0(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               TyreNames;                                                // 0x04C0(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               BumpStopRateUpNames;                                      // 0x04D0(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               BumpStopRateDnNames;                                      // 0x04E0(0x0010) (Edit, ZeroConstructor)
-	TArray<struct FName>                               BumpStopRangeUpNames;                                     // 0x04F0(0x0010) (Edit, ZeroConstructor)
-	TArray<class UGenericSelectorItem*>                Camber;                                                   // 0x0500(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UGenericSelectorItem*>                Toe;                                                      // 0x0510(0x0010) (ExportObject, ZeroConstructor)
-	class UGenericSelectorItem*                        SteerRatio;                                               // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	TArray<class UGenericSelectorItem*>                WheelRate;                                                // 0x0528(0x0010) (ExportObject, ZeroConstructor)
-	class UGenericSelectorItem*                        ARBFront;                                                 // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        ARBRear;                                                  // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        BrakeTorque;                                              // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        BrakeBias;                                                // 0x0550(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	TArray<class UGenericSelectorItem*>                BumpStopRateUp;                                           // 0x0558(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UGenericSelectorItem*>                BumpStopRateDn;                                           // 0x0568(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UGenericSelectorItem*>                BumpStopRangeUp;                                          // 0x0578(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UGenericSelectorItem*>                BumpSlow;                                                 // 0x0588(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UGenericSelectorItem*>                ReboundSlow;                                              // 0x0598(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UGenericSelectorItem*>                BumpFast;                                                 // 0x05A8(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UGenericSelectorItem*>                ReboundFast;                                              // 0x05B8(0x0010) (ExportObject, ZeroConstructor)
-	TArray<class UGenericSelectorItem*>                tyrePressure;                                             // 0x05C8(0x0010) (ExportObject, ZeroConstructor)
-	class UGenericSelectorItem*                        tyreCompound;                                             // 0x05D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        TC1;                                                      // 0x05E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        Abs;                                                      // 0x05E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        ECUMap;                                                   // 0x05F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        Fuel;                                                     // 0x05F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	TArray<class UGenericSelectorItem*>                RideHeight;                                               // 0x0600(0x0010) (ExportObject, ZeroConstructor)
-	class UGenericSelectorItem*                        Splitter;                                                 // 0x0610(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        RearWing;                                                 // 0x0618(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGenericSelectorItem*                        Preload;                                                  // 0x0620(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UPhysicsInfoPanel*                           infosLF;                                                  // 0x0628(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UPhysicsInfoPanel*                           infosRF;                                                  // 0x0630(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UPhysicsInfoPanel*                           infosLR;                                                  // 0x0638(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UPhysicsInfoPanel*                           infosRR;                                                  // 0x0640(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UHorizontalBox*                              HorizontalMenu;                                           // 0x0648(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcTogglePanel*                              tyres;                                                    // 0x0650(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcTogglePanel*                              electronics;                                              // 0x0658(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcTogglePanel*                              FuelStrategy;                                             // 0x0660(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcTogglePanel*                              MechBalance;                                              // 0x0668(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcTogglePanel*                              Dampers;                                                  // 0x0670(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcTogglePanel*                              AeroBalance;                                              // 0x0678(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UWidgetSwitcher*                             SwitchPage;                                               // 0x0680(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UWidgetSwitcher*                             SwitchDetails;                                            // 0x0688(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                PresetPage;                                               // 0x0690(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCanvasPanel*                                SettingPage;                                              // 0x0698(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnTyreLF;                                                // 0x06A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnTyreRF;                                                // 0x06A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnTyreLR;                                                // 0x06B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnTyreRR;                                                // 0x06B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementElectronics;                                    // 0x06C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnFuelStrategy;                                          // 0x06C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementMechBalanceLF;                                  // 0x06D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementMechBalanceRF;                                  // 0x06D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementMechBalanceLR;                                  // 0x06E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementMechBalanceRR;                                  // 0x06E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementMechBalanceFront;                               // 0x06F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementMechBalanceRear;                                // 0x06F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementDampersLF;                                      // 0x0700(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementDampersRF;                                      // 0x0708(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementDampersLR;                                      // 0x0710(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementDampersRR;                                      // 0x0718(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementAeroBalanceRear;                                // 0x0720(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                btnElementAeroBalanceFront;                               // 0x0728(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtAeroFrontBalance;                                      // 0x0730(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UClass*                                      loadSavePopupClass;                                       // 0x0738(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0740(0x0008) MISSED OFFSET
-	class UCanvasPanel*                                cvsWaiting;                                               // 0x0748(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x48];                                      // 0x0750(0x0048) MISSED OFFSET
-	struct FSetupLimits                                SetupLimits;                                              // 0x0798(0x07C0)
-	struct FCarSetup                                   currentSetup;                                             // 0x0F58(0x0194)
-	unsigned char                                      UnknownData02[0x34];                                      // 0x10EC(0x0034) MISSED OFFSET
+	TArray<struct FSetupCarPreviews>                   CarPreviews;                                              // 0x0430(0x0010) (Edit, ZeroConstructor)
+	struct FText                                       currentSetupText;                                         // 0x0440(0x0018)
+	class UClass*                                      YesNoPopupClass;                                          // 0x0458(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0460(0x0008) MISSED OFFSET
+	struct FText                                       YesNoPopUpTitle;                                          // 0x0468(0x0018) (Edit, BlueprintVisible)
+	struct FText                                       YesNoPopUpText;                                           // 0x0480(0x0018) (Edit, BlueprintVisible)
+	class UTextBlock*                                  txtCurrentSetup;                                          // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        fuelConsumption;                                          // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCarPresets;                                            // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCarTyres;                                              // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCarElectronics;                                        // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCarFuel;                                               // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCarMechBalance;                                        // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCarDampers;                                            // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCarAero;                                               // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnSafePreset;                                            // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnAggressivePreset;                                      // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnWetPreset;                                             // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnCurrentSetup;                                          // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	TArray<struct FName>                               CamberNames;                                              // 0x0500(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               ToeNames;                                                 // 0x0510(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               WheelRateNames;                                           // 0x0520(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               BumpSlowNames;                                            // 0x0530(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               ReboundSlowNames;                                         // 0x0540(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               BumpFastNames;                                            // 0x0550(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               ReboundFastNames;                                         // 0x0560(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               RideHeightNames;                                          // 0x0570(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               TyreNames;                                                // 0x0580(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               BumpStopRateUpNames;                                      // 0x0590(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               BumpStopRateDnNames;                                      // 0x05A0(0x0010) (Edit, ZeroConstructor)
+	TArray<struct FName>                               BumpStopRangeUpNames;                                     // 0x05B0(0x0010) (Edit, ZeroConstructor)
+	TArray<class UGenericSelectorItem*>                Camber;                                                   // 0x05C0(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UGenericSelectorItem*>                Toe;                                                      // 0x05D0(0x0010) (ExportObject, ZeroConstructor)
+	class UGenericSelectorItem*                        SteerRatio;                                               // 0x05E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	TArray<class UGenericSelectorItem*>                WheelRate;                                                // 0x05E8(0x0010) (ExportObject, ZeroConstructor)
+	class UGenericSelectorItem*                        ARBFront;                                                 // 0x05F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        ARBRear;                                                  // 0x0600(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        BrakeTorque;                                              // 0x0608(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        BrakeBias;                                                // 0x0610(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	TArray<class UGenericSelectorItem*>                BumpStopRateUp;                                           // 0x0618(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UGenericSelectorItem*>                BumpStopRateDn;                                           // 0x0628(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UGenericSelectorItem*>                BumpStopRangeUp;                                          // 0x0638(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UGenericSelectorItem*>                BumpSlow;                                                 // 0x0648(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UGenericSelectorItem*>                ReboundSlow;                                              // 0x0658(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UGenericSelectorItem*>                BumpFast;                                                 // 0x0668(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UGenericSelectorItem*>                ReboundFast;                                              // 0x0678(0x0010) (ExportObject, ZeroConstructor)
+	TArray<class UGenericSelectorItem*>                tyrePressure;                                             // 0x0688(0x0010) (ExportObject, ZeroConstructor)
+	class UGenericSelectorItem*                        tyreCompound;                                             // 0x0698(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        TC1;                                                      // 0x06A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Abs;                                                      // 0x06A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        ECUMap;                                                   // 0x06B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Fuel;                                                     // 0x06B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	TArray<class UGenericSelectorItem*>                RideHeight;                                               // 0x06C0(0x0010) (ExportObject, ZeroConstructor)
+	class UGenericSelectorItem*                        Splitter;                                                 // 0x06D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        RearWing;                                                 // 0x06D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGenericSelectorItem*                        Preload;                                                  // 0x06E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UPhysicsInfoPanel*                           infosLF;                                                  // 0x06E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UPhysicsInfoPanel*                           infosRF;                                                  // 0x06F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UPhysicsInfoPanel*                           infosLR;                                                  // 0x06F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UPhysicsInfoPanel*                           infosRR;                                                  // 0x0700(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UPhysicsInfoPanel*                           DebugLF;                                                  // 0x0708(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UPhysicsInfoPanel*                           DebugRF;                                                  // 0x0710(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UPhysicsInfoPanel*                           DebugLR;                                                  // 0x0718(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UPhysicsInfoPanel*                           DebugRR;                                                  // 0x0720(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UHorizontalBox*                              HorizontalMenu;                                           // 0x0728(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcTogglePanel*                              tyres;                                                    // 0x0730(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcTogglePanel*                              electronics;                                              // 0x0738(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcTogglePanel*                              FuelStrategy;                                             // 0x0740(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcTogglePanel*                              MechBalance;                                              // 0x0748(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcTogglePanel*                              Dampers;                                                  // 0x0750(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcTogglePanel*                              AeroBalance;                                              // 0x0758(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             SwitchPage;                                               // 0x0760(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             SwitchDetails;                                            // 0x0768(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                PresetPage;                                               // 0x0770(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCanvasPanel*                                SettingPage;                                              // 0x0778(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnTyreLF;                                                // 0x0780(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnTyreRF;                                                // 0x0788(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnTyreLR;                                                // 0x0790(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnTyreRR;                                                // 0x0798(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementElectronics;                                    // 0x07A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnFuelStrategy;                                          // 0x07A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementMechBalanceLF;                                  // 0x07B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementMechBalanceRF;                                  // 0x07B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementMechBalanceLR;                                  // 0x07C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementMechBalanceRR;                                  // 0x07C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementMechBalanceFront;                               // 0x07D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementMechBalanceRear;                                // 0x07D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementDampersLF;                                      // 0x07E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementDampersRF;                                      // 0x07E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementDampersLR;                                      // 0x07F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementDampersRR;                                      // 0x07F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementAeroBalanceRear;                                // 0x0800(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                btnElementAeroBalanceFront;                               // 0x0808(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtAeroFrontBalance;                                      // 0x0810(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeGraphPanel*                             BumpStopGraphLF;                                          // 0x0818(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeGraphPanel*                             BumpStopGraphRF;                                          // 0x0820(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeGraphPanel*                             BumpStopGraphLR;                                          // 0x0828(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeGraphPanel*                             BumpStopGraphRR;                                          // 0x0830(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCarModel;                                              // 0x0838(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCarBrandLogo;                                          // 0x0840(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UClass*                                      loadSavePopupClass;                                       // 0x0848(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x0850(0x0008) MISSED OFFSET
+	class UCanvasPanel*                                cvsWaiting;                                               // 0x0858(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x88];                                      // 0x0860(0x0088) MISSED OFFSET
+	struct FSetupLimits                                SetupLimits;                                              // 0x08E8(0x07E0)
+	struct FCarSetup                                   currentSetup;                                             // 0x10C8(0x0178)
+	unsigned char                                      UnknownData03[0x48];                                      // 0x1240(0x0048) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6210,12 +6525,13 @@ public:
 	}
 
 
+	void OpenYesNoPopup();
 	void OpenLoadSaveDialogBox();
 };
 
 
 // Class AC2.SharedPage
-// 0x0000 (0x0420 - 0x0420)
+// 0x0000 (0x0430 - 0x0430)
 class USharedPage : public UAcPageBase
 {
 public:
@@ -6288,7 +6604,7 @@ public:
 
 
 // Class AC2.PhysicsSettingsAC
-// 0x0028 (0x0058 - 0x0030)
+// 0x0030 (0x0060 - 0x0030)
 class UPhysicsSettingsAC : public UDataAsset
 {
 public:
@@ -6301,7 +6617,10 @@ public:
 	float                                              MarblesMuK;                                               // 0x0048(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	float                                              MarblesGrooveK;                                           // 0x004C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	bool                                               UseRaycastWheels;                                         // 0x0050(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x7];                                       // 0x0051(0x0007) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x3];                                       // 0x0051(0x0003) MISSED OFFSET
+	float                                              GyroGainFF;                                               // 0x0054(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              GyroGainTyres;                                            // 0x0058(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              FfRoadEffect;                                             // 0x005C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{
@@ -6317,9 +6636,8 @@ public:
 class APhysicsAvatar : public AActor
 {
 public:
-	
-	unsigned char                                      UnknownData00[0x120];                                     // 0x0328(0x0158) MISSED OFFSET
-	ksRacing::SessionInfo							   currentSession;
+	unsigned char                                      UnknownData00[0x158];                                     // 0x0328(0x0158) MISSED OFFSET
+
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.PhysicsAvatar");
@@ -6330,18 +6648,18 @@ public:
 
 
 // Class AC2.SinglePlayerColumnPage
-// 0x01C8 (0x05E8 - 0x0420)
+// 0x01D0 (0x0600 - 0x0430)
 class USinglePlayerColumnPage : public UAcPageBase
 {
 public:
-	class UTeamSelectionColumnPanel*                   DriverTeamSelectionPanel;                                 // 0x0420(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UCircuitSelectionColumnPanel*                CircuitSelectionPanel;                                    // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UGameModeColumnPanel*                        GameModePanel;                                            // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtWeatherIcon;                                           // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtWeatherLevel;                                          // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtRealismLevel;                                          // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtAssistsLevel;                                          // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x190];                                     // 0x0458(0x0190) MISSED OFFSET
+	class UTeamSelectionColumnPanel*                   DriverTeamSelectionPanel;                                 // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UCircuitSelectionColumnPanel*                CircuitSelectionPanel;                                    // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UGameModeColumnPanel*                        GameModePanel;                                            // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtWeatherIcon;                                           // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtWeatherLevel;                                          // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRealismLevel;                                          // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtAssistsLevel;                                          // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x198];                                     // 0x0468(0x0198) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6355,15 +6673,15 @@ public:
 
 
 // Class AC2.SinglePlayerPanel
-// 0x0070 (0x0540 - 0x04D0)
+// 0x0070 (0x0558 - 0x04E8)
 class USinglePlayerPanel : public UAcPanelBase
 {
 public:
-	TMap<EGuiGameModes, struct FText>                  GameModeTitles;                                           // 0x04D0(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	class UTextBlock*                                  SubTitle_txt;                                             // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  TrackName_txt;                                            // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  CarModel_txt;                                             // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0538(0x0008) MISSED OFFSET
+	TMap<EGuiGameModes, struct FText>                  GameModeTitles;                                           // 0x04E8(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	class UTextBlock*                                  SubTitle_txt;                                             // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  TrackName_txt;                                            // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  CarModel_txt;                                             // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0550(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6459,17 +6777,17 @@ public:
 
 
 // Class AC2.SpecialEventSinglePanel
-// 0x0198 (0x0668 - 0x04D0)
+// 0x01E0 (0x06C8 - 0x04E8)
 class USpecialEventSinglePanel : public UAcPanelBase
 {
 public:
-	class UTextBlock*                                  txtEventName;                                             // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtEventDescription;                                      // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtLock;                                                  // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgLock;                                                  // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgPoster;                                                // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UWidgetSwitcher*                             InfoPanelSwitch;                                          // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x168];                                     // 0x0500(0x0168) MISSED OFFSET
+	class UTextBlock*                                  txtEventName;                                             // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtEventDescription;                                      // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtLock;                                                  // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgLock;                                                  // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgPoster;                                                // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UWidgetSwitcher*                             InfoPanelSwitch;                                          // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x1B0];                                     // 0x0518(0x01B0) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6483,39 +6801,45 @@ public:
 
 
 // Class AC2.SpecialEventsPage
-// 0x0188 (0x05A8 - 0x0420)
+// 0x01C8 (0x05F8 - 0x0430)
 class USpecialEventsPage : public UAcPageBase
 {
 public:
-	TMap<ECarModelType, class UTexture2D*>             carImages;                                                // 0x0420(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	class UClass*                                      WdgLeaderboardHotlapStandingItemClass;                    // 0x0470(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgHotlapStandingSpacerItemClass;                         // 0x0478(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UClass*                                      WdgSpecialEventSinglePanelClass;                          // 0x0480(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	class UStartSessionPanel*                          StartSessionPanel;                                        // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtPages;                                                 // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtEventName;                                             // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtEventDescription;                                      // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCircuitCountry;                                        // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtWeather;                                               // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtWeatherIcon;                                           // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCircuitLengthValue;                                    // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCornersValue;                                          // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtTeamName;                                              // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCarModel;                                              // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgCircuitCountryFlag;                                    // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgTrackMap;                                              // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgCar;                                                   // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgEventTrophy;                                           // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgSinglePoster;                                          // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtEventStatus;                                           // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtEventTimeOfDay;                                        // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtAssistsLevel;                                          // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtRealismLevel;                                          // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UScrollBox*                                  scrollLeaderboard;                                        // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0530(0x0008) MISSED OFFSET
-	TArray<class USpecialEventSinglePanel*>            EventPanelList;                                           // 0x0538(0x0010) (ExportObject, ZeroConstructor)
-	class UHorizontalBox*                              hboxEvents;                                               // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x58];                                      // 0x0550(0x0058) MISSED OFFSET
+	TMap<ECarModelType, class UTexture2D*>             carImages;                                                // 0x0430(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	class UClass*                                      WdgLeaderboardHotlapStandingItemClass;                    // 0x0480(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgHotlapStandingSpacerItemClass;                         // 0x0488(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UClass*                                      WdgSpecialEventSinglePanelClass;                          // 0x0490(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	class UStartSessionPanel*                          StartSessionPanel;                                        // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtPages;                                                 // 0x04A0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtEventName;                                             // 0x04A8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtEventDescription;                                      // 0x04B0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCircuitCountry;                                        // 0x04B8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtWeather;                                               // 0x04C0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtWeatherIcon;                                           // 0x04C8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCircuitLengthValue;                                    // 0x04D0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCornersValue;                                          // 0x04D8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtTeamName;                                              // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCarModel;                                              // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCircuitCountryFlag;                                    // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgTrackMap;                                              // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCar;                                                   // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgEventTrophy;                                           // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgSinglePoster;                                          // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtEventStatus;                                           // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtEventTimeOfDay;                                        // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtAssistsLevel;                                          // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtRealismLevel;                                          // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UScrollBox*                                  scrollLeaderboard;                                        // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnPreviousPage;                                          // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UButton*                                     btnNextPage;                                              // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class USpecialEventSinglePanel*                    Panel01;                                                  // 0x0550(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class USpecialEventSinglePanel*                    Panel02;                                                  // 0x0558(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class USpecialEventSinglePanel*                    Panel03;                                                  // 0x0560(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class USpecialEventSinglePanel*                    Panel04;                                                  // 0x0568(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0570(0x0008) MISSED OFFSET
+	TArray<class USpecialEventSinglePanel*>            EventPanelList;                                           // 0x0578(0x0010) (ExportObject, ZeroConstructor)
+	class UHorizontalBox*                              hboxEvents;                                               // 0x0588(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x68];                                      // 0x0590(0x0068) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6525,11 +6849,15 @@ public:
 
 
 	void OnHotlapData(const struct FOnlineServicesHotlapUpdate& rankUpdate, TArray<struct FOnlineServicesHotlapEntry> entries, bool ignoreMe);
+	void ClickRightShoulder();
+	void ClickPreviousPage();
+	void ClickNextPage();
+	void ClickLeftShoulder();
 };
 
 
 // Class AC2.StartSessionPanel
-// 0x0000 (0x04D0 - 0x04D0)
+// 0x0000 (0x04E8 - 0x04E8)
 class UStartSessionPanel : public UAcPanelBase
 {
 public:
@@ -6563,23 +6891,23 @@ public:
 
 
 // Class AC2.TeamSelectionColumnPanel
-// 0x00B0 (0x0580 - 0x04D0)
+// 0x00B0 (0x0598 - 0x04E8)
 class UTeamSelectionColumnPanel : public UAcPanelBase
 {
 public:
-	TMap<ECarModelType, class UTexture2D*>             carImages;                                                // 0x04D0(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	class UImage*                                      imgCarLogo;                                               // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgCar;                                                   // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCarName;                                               // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtTeamName;                                              // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtNumber;                                                // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      BPEmptyPlate;                                             // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtDriverName01;                                          // 0x0550(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtDriverSurname01;                                       // 0x0558(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtShortName01;                                           // 0x0560(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgNationalityFlag01;                                     // 0x0568(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      DriverPhoto01;                                            // 0x0570(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0578(0x0008) MISSED OFFSET
+	TMap<ECarModelType, class UTexture2D*>             carImages;                                                // 0x04E8(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	class UImage*                                      imgCarLogo;                                               // 0x0538(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCar;                                                   // 0x0540(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCarName;                                               // 0x0548(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtTeamName;                                              // 0x0550(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtNumber;                                                // 0x0558(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      BPEmptyPlate;                                             // 0x0560(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtDriverName01;                                          // 0x0568(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtDriverSurname01;                                       // 0x0570(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtShortName01;                                           // 0x0578(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgNationalityFlag01;                                     // 0x0580(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      DriverPhoto01;                                            // 0x0588(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0590(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6587,6 +6915,30 @@ public:
 		return ptr;
 	}
 
+};
+
+
+// Class AC2.TimeGraphPanel
+// 0x0040 (0x0528 - 0x04E8)
+class UTimeGraphPanel : public UAcPanelBase
+{
+public:
+	TArray<struct FGraphicArray>                       graphData;                                                // 0x04E8(0x0010) (Edit, BlueprintVisible, ZeroConstructor, EditConst)
+	float                                              T;                                                        // 0x04F8(0x0004) (Edit, BlueprintVisible, ZeroConstructor, EditConst, IsPlainOldData)
+	struct FVector2D                                   Size;                                                     // 0x04FC(0x0008) (Edit, BlueprintVisible, EditConst, IsPlainOldData)
+	struct FGraphSettings                              Settings;                                                 // 0x0504(0x0018) (Edit, BlueprintVisible, EditConst)
+	float                                              Time;                                                     // 0x051C(0x0004) (ZeroConstructor, IsPlainOldData)
+	float                                              tLast;                                                    // 0x0520(0x0004) (ZeroConstructor, IsPlainOldData)
+	float                                              dTime;                                                    // 0x0524(0x0004) (ZeroConstructor, IsPlainOldData)
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.TimeGraphPanel");
+		return ptr;
+	}
+
+
+	void STATIC_DrawLinesThick(TArray<struct FVector2D> Points, const struct FLinearColor& Tint, float Thickness, bool bAntiAlias, struct FPaintContext* Context);
 };
 
 
@@ -6603,6 +6955,91 @@ public:
 	static UClass* StaticClass()
 	{
 		static auto ptr = UObject::FindClass("Class AC2.TimeLeftWidget");
+		return ptr;
+	}
+
+};
+
+
+// Class AC2.TimeTable
+// 0x0020 (0x0508 - 0x04E8)
+class UTimeTable : public UAcPanelBase
+{
+public:
+	class UScrollBox*                                  ScrollTimes;                                              // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtNoLaps;                                                // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UClass*                                      ItemClass;                                                // 0x04F8(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0500(0x0008) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.TimeTable");
+		return ptr;
+	}
+
+
+	void OnItemFocused(class UTimeTableItem* Source);
+};
+
+
+// Class AC2.TimeTableItem
+// 0x00D0 (0x05B8 - 0x04E8)
+class UTimeTableItem : public UAcPanelBase
+{
+public:
+	class UBorder*                                     borderMain;                                               // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgPos;                                                   // 0x04F0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtPos;                                                   // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeTableSectorTimeItem*                    SectorOne;                                                // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeTableSectorTimeItem*                    SectorTwo;                                                // 0x0508(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeTableSectorTimeItem*                    SectorThree;                                              // 0x0510(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeTableSectorTimeItem*                    Laptime;                                                  // 0x0518(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeTableSectorTimeItem*                    DeltaTime;                                                // 0x0520(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeTableNameItem*                          NameOne;                                                  // 0x0528(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTimeTableNameItem*                          NameTwo;                                                  // 0x0530(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0538(0x0008) MISSED OFFSET
+	struct FScriptMulticastDelegate                    OnTimeTableItemFocused;                                   // 0x0540(0x0010) (ZeroConstructor, InstancedReference)
+	struct FScriptMulticastDelegate                    OnTimeTableItemForward;                                   // 0x0550(0x0010) (ZeroConstructor, InstancedReference)
+	struct FScriptMulticastDelegate                    OnTimeTableItemBackward;                                  // 0x0560(0x0010) (ZeroConstructor, InstancedReference)
+	unsigned char                                      UnknownData01[0x48];                                      // 0x0570(0x0048) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.TimeTableItem");
+		return ptr;
+	}
+
+};
+
+
+// Class AC2.TimeTableNameItem
+// 0x0008 (0x0210 - 0x0208)
+class UTimeTableNameItem : public UUserWidget
+{
+public:
+	class UTextBlock*                                  txtValue;                                                 // 0x0208(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.TimeTableNameItem");
+		return ptr;
+	}
+
+};
+
+
+// Class AC2.TimeTableSectorTimeItem
+// 0x0018 (0x0220 - 0x0208)
+class UTimeTableSectorTimeItem : public UUserWidget
+{
+public:
+	class UTextBlock*                                  txtValue;                                                 // 0x0208(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgBgr;                                                   // 0x0210(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0218(0x0008) MISSED OFFSET
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class AC2.TimeTableSectorTimeItem");
 		return ptr;
 	}
 
@@ -6643,7 +7080,7 @@ public:
 
 
 // Class AC2.TrackAvatar
-// 0x01D0 (0x04F8 - 0x0328)
+// 0x01E8 (0x0510 - 0x0328)
 class ATrackAvatar : public AActor
 {
 public:
@@ -6658,11 +7095,11 @@ public:
 	TArray<class USurfaceData*>                        SurfaceData;                                              // 0x0380(0x0010) (Edit, ZeroConstructor)
 	class UTrackPeopleController*                      TrackPeopleController;                                    // 0x0390(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
 	unsigned char                                      UnknownData00[0x8];                                       // 0x0398(0x0008) MISSED OFFSET
-	class UMaterialInstanceDynamic*                    StartingLightsMaterial;                                   // 0x03A0(0x0008) (ZeroConstructor, IsPlainOldData)
-	struct FVector2D                                   GreenFlagTriggerRange;                                    // 0x03A8(0x0008) (BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	struct FVector2D                                   FormationLapTriggerRange;                                 // 0x03B0(0x0008) (BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
-	TArray<float>                                      normalizedSectorLimits;                                   // 0x03B8(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst)
-	unsigned char                                      UnknownData01[0x130];                                     // 0x03C8(0x0130) MISSED OFFSET
+	TArray<class UMaterialInstanceDynamic*>            StartingLightsMaterials;                                  // 0x03A0(0x0010) (ZeroConstructor)
+	struct FVector2D                                   GreenFlagTriggerRange;                                    // 0x03B0(0x0008) (BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	struct FVector2D                                   FormationLapTriggerRange;                                 // 0x03B8(0x0008) (BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
+	TArray<float>                                      normalizedSectorLimits;                                   // 0x03C0(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst)
+	unsigned char                                      UnknownData01[0x140];                                     // 0x03D0(0x0140) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6680,15 +7117,15 @@ public:
 
 
 // Class AC2.TrackIdentityPanel
-// 0x0028 (0x04F8 - 0x04D0)
+// 0x0028 (0x0510 - 0x04E8)
 class UTrackIdentityPanel : public UAcPanelBase
 {
 public:
-	struct FName                                       TrackName;                                                // 0x04D0(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x04D8(0x0008) MISSED OFFSET
-	class UImage*                                      imgUnavailable;                                           // 0x04E0(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgSelected;                                              // 0x04E8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x04F0(0x0008) MISSED OFFSET
+	struct FName                                       TrackName;                                                // 0x04E8(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x04F0(0x0008) MISSED OFFSET
+	class UImage*                                      imgUnavailable;                                           // 0x04F8(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgSelected;                                              // 0x0500(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x0508(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6697,6 +7134,8 @@ public:
 	}
 
 };
+
+
 struct MarshalStruct
 {
 	uint8_t flagColor : 4;
@@ -6741,7 +7180,7 @@ public:
 
 
 // Class AC2.TrackPreviewPanel
-// 0x0000 (0x04D0 - 0x04D0)
+// 0x0000 (0x04E8 - 0x04E8)
 class UTrackPreviewPanel : public UAcPanelBase
 {
 public:
@@ -6756,11 +7195,11 @@ public:
 
 
 // Class AC2.TrackSectionServices
-// 0x0368 (0x0390 - 0x0028)
+// 0x0370 (0x0398 - 0x0028)
 class UTrackSectionServices : public UObject
 {
 public:
-	unsigned char                                      UnknownData00[0x368];                                     // 0x0028(0x0368) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x370];                                     // 0x0028(0x0370) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6772,25 +7211,25 @@ public:
 
 
 // Class AC2.TrackSelectionPage
-// 0x0080 (0x04A0 - 0x0420)
+// 0x0080 (0x04B0 - 0x0430)
 class UTrackSelectionPage : public UAcPageBase
 {
 public:
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0420(0x0008) MISSED OFFSET
-	struct FName                                       CircuitName;                                              // 0x0428(0x0008) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	class UVerticalBox*                                CircuitList;                                              // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCircuitName;                                           // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCircuitCountry;                                        // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCircuitLengthValue;                                    // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtCornersValue;                                          // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  txtHistory;                                               // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgCircuitCountryFlag;                                    // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgTrackMap;                                              // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgPreview01;                                             // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgPreview02;                                             // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgPreview03;                                             // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UImage*                                      imgPreview04;                                             // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x10];                                      // 0x0490(0x0010) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0430(0x0008) MISSED OFFSET
+	struct FName                                       CircuitName;                                              // 0x0438(0x0008) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UVerticalBox*                                CircuitList;                                              // 0x0440(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCircuitName;                                           // 0x0448(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCircuitCountry;                                        // 0x0450(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCircuitLengthValue;                                    // 0x0458(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtCornersValue;                                          // 0x0460(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  txtHistory;                                               // 0x0468(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgCircuitCountryFlag;                                    // 0x0470(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgTrackMap;                                              // 0x0478(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgPreview01;                                             // 0x0480(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgPreview02;                                             // 0x0488(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgPreview03;                                             // 0x0490(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UImage*                                      imgPreview04;                                             // 0x0498(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x10];                                      // 0x04A0(0x0010) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -6804,7 +7243,7 @@ public:
 
 
 // Class AC2.TrackSelectionPanel
-// 0x0000 (0x04D0 - 0x04D0)
+// 0x0000 (0x04E8 - 0x04E8)
 class UTrackSelectionPanel : public UAcPanelBase
 {
 public:
@@ -7006,13 +7445,13 @@ public:
 
 
 // Class AC2.VideoOptionsPage
-// 0x00E0 (0x0500 - 0x0420)
+// 0x00E8 (0x0518 - 0x0430)
 class UVideoOptionsPage : public UAcPageBase
 {
 public:
-	class UResolutionPopup*                            popup;                                                    // 0x0420(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UMainSelectorItem*                           MainSelector;                                             // 0x0428(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData00[0xD0];                                      // 0x0430(0x00D0) MISSED OFFSET
+	class UResolutionPopup*                            popup;                                                    // 0x0430(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UMainSelectorItem*                           MainSelector;                                             // 0x0438(0x0008) (ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData00[0xD8];                                      // 0x0440(0x00D8) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -7051,17 +7490,19 @@ public:
 	bool TestChangeScreenResolution(int Width, int Height, bool Fullscreen);
 	bool TempApplyAndSave();
 	void SetTemporalAAEnabled(bool Value);
+	void SetSharpen(float Value);
 	bool SetSetting(EGraphicsOptions Type, float Value);
 	bool SetScreenResolution(int Width, int Height, bool Fullscreen);
 	void SetMotionBlurEnabled(bool Value);
 	void SetHDREnabled(bool Value);
 	bool SaveVideoSettings();
-	void SaveToFile(unsigned char maxCars, unsigned char mirrorQuality, bool isMBlurEnabled, bool AATemporal, float ColorSaturation, bool isHDR);
+	void SaveToFile(unsigned char maxCars, unsigned char mirrorQuality, bool isMBlurEnabled, bool AATemporal, float ColorSaturation, bool isHDR, float sharpen);
 	bool SaveSettings();
 	void LaunchConsoleCMD(const struct FString& Cmd, const struct FString& Value);
 	struct FViewGUIResult GetValueFromSave(TArray<struct FString> ValueNames, float Value, float MaxValue, float Step);
 	struct FViewGUIResult GetValue(TArray<struct FString> ValueNames, float Value, float MaxValue, float Step);
 	bool GetTemporalAAEnabled();
+	float GetSharpen();
 	bool GetSetting(EGraphicsOptions Type, float* Result);
 	bool GetScreenResolution(int* Width, int* Height, bool* Fullscreen);
 	struct FString GetProjectVersion();
@@ -7088,8 +7529,9 @@ public:
 	bool                                               isMBlurEnabled;                                           // 0x003A(0x0001) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
 	bool                                               isAATemporal;                                             // 0x003B(0x0001) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
 	float                                              ColorSaturation;                                          // 0x003C(0x0004) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
-	bool                                               isHDRActive;                                              // 0x0040(0x0001) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x7];                                       // 0x0041(0x0007) MISSED OFFSET
+	float                                              sharpen;                                                  // 0x0040(0x0004) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
+	bool                                               isHDRActive;                                              // 0x0044(0x0001) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x3];                                       // 0x0045(0x0003) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -7098,7 +7540,7 @@ public:
 	}
 
 
-	void SaveGraphicOptions(unsigned char MirrorLevel, unsigned char maxCars, bool isBlur, bool isTemporal, float colourSaturation, bool IsHDREnabled);
+	void SaveGraphicOptions(unsigned char MirrorLevel, unsigned char maxCars, bool isBlur, bool isTemporal, float colourSaturation, bool IsHDREnabled, float sharpness);
 	bool GetTemporalEnabled();
 	bool GetMotionBlurEnabled();
 	unsigned char GetMirrorQualityLevel();
@@ -7108,11 +7550,11 @@ public:
 
 
 // Class AC2.WearEditorPage
-// 0x0008 (0x0428 - 0x0420)
+// 0x0008 (0x0438 - 0x0430)
 class UWearEditorPage : public UAcPageBase
 {
 public:
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0420(0x0008) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0430(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -7154,11 +7596,11 @@ public:
 
 
 // Class AC2.WingDebugHUD
-// 0x0028 (0x0478 - 0x0450)
+// 0x0018 (0x0468 - 0x0450)
 class AWingDebugHUD : public AAcChildHUD
 {
 public:
-	unsigned char                                      UnknownData00[0x28];                                      // 0x0450(0x0028) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x18];                                      // 0x0450(0x0018) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -7170,11 +7612,11 @@ public:
 
 
 // Class AC2.WrongWayWidget
-// 0x0010 (0x0300 - 0x02F0)
+// 0x0008 (0x02F8 - 0x02F0)
 class UWrongWayWidget : public UAcRaceWidgetBase
 {
 public:
-	unsigned char                                      UnknownData00[0x10];                                      // 0x02F0(0x0010) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x8];                                       // 0x02F0(0x0008) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{
@@ -7186,16 +7628,16 @@ public:
 
 
 // Class AC2.YesNoPopup
-// 0x0030 (0x0450 - 0x0420)
+// 0x0030 (0x0460 - 0x0430)
 class UYesNoPopup : public UAcPageBase
 {
 public:
-	class UTextBlock*                                  MessageText;                                              // 0x0420(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UTextBlock*                                  Title;                                                    // 0x0428(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                YesButton;                                                // 0x0430(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UAcPanelBase*                                NoButton;                                                 // 0x0438(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
-	EYesNoPopupType                                    PopupType;                                                // 0x0440(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0xF];                                       // 0x0441(0x000F) MISSED OFFSET
+	class UTextBlock*                                  MessageText;                                              // 0x0430(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UTextBlock*                                  Title;                                                    // 0x0438(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                YesButton;                                                // 0x0440(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UAcPanelBase*                                NoButton;                                                 // 0x0448(0x0008) (BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData)
+	EYesNoPopupType                                    PopupType;                                                // 0x0450(0x0001) (BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0xF];                                       // 0x0451(0x000F) MISSED OFFSET
 
 	static UClass* StaticClass()
 	{

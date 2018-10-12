@@ -7,13 +7,13 @@
 #endif
 
 #include "ACC_Basic.hpp"
-#include "ACC_UMG_classes.hpp"
 #include "ACC_Engine_classes.hpp"
 #include "ACC_CoreUObject_classes.hpp"
+#include "ACC_UMG_classes.hpp"
 #include "ACC_SlateCore_classes.hpp"
-#include "ACC_FMODStudio_classes.hpp"
-#include "ACC_AIModule_classes.hpp"
 #include "ACC_InputCore_classes.hpp"
+#include "ACC_AIModule_classes.hpp"
+#include "ACC_FMODStudio_classes.hpp"
 
 namespace SDK
 {
@@ -189,7 +189,10 @@ enum class EAudioCommsDataType : uint8_t
 	EAudioCommsDataType__RaceOverNoTarget = 20,
 	EAudioCommsDataType__RaceStart = 21,
 	EAudioCommsDataType__HotstintStart = 22,
-	EAudioCommsDataType__EAudioCommsDataType_MAX = 23
+	EAudioCommsDataType__SuperpoleStart = 23,
+	EAudioCommsDataType__PitWindowOpened = 24,
+	EAudioCommsDataType__PitWindowClosed = 25,
+	EAudioCommsDataType__EAudioCommsDataType_MAX = 26
 };
 
 
@@ -496,6 +499,17 @@ enum class ELaptimeDeltaFormat : uint8_t
 };
 
 
+// Enum AC2.EStereoLayerChange
+enum class EStereoLayerChange : uint8_t
+{
+	EStereoLayerChange__Forward    = 0,
+	EStereoLayerChange__Backward   = 1,
+	EStereoLayerChange__ScaleUp    = 2,
+	EStereoLayerChange__ScaleDown  = 3,
+	EStereoLayerChange__EStereoLayerChange_MAX = 4
+};
+
+
 // Enum AC2.EOnlineServicesStage
 enum class EOnlineServicesStage : uint8_t
 {
@@ -680,19 +694,24 @@ enum class EControllerActionType : uint8_t
 	EControllerActionType__CameraMoveBackward = 99,
 	EControllerActionType__CameraMoveUp = 100,
 	EControllerActionType__CameraMoveDown = 101,
-	EControllerActionType__LookLeft = 102,
-	EControllerActionType__LookRight = 103,
-	EControllerActionType__LookBack = 104,
-	EControllerActionType__ToggleNightLight = 105,
-	EControllerActionType__KeyboardSteerLeft = 106,
-	EControllerActionType__KeyboardSteerRight = 107,
-	EControllerActionType__KeyboardGas = 108,
-	EControllerActionType__KeyboardBrake = 109,
-	EControllerActionType__KeyboardGearUp = 110,
-	EControllerActionType__KeyboardGearDown = 111,
-	EControllerActionType__MouseLeftButton = 112,
-	EControllerActionType__MouseRightButton = 113,
-	EControllerActionType__EControllerActionType_MAX = 114
+	EControllerActionType__CameraMoveLeft = 102,
+	EControllerActionType__CameraMoveRight = 103,
+	EControllerActionType__CameraPitchUp = 104,
+	EControllerActionType__CameraPitchDown = 105,
+	EControllerActionType__LookLeft = 106,
+	EControllerActionType__LookRight = 107,
+	EControllerActionType__LookBack = 108,
+	EControllerActionType__ToggleNightLight = 109,
+	EControllerActionType__KeyboardSteerLeft = 110,
+	EControllerActionType__KeyboardSteerRight = 111,
+	EControllerActionType__KeyboardGas = 112,
+	EControllerActionType__KeyboardBrake = 113,
+	EControllerActionType__KeyboardGearUp = 114,
+	EControllerActionType__KeyboardGearDown = 115,
+	EControllerActionType__MouseLeftButton = 116,
+	EControllerActionType__MouseRightButton = 117,
+	EControllerActionType__SwitchDummyCars = 118,
+	EControllerActionType__EControllerActionType_MAX = 119
 };
 
 
@@ -753,14 +772,13 @@ enum class EGuiLoadingScreens : uint8_t
 
 
 // Enum AC2.ESprintToEndurance
-/*
-enum class ESprintToEndurance : uint8_t
+/*enum class ESprintToEndurance : uint8_t
 {
 	ESprintToEndurance__Sprint     = 0,
 	ESprintToEndurance__Endurance  = 1,
 	ESprintToEndurance__ESprintToEndurance_MAX = 2
-};
-*/
+};*/
+
 
 // Enum AC2.EWearSponsors
 enum class EWearSponsors : uint8_t
@@ -850,17 +868,17 @@ enum class EOffToEpic : uint8_t
 	EOffToEpic__EOffToEpic_MAX     = 5
 };
 
-/*
+
 // Enum AC2.EOffToHigh
-enum class EOffToHigh : uint8_t
+/*enum class EOffToHigh : uint8_t
 {
 	EOffToHigh__OFF                = 0,
 	EOffToHigh__LOW                = 1,
 	EOffToHigh__MID                = 2,
 	EOffToHigh__HIGH               = 3,
 	EOffToHigh__EOffToHigh_MAX     = 4
-};
-*/
+};*/
+
 
 // Enum AC2.ELowToEpic
 enum class ELowToEpic : uint8_t
@@ -958,7 +976,8 @@ enum class EGuiGameModes : uint8_t
 	EGuiGameModes__Superpole       = 7,
 	EGuiGameModes__Endurance24H    = 8,
 	EGuiGameModes__CustomRace      = 9,
-	EGuiGameModes__EGuiGameModes_MAX = 10
+	EGuiGameModes__HotlapSuperpole = 10,
+	EGuiGameModes__EGuiGameModes_MAX = 11
 };
 
 
@@ -1109,7 +1128,9 @@ enum class ECameraMovement : uint8_t
 	ECameraMovement__Backward      = 1,
 	ECameraMovement__Up            = 2,
 	ECameraMovement__Down          = 3,
-	ECameraMovement__ECameraMovement_MAX = 4
+	ECameraMovement__Left          = 4,
+	ECameraMovement__Right         = 5,
+	ECameraMovement__ECameraMovement_MAX = 6
 };
 
 
@@ -1156,7 +1177,8 @@ enum class EPresetType : uint8_t
 	EPresetType__Realism           = 5,
 	EPresetType__Weather           = 6,
 	EPresetType__Assists           = 7,
-	EPresetType__EPresetType_MAX   = 8
+	EPresetType__Replay            = 8,
+	EPresetType__EPresetType_MAX   = 9
 };
 
 
@@ -1201,7 +1223,8 @@ enum class EBrandType : uint8_t
 	EBrandType__Aston_Martin       = 9,
 	EBrandType__Chevrolet          = 10,
 	EBrandType__Jaguar             = 11,
-	EBrandType__EBrandType_MAX     = 12
+	EBrandType__Lexus              = 12,
+	EBrandType__EBrandType_MAX     = 13
 };
 
 
@@ -1365,6 +1388,16 @@ enum class ECarLocation : uint8_t
 };
 
 
+// Enum AC2.EAudioLog
+enum class EAudioLog : uint8_t
+{
+	EAudioLog__Disabled            = 0,
+	EAudioLog__CarDevelopment      = 1,
+	EAudioLog__FocusedCarDebugging = 2,
+	EAudioLog__EAudioLog_MAX       = 3
+};
+
+
 // Enum AC2.EAudioVCA
 enum class EAudioVCA : uint8_t
 {
@@ -1379,7 +1412,8 @@ enum class EAudioVCA : uint8_t
 	EAudioVCA__Comms               = 8,
 	EAudioVCA__Music               = 9,
 	EAudioVCA__Opponent            = 10,
-	EAudioVCA__EAudioVCA_MAX       = 11
+	EAudioVCA__Gui                 = 11,
+	EAudioVCA__EAudioVCA_MAX       = 12
 };
 
 
@@ -1611,6 +1645,40 @@ enum class EWigetAnchor : uint8_t
 	EWigetAnchor__BottomCenter     = 7,
 	EWigetAnchor__BottomRight      = 8,
 	EWigetAnchor__EWigetAnchor_MAX = 9
+};
+
+
+// Enum AC2.ERatingIncidentAnalysisType
+enum class ERatingIncidentAnalysisType : uint8_t
+{
+	ERatingIncidentAnalysisType__NotInitialized = 0,
+	ERatingIncidentAnalysisType__Unknown = 1,
+	ERatingIncidentAnalysisType__RaceAccident = 2,
+	ERatingIncidentAnalysisType__LostControl = 3,
+	ERatingIncidentAnalysisType__RearendStraight = 4,
+	ERatingIncidentAnalysisType__RearendBraking = 5,
+	ERatingIncidentAnalysisType__RearendBeforeApex = 6,
+	ERatingIncidentAnalysisType__ReverseDriving = 7,
+	ERatingIncidentAnalysisType__DeliberateSlowing = 8,
+	ERatingIncidentAnalysisType__DeliberateCutting = 9,
+	ERatingIncidentAnalysisType__DeliberateWaiting = 10,
+	ERatingIncidentAnalysisType__DeliberateReverseDriving = 11,
+	ERatingIncidentAnalysisType__ERatingIncidentAnalysisType_MAX = 12
+};
+
+
+// Enum AC2.ERatingIncidentOutcomeType
+enum class ERatingIncidentOutcomeType : uint8_t
+{
+	ERatingIncidentOutcomeType__NotInitialized = 0,
+	ERatingIncidentOutcomeType__NoConcequences = 1,
+	ERatingIncidentOutcomeType__PushedOffTrack = 2,
+	ERatingIncidentOutcomeType__Impaired = 3,
+	ERatingIncidentOutcomeType__MinorDamage = 4,
+	ERatingIncidentOutcomeType__LostControl = 5,
+	ERatingIncidentOutcomeType__AnotherCollision = 6,
+	ERatingIncidentOutcomeType__MajorDamage = 7,
+	ERatingIncidentOutcomeType__ERatingIncidentOutcomeType_MAX = 8
 };
 
 
@@ -2123,8 +2191,7 @@ struct FCarLightStage
 // 0x0008
 struct FLapTimeReference
 {
-	unsigned int									   lapTime;
-	ELapTimeReferenceType                              referenceType;                                       // 0x0000(0x0008) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x8];                                       // 0x0000(0x0008) MISSED OFFSET
 };
 
 // ScriptStruct AC2.BackfireFlame
@@ -2187,7 +2254,7 @@ struct FDebugOnline
 {
 	EOnlineServicesStage                               AcOnlineServer;                                           // 0x0000(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData00[0x3];                                       // 0x0001(0x0003) MISSED OFFSET
-	int                                                Port;                                                     // 0x0004(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                Port3;                                                    // 0x0004(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	struct FString                                     DriverName;                                               // 0x0008(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
 	int                                                IdentitySwitchSimulatorNumber;                            // 0x0018(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UseRaceDirectorPenalties;                                 // 0x001C(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
@@ -2241,7 +2308,7 @@ struct FTelemetryModules
 };
 
 // ScriptStruct AC2.ModulesEnabler
-// 0x001C
+// 0x0020
 struct FModulesEnabler
 {
 	unsigned char                                      UseReplay;                                                // 0x0000(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
@@ -2254,6 +2321,7 @@ struct FModulesEnabler
 	int                                                PhysicsThreadsCount;                                      // 0x0014(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UseHMD;                                                   // 0x0018(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData01[0x3];                                       // 0x0019(0x0003) MISSED OFFSET
+	int                                                UseNativeDBox;                                            // 0x001C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 };
 
 // ScriptStruct AC2.ReplayConfiguration
@@ -2272,7 +2340,7 @@ struct FReplayConfiguration
 };
 
 // ScriptStruct AC2.UIConfiguration
-// 0x0014
+// 0x000C
 struct FUIConfiguration
 {
 	float                                              TransitionStartLevelTime;                                 // 0x0000(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
@@ -2281,13 +2349,10 @@ struct FUIConfiguration
 	unsigned char                                      ChildHudEnabled;                                          // 0x0009(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      ShowElectronicsActivityOnPedals1;                         // 0x000A(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      ShowGameIntroPages;                                       // 0x000B(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      DebugShuffleLeaderboards;                                 // 0x000C(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x3];                                       // 0x000D(0x0003) MISSED OFFSET
-	float                                              DebugRebroadcastLeaderboardSeconds;                       // 0x0010(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 };
 
 // ScriptStruct AC2.DebugStruct
-// 0x00F0
+// 0x00E8
 struct FDebugStruct
 {
 	unsigned char                                      StartupLocation;                                          // 0x0000(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
@@ -2296,12 +2361,27 @@ struct FDebugStruct
 	struct FDebugCarOverride                           CarOverride;                                              // 0x0050(0x0020) (Edit, BlueprintVisible)
 	struct FDebugOnline                                Online;                                                   // 0x0070(0x0020) (Edit, BlueprintVisible)
 	struct FDebugVideoEditing                          VideoEditing;                                             // 0x0090(0x000C) (Edit, BlueprintVisible)
-	struct FModulesEnabler                             ModulesEnabler;                                           // 0x009C(0x001C) (Edit, BlueprintVisible)
-	struct FReplayConfiguration                        ReplayConfiguration;                                      // 0x00B8(0x0018) (Edit, BlueprintVisible)
-	struct FUIConfiguration                            UIConfiguration;                                          // 0x00D0(0x0014) (Edit, BlueprintVisible)
-	int                                                IsDeveloper;                                              // 0x00E4(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	int                                                IsTester;                                                 // 0x00E8(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x4];                                       // 0x00EC(0x0004) MISSED OFFSET
+	struct FModulesEnabler                             ModulesEnabler;                                           // 0x009C(0x0020) (Edit, BlueprintVisible)
+	struct FReplayConfiguration                        ReplayConfiguration;                                      // 0x00BC(0x0018) (Edit, BlueprintVisible)
+	struct FUIConfiguration                            UIConfiguration;                                          // 0x00D4(0x000C) (Edit, BlueprintVisible)
+	int                                                IsDeveloper;                                              // 0x00E0(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                IsTester;                                                 // 0x00E4(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+};
+
+// ScriptStruct AC2.ACVRSettings
+// 0x0028
+struct FACVRSettings
+{
+	float                                              MainMenuLayerDistance;                                    // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              MainMenuLayerSize;                                        // 0x0004(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	int                                                MainMenuLayerType;                                        // 0x0008(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              RaceMenuLayerDistance;                                    // 0x000C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              RaceMenuLayerSize;                                        // 0x0010(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	int                                                RaceMenuLayerType;                                        // 0x0014(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              HUDLayerDistance;                                         // 0x0018(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              HUDLayerSize;                                             // 0x001C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	int                                                HUDLayerType;                                             // 0x0020(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	int                                                SpectatorScreenMode;                                      // 0x0024(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 };
 
 // ScriptStruct AC2.Nationality
@@ -2384,7 +2464,9 @@ struct FDriverInfo : public FTableRowBase
 	int                                                SuitDetailColor2;                                         // 0x00B4(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      SkillLevel;                                               // 0x00B8(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      AggroLevel;                                               // 0x00B9(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x16];                                      // 0x00BA(0x0016) MISSED OFFSET
+	unsigned char                                      RainSkillMultiplier;                                      // 0x00BA(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      consistency;                                              // 0x00BB(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x14];                                      // 0x00BC(0x0014) MISSED OFFSET
 };
 
 // ScriptStruct AC2.CommonTexts
@@ -2426,7 +2508,7 @@ struct FCircuitSectionDefinition : public FTableRowBase
 };
 
 // ScriptStruct AC2.CircuitInfo
-// 0x0190 (0x0198 - 0x0008)
+// 0x0198 (0x01A0 - 0x0008)
 struct FCircuitInfo : public FTableRowBase
 {
 	struct FString                                     CircuitName;                                              // 0x0008(0x0010) (Edit, ZeroConstructor)
@@ -2465,47 +2547,51 @@ struct FCircuitInfo : public FTableRowBase
 	TArray<TSoftObjectPtr<class UTexture2D>>           NightWetTrackImages;                                      // 0x0168(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
 	TArray<TSoftObjectPtr<class UTexture2D>>           DayCloudyTrackImages;                                     // 0x0178(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
 	TArray<TSoftObjectPtr<class UTexture2D>>           NightCloudyTrackImages;                                   // 0x0188(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	int                                                RealWorldRecord;                                          // 0x0198(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData06[0x4];                                       // 0x019C(0x0004) MISSED OFFSET
 };
 
 // ScriptStruct AC2.CarInfo
-// 0x0090 (0x0098 - 0x0008)
+// 0x0098 (0x00A0 - 0x0008)
 struct FCarInfo : public FTableRowBase
 {
-	int                                                RaceNumber;                                               // 0x0008(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x3];                                       // 0x000C(0x0003) MISSED OFFSET
-	bool                                               bUsable;                                                  // 0x000F(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	TArray<ERaceEventType>                             CarRaceEventType;                                         // 0x0010(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
-	ECarModelType                                      CarModel;                                                 // 0x0020(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	ECupCategory                                       CupCategory;                                              // 0x0021(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	ELicenseType                                       LicenseType;                                              // 0x0022(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x5];                                       // 0x0023(0x0005) MISSED OFFSET
-	struct FString                                     TeamName;                                                 // 0x0028(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
-	ENationality                                       Nationality;                                              // 0x0038(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x7];                                       // 0x0039(0x0007) MISSED OFFSET
-	struct FString                                     DisplayName;                                              // 0x0040(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
-	struct FString                                     CompetitorName;                                           // 0x0050(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
-	ENationality                                       CompetitorNationality;                                    // 0x0060(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      TeamTemplateKey;                                          // 0x0061(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      AuxLightKey;                                              // 0x0062(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData03[0x1];                                       // 0x0063(0x0001) MISSED OFFSET
-	int                                                AuxLightColor;                                            // 0x0064(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      SkinTemplateKey;                                          // 0x0068(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData04[0x3];                                       // 0x0069(0x0003) MISSED OFFSET
-	int                                                SkinColor1Id;                                             // 0x006C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	ESkinMaterialType                                  SkinMaterialType1;                                        // 0x0070(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData05[0x3];                                       // 0x0071(0x0003) MISSED OFFSET
-	int                                                SkinColor2Id;                                             // 0x0074(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	ESkinMaterialType                                  SkinMaterialType2;                                        // 0x0078(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData06[0x3];                                       // 0x0079(0x0003) MISSED OFFSET
-	int                                                SkinColor3Id;                                             // 0x007C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	ESkinMaterialType                                  SkinMaterialType3;                                        // 0x0080(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData07[0x3];                                       // 0x0081(0x0003) MISSED OFFSET
-	int                                                RimColor1Id;                                              // 0x0084(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	ESkinMaterialType                                  RimMaterialType1;                                         // 0x0088(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData08[0x3];                                       // 0x0089(0x0003) MISSED OFFSET
-	int                                                RimColor2Id;                                              // 0x008C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	ESkinMaterialType                                  RimMaterialType2;                                         // 0x0090(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData09[0x7];                                       // 0x0091(0x0007) MISSED OFFSET
+	int                                                CarGuid;                                                  // 0x0008(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                TeamGuid;                                                 // 0x000C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                RaceNumber;                                               // 0x0010(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x3];                                       // 0x0014(0x0003) MISSED OFFSET
+	bool                                               bUsable;                                                  // 0x0017(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	TArray<ERaceEventType>                             CarRaceEventType;                                         // 0x0018(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	ECarModelType                                      CarModel;                                                 // 0x0028(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	ECupCategory                                       CupCategory;                                              // 0x0029(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	ELicenseType                                       LicenseType;                                              // 0x002A(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x5];                                       // 0x002B(0x0005) MISSED OFFSET
+	struct FString                                     TeamName;                                                 // 0x0030(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	ENationality                                       Nationality;                                              // 0x0040(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x7];                                       // 0x0041(0x0007) MISSED OFFSET
+	struct FString                                     DisplayName;                                              // 0x0048(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	struct FString                                     CompetitorName;                                           // 0x0058(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	ENationality                                       CompetitorNationality;                                    // 0x0068(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      TeamTemplateKey;                                          // 0x0069(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      AuxLightKey;                                              // 0x006A(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData03[0x1];                                       // 0x006B(0x0001) MISSED OFFSET
+	int                                                AuxLightColor;                                            // 0x006C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      SkinTemplateKey;                                          // 0x0070(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData04[0x3];                                       // 0x0071(0x0003) MISSED OFFSET
+	int                                                SkinColor1Id;                                             // 0x0074(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	ESkinMaterialType                                  SkinMaterialType1;                                        // 0x0078(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData05[0x3];                                       // 0x0079(0x0003) MISSED OFFSET
+	int                                                SkinColor2Id;                                             // 0x007C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	ESkinMaterialType                                  SkinMaterialType2;                                        // 0x0080(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData06[0x3];                                       // 0x0081(0x0003) MISSED OFFSET
+	int                                                SkinColor3Id;                                             // 0x0084(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	ESkinMaterialType                                  SkinMaterialType3;                                        // 0x0088(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData07[0x3];                                       // 0x0089(0x0003) MISSED OFFSET
+	int                                                RimColor1Id;                                              // 0x008C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	ESkinMaterialType                                  RimMaterialType1;                                         // 0x0090(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData08[0x3];                                       // 0x0091(0x0003) MISSED OFFSET
+	int                                                RimColor2Id;                                              // 0x0094(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	ESkinMaterialType                                  RimMaterialType2;                                         // 0x0098(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData09[0x7];                                       // 0x0099(0x0007) MISSED OFFSET
 };
 
 // ScriptStruct AC2.BrandInfo
@@ -2603,7 +2689,7 @@ struct FGuiRaceEventData
 };
 
 // ScriptStruct AC2.AudioSave
-// 0x0028
+// 0x002C
 struct FAudioSave
 {
 	float                                              Main;                                                     // 0x0000(0x0004) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
@@ -2616,6 +2702,7 @@ struct FAudioSave
 	float                                              Comms;                                                    // 0x001C(0x0004) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
 	float                                              Music;                                                    // 0x0020(0x0004) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
 	float                                              Opponent;                                                 // 0x0024(0x0004) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
+	float                                              Gui;                                                      // 0x0028(0x0004) (Edit, ZeroConstructor, EditConst, IsPlainOldData)
 };
 
 // ScriptStruct AC2.GuiLoadingScreenInfo
@@ -2704,10 +2791,11 @@ struct FPitstopOffsets
 };
 
 // ScriptStruct AC2.ACCameraCarInfo
-// 0x003C
+// 0x0050
 struct FACCameraCarInfo
 {
 	struct FVector                                     Offsets[0x5];                                             // 0x0000(0x000C) (Edit, IsPlainOldData)
+	float                                              Pitches[0x5];                                             // 0x003C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 };
 
 // ScriptStruct AC2.ACCameraSettings
@@ -2747,8 +2835,27 @@ struct FWeatherStatus
 	float                                              cloudLevel;                                               // 0x0018(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 };
 
+// ScriptStruct AC2.WeatherData
+// 0x0048
+struct FWeatherData
+{
+	bool                                               Enabled;                                                  // 0x0000(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x3];                                       // 0x0001(0x0003) MISSED OFFSET
+	float                                              sunlightMean;                                             // 0x0004(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              sunlightAmplitude;                                        // 0x0008(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              ambientTemperatureMean;                                   // 0x000C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              ambientTemperatureAmplitude;                              // 0x0010(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	int                                                nHarmonics;                                               // 0x0014(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              weatherBaseMean;                                          // 0x0018(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              weatherBaseDeviation;                                     // 0x001C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              variabilityMean;                                          // 0x0020(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              variabilityDeviation;                                     // 0x0024(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	TArray<float>                                      sineCoefficients;                                         // 0x0028(0x0010) (Edit, ZeroConstructor)
+	TArray<float>                                      cosineCoefficients;                                       // 0x0038(0x0010) (Edit, ZeroConstructor)
+};
+
 // ScriptStruct AC2.RaceSpecialEventData
-// 0x0090 (0x0098 - 0x0008)
+// 0x00D8 (0x00E0 - 0x0008)
 struct FRaceSpecialEventData : public FTableRowBase
 {
 	struct FCompetitionList                            CompetitionList;                                          // 0x0008(0x0018) (Edit)
@@ -2758,10 +2865,11 @@ struct FRaceSpecialEventData : public FTableRowBase
 	struct FString                                     TargetPosition;                                           // 0x0068(0x0010) (Edit, ZeroConstructor)
 	int                                                OnlineEventRefId;                                         // 0x0078(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	struct FWeatherStatus                              weather;                                                  // 0x007C(0x001C) (Edit)
+	struct FWeatherData                                WeatherData;                                              // 0x0098(0x0048) (Edit)
 };
 
 // ScriptStruct AC2.SpecialEventPreset
-// 0x0150 (0x0158 - 0x0008)
+// 0x0198 (0x01A0 - 0x0008)
 struct FSpecialEventPreset : public FTableRowBase
 {
 	int                                                EventSortOrder;                                           // 0x0008(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
@@ -2772,8 +2880,8 @@ struct FSpecialEventPreset : public FTableRowBase
 	struct FText                                       BestLapDriverName;                                        // 0x0058(0x0018) (Edit)
 	struct FText                                       BestLapTime;                                              // 0x0070(0x0018) (Edit)
 	TSoftObjectPtr<class UTexture2D>                   Poster;                                                   // 0x0088(0x0028) (Edit)
-	struct FRaceSpecialEventData                       EventDetails;                                             // 0x00B0(0x0098) (Edit)
-	struct FString                                     Comment;                                                  // 0x0148(0x0010) (Edit, ZeroConstructor)
+	struct FRaceSpecialEventData                       EventDetails;                                             // 0x00B0(0x00E0) (Edit)
+	struct FString                                     Comment;                                                  // 0x0190(0x0010) (Edit, ZeroConstructor)
 };
 
 // ScriptStruct AC2.RaceHUDState
@@ -2827,18 +2935,18 @@ struct FRaceHUDState
 };
 
 // ScriptStruct AC2.HUDCarState
-// 0x0188
+// 0x0190
 struct FHUDCarState
 {
 	unsigned char                                      UnknownData00[0x8];                                       // 0x0000(0x0008) MISSED OFFSET
 	struct FDriverInfo                                 DriverInfo;                                               // 0x0008(0x00D0) (BlueprintVisible, BlueprintReadOnly)
-	struct FCarInfo                                    CarInfo;                                                  // 0x00D8(0x0098) (BlueprintVisible, BlueprintReadOnly)
-	int                                                OfficialPosition;                                         // 0x0170(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                RealtimePosition;                                         // 0x0174(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              SplinePosition;                                           // 0x0178(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                DeltaToFront;                                             // 0x017C(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                DeltaToBack;                                              // 0x0180(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x4];                                       // 0x0184(0x0004) MISSED OFFSET
+	struct FCarInfo                                    CarInfo;                                                  // 0x00D8(0x00A0) (BlueprintVisible, BlueprintReadOnly)
+	int                                                OfficialPosition;                                         // 0x0178(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                RealtimePosition;                                         // 0x017C(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              SplinePosition;                                           // 0x0180(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                DeltaToFront;                                             // 0x0184(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                DeltaToBack;                                              // 0x0188(0x0004) (BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x4];                                       // 0x018C(0x0004) MISSED OFFSET
 };
 
 // ScriptStruct AC2.OnlineServicesHotlapUpdate
@@ -2861,7 +2969,7 @@ struct FOnlineServicesHotlapUpdate
 };
 
 // ScriptStruct AC2.OnlineServicesHotlapEntry
-// 0x0080
+// 0x0088
 struct FOnlineServicesHotlapEntry
 {
 	int                                                Rank;                                                     // 0x0000(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
@@ -2880,16 +2988,142 @@ struct FOnlineServicesHotlapEntry
 	TArray<int>                                        Sectors;                                                  // 0x0040(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
 	TArray<bool>                                       IsRecordSectors;                                          // 0x0050(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
 	int                                                DeltaToRecord;                                            // 0x0060(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                DeltaToDriver;                                            // 0x0064(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                BoPAdjustment;                                            // 0x0068(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData03[0x4];                                       // 0x006C(0x0004) MISSED OFFSET
-	struct FDateTime                                   CreatedOnUtc;                                             // 0x0070(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly)
-	bool                                               IsCurrentUser;                                            // 0x0078(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData04[0x7];                                       // 0x0079(0x0007) MISSED OFFSET
+	int                                                DeltaLapsToRecord;                                        // 0x0064(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                DeltaToDriver;                                            // 0x0068(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                DeltaLapsToDriver;                                        // 0x006C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                BoPAdjustment;                                            // 0x0070(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData03[0x4];                                       // 0x0074(0x0004) MISSED OFFSET
+	struct FDateTime                                   CreatedOnUtc;                                             // 0x0078(0x0008) (Edit, BlueprintVisible, BlueprintReadOnly)
+	bool                                               IsCurrentUser;                                            // 0x0080(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData04[0x7];                                       // 0x0081(0x0007) MISSED OFFSET
+};
+
+// ScriptStruct AC2.SetupTyre
+// 0x0018
+struct FSetupTyre
+{
+	int                                                tyreSet;                                                  // 0x0000(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                tyreCompound;                                             // 0x0004(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	TArray<int>                                        tyrePressure;                                             // 0x0008(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+};
+
+// ScriptStruct AC2.SetupAlignment
+// 0x0048
+struct FSetupAlignment
+{
+	TArray<int>                                        Camber;                                                   // 0x0000(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<int>                                        Toe;                                                      // 0x0010(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<float>                                      staticCamber;                                             // 0x0020(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<float>                                      ToeOutLinear;                                             // 0x0030(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	int                                                SteerRatio;                                               // 0x0040(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x0044(0x0004) MISSED OFFSET
+};
+
+// ScriptStruct AC2.SetupElectronics
+// 0x0014
+struct FSetupElectronics
+{
+	int                                                TC1;                                                      // 0x0000(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                TC2;                                                      // 0x0004(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                Abs;                                                      // 0x0008(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                ECUMap;                                                   // 0x000C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                FuelMix;                                                  // 0x0010(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+};
+
+// ScriptStruct AC2.PitStrategy
+// 0x0018
+struct FPitStrategy
+{
+	int                                                FuelToAdd;                                                // 0x0000(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x0004(0x0004) MISSED OFFSET
+	TArray<struct FSetupTyre>                          tyres;                                                    // 0x0008(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+};
+
+// ScriptStruct AC2.SetupStrategy
+// 0x0028
+struct FSetupStrategy
+{
+	int                                                Fuel;                                                     // 0x0000(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x0004(0x0004) MISSED OFFSET
+	struct FPitStrategy                                PitStrategy;                                              // 0x0008(0x0018) (Edit, BlueprintVisible)
+	float                                              FuelPerLap;                                               // 0x0020(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x4];                                       // 0x0024(0x0004) MISSED OFFSET
+};
+
+// ScriptStruct AC2.BasicCarSetup
+// 0x00A0
+struct FBasicCarSetup
+{
+	struct FSetupTyre                                  tyres;                                                    // 0x0000(0x0018) (Edit, BlueprintVisible)
+	struct FSetupAlignment                             Alignment;                                                // 0x0018(0x0048) (Edit, BlueprintVisible)
+	struct FSetupElectronics                           electronics;                                              // 0x0060(0x0014) (Edit, BlueprintVisible)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x0074(0x0004) MISSED OFFSET
+	struct FSetupStrategy                              Strategy;                                                 // 0x0078(0x0028) (Edit, BlueprintVisible)
+};
+
+// ScriptStruct AC2.SetupMechanicalBalance
+// 0x0050
+struct FSetupMechanicalBalance
+{
+	int                                                ARBFront;                                                 // 0x0000(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                ARBRear;                                                  // 0x0004(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	TArray<int>                                        WheelRate;                                                // 0x0008(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<int>                                        BumpStopRateUp;                                           // 0x0018(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<int>                                        BumpStopRateDn;                                           // 0x0028(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<int>                                        BumpStopWindow;                                           // 0x0038(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	int                                                BrakeTorque;                                              // 0x0048(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                BrakeBias;                                                // 0x004C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+};
+
+// ScriptStruct AC2.SetupDampers
+// 0x0040
+struct FSetupDampers
+{
+	TArray<int>                                        BumpSlow;                                                 // 0x0000(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<int>                                        BumpFast;                                                 // 0x0010(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<int>                                        ReboundSlow;                                              // 0x0020(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<int>                                        ReboundFast;                                              // 0x0030(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+};
+
+// ScriptStruct AC2.SetupAeroBalance
+// 0x0028
+struct FSetupAeroBalance
+{
+	TArray<int>                                        RideHeight;                                               // 0x0000(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<float>                                      rodLength;                                                // 0x0010(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	int                                                Splitter;                                                 // 0x0020(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                RearWing;                                                 // 0x0024(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+};
+
+// ScriptStruct AC2.SetupDrivetrain
+// 0x0004
+struct FSetupDrivetrain
+{
+	int                                                Preload;                                                  // 0x0000(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+};
+
+// ScriptStruct AC2.AdvancedCarSetup
+// 0x00C0
+struct FAdvancedCarSetup
+{
+	struct FSetupMechanicalBalance                     MechanicalBalance;                                        // 0x0000(0x0050) (Edit, BlueprintVisible)
+	struct FSetupDampers                               Dampers;                                                  // 0x0050(0x0040) (Edit, BlueprintVisible)
+	struct FSetupAeroBalance                           AeroBalance;                                              // 0x0090(0x0028) (Edit, BlueprintVisible)
+	struct FSetupDrivetrain                            Drivetrain;                                               // 0x00B8(0x0004) (Edit, BlueprintVisible)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x00BC(0x0004) MISSED OFFSET
+};
+
+// ScriptStruct AC2.CarSetup
+// 0x0170 (0x0178 - 0x0008)
+struct FCarSetup : public FTableRowBase
+{
+	struct FString                                     carName;                                                  // 0x0008(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	struct FBasicCarSetup                              BasicSetup;                                               // 0x0018(0x00A0) (Edit, BlueprintVisible)
+	struct FAdvancedCarSetup                           AdvancedSetup;                                            // 0x00B8(0x00C0) (Edit, BlueprintVisible)
 };
 
 // ScriptStruct AC2.HUDOptions
-// 0x0060
+// 0x0068
 struct FHUDOptions
 {
 	int                                                SafezoneLeft;                                             // 0x0000(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
@@ -2898,25 +3132,27 @@ struct FHUDOptions
 	int                                                SafezoneBottom;                                           // 0x000C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	int                                                RaceNotificationsVisible;                                 // 0x0010(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	int                                                RatingWidgetVisible;                                      // 0x0014(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	bool                                               RatingSensitiveWidgetVisibility;                          // 0x0018(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x3];                                       // 0x0019(0x0003) MISSED OFFSET
-	int                                                BasicCarInfoVisible;                                      // 0x001C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                SysPerformanceVisible;                                    // 0x0020(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                ElectronicsVisible;                                       // 0x0024(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                HotlapStandingVisible;                                    // 0x0028(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                LaptimeInfo01Visible;                                     // 0x002C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                LeaderboardVisible;                                       // 0x0030(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                TrackMapVisible;                                          // 0x0034(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                RaceDirectorInvestigationVisible;                         // 0x0038(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                RaceRealtimeStandingVisible;                              // 0x003C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                RaceStandingVisible;                                      // 0x0040(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                RadarVisible;                                             // 0x0044(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                SessionInfoVisible;                                       // 0x0048(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                TyreTemps01Visible;                                       // 0x004C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                TimeLeftWidgetVisible;                                    // 0x0050(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                WrongWayVisible;                                          // 0x0054(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                VirtualMirrorVisible;                                     // 0x0058(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                ProximityIndicatorsVisible;                               // 0x005C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                RatingWidgetPracticeFocus;                                // 0x0018(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	bool                                               RatingSensitiveWidgetVisibility;                          // 0x001C(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x3];                                       // 0x001D(0x0003) MISSED OFFSET
+	int                                                BasicCarInfoVisible;                                      // 0x0020(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                FPSVisible;                                               // 0x0024(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                ElectronicsVisible;                                       // 0x0028(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                HotlapStandingVisible;                                    // 0x002C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                LaptimeInfo01Visible;                                     // 0x0030(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                LeaderboardVisible;                                       // 0x0034(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                TrackMapVisible;                                          // 0x0038(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                RaceDirectorInvestigationVisible;                         // 0x003C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                RaceRealtimeStandingVisible;                              // 0x0040(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                RaceStandingVisible;                                      // 0x0044(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                RadarVisible;                                             // 0x0048(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                SessionInfoVisible;                                       // 0x004C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                TyreTemps01Visible;                                       // 0x0050(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                TimeLeftWidgetVisible;                                    // 0x0054(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                WrongWayVisible;                                          // 0x0058(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                VirtualMirrorVisible;                                     // 0x005C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                ProximityIndicatorsVisible;                               // 0x0060(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                UseMPH;                                                   // 0x0064(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 };
 
 // ScriptStruct AC2.CameraOptionsEA
@@ -2960,15 +3196,15 @@ struct FGhostCarOptions
 };
 
 // ScriptStruct AC2.UserOptions
-// 0x0170
+// 0x0180
 struct FUserOptions
 {
-	struct FHUDOptions                                 HUD;                                                      // 0x0000(0x0060) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FCameraOptionsEA                            CameraEA;                                                 // 0x0060(0x0028) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FCameraOptions                              Camera;                                                   // 0x0088(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly)
-	unsigned char                                      UnknownData00[0x3];                                       // 0x0089(0x0003) MISSED OFFSET
-	struct FGhostCarOptions                            GhostCar;                                                 // 0x008C(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly)
-	unsigned char                                      UnknownData01[0xD4];                                      // 0x009C(0x00D4) MISSED OFFSET
+	struct FHUDOptions                                 HUD;                                                      // 0x0000(0x0068) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FCameraOptionsEA                            CameraEA;                                                 // 0x0068(0x0028) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FCameraOptions                              Camera;                                                   // 0x0090(0x0001) (Edit, BlueprintVisible, BlueprintReadOnly)
+	unsigned char                                      UnknownData00[0x3];                                       // 0x0091(0x0003) MISSED OFFSET
+	struct FGhostCarOptions                            GhostCar;                                                 // 0x0094(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly)
+	unsigned char                                      UnknownData01[0xDC];                                      // 0x00A4(0x00DC) MISSED OFFSET
 };
 
 // ScriptStruct AC2.DynamicControllerStage
@@ -3084,15 +3320,15 @@ struct FAIState
 };
 
 // ScriptStruct AC2.RatingReport
-// 0x0088
+// 0x0098
 struct FRatingReport
 {
 	float                                              totalScore;                                               // 0x0000(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              safetyRating;                                             // 0x0004(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              trackCompetence;                                          // 0x0008(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              consistency;                                              // 0x000C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              CarControl;                                               // 0x0010(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	float                                              hotlapRating;                                             // 0x0014(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              trackCompetence;                                          // 0x0004(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              consistency;                                              // 0x0008(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              CarControl;                                               // 0x000C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              hotlapRating;                                             // 0x0010(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              safetyRating;                                             // 0x0014(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	float                                              racecraft;                                                // 0x0018(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	float                                              competition;                                              // 0x001C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	TMap<unsigned char, int>                           trackMedals;                                              // 0x0020(0x0050) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
@@ -3101,7 +3337,11 @@ struct FRatingReport
 	int                                                ccLapsDriven;                                             // 0x0078(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	int                                                pcLapsDriven;                                             // 0x007C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	int                                                rcLapsDriven;                                             // 0x0080(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
-	int                                                cpLapsDriven;                                             // 0x0084(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              safetyTrust;                                              // 0x0084(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	float                                              safetyOBWP;                                               // 0x0088(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                racecraftElo;                                             // 0x008C(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	int                                                racecraftEloMP;                                           // 0x0090(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x0094(0x0004) MISSED OFFSET
 };
 
 // ScriptStruct AC2.OnlineServicesLapPerformance
@@ -3162,7 +3402,7 @@ struct FTyrePressureData
 };
 
 // ScriptStruct AC2.TyreModelData
-// 0x00A8
+// 0x00B0
 struct FTyreModelData
 {
 	float                                              Dy0;                                                      // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
@@ -3197,6 +3437,8 @@ struct FTyreModelData
 	float                                              CamberVerticalKGain;                                      // 0x009C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	float                                              ThermalWearMult;                                          // 0x00A0(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	float                                              RRWearMult;                                               // 0x00A4(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              MZTweakMult;                                              // 0x00A8(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x4];                                       // 0x00AC(0x0004) MISSED OFFSET
 };
 
 // ScriptStruct AC2.TyreThermalPatchData
@@ -3225,12 +3467,12 @@ struct FTyreThermalPatchData
 };
 
 // ScriptStruct AC2.TyreCompoundData
-// 0x0130
+// 0x0138
 struct FTyreCompoundData
 {
 	struct FTyreData                                   Data;                                                     // 0x0000(0x0038) (Edit)
-	struct FTyreModelData                              modelData;                                                // 0x0038(0x00A8) (Edit)
-	struct FTyreThermalPatchData                       ThermalData;                                              // 0x00E0(0x0050) (Edit)
+	struct FTyreModelData                              modelData;                                                // 0x0038(0x00B0) (Edit)
+	struct FTyreThermalPatchData                       ThermalData;                                              // 0x00E8(0x0050) (Edit)
 };
 
 // ScriptStruct AC2.SteerData
@@ -3245,7 +3487,7 @@ struct FSteerData
 };
 
 // ScriptStruct AC2.FuelData
-// 0x0020
+// 0x001C
 struct FFuelData
 {
 	float                                              FuelKG;                                                   // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
@@ -3253,7 +3495,6 @@ struct FFuelData
 	float                                              MaxFuel;                                                  // 0x0008(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData00[0xC];                                       // 0x000C(0x000C) MISSED OFFSET
 	float                                              Fuel;                                                     // 0x0018(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	float                                              FuelUsedPerKm;                                            // 0x001C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 };
 
 // ScriptStruct AC2.BrakeDiscData
@@ -3459,7 +3700,7 @@ struct FSuspDamageData
 // 0x0008
 struct FDamperData2W
 {
-	float                                              bump;                                                     // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              Bump;                                                     // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 	float                                              rebound;                                                  // 0x0004(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 };
 
@@ -3799,17 +4040,17 @@ struct FAudioCommsData : public FTableRowBase
 };
 
 // ScriptStruct AC2.LapCarRating
-// 0x0130
+// 0x0150
 struct FLapCarRating
 {
-	unsigned char                                      UnknownData00[0x130];                                     // 0x0000(0x0130) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x150];                                     // 0x0000(0x0150) MISSED OFFSET
 };
 
 // ScriptStruct AC2.CornerSectionCarRating
-// 0x006C
+// 0x0084
 struct FCornerSectionCarRating
 {
-	unsigned char                                      UnknownData00[0x6C];                                      // 0x0000(0x006C) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x84];                                      // 0x0000(0x0084) MISSED OFFSET
 };
 
 // ScriptStruct AC2.OnlineServicesMPServerInfo
@@ -3899,7 +4140,7 @@ struct FSetupAlignmentLimits
 };
 
 // ScriptStruct AC2.SetupSuspensionsLimits
-// 0x0240
+// 0x0260
 struct FSetupSuspensionsLimits
 {
 	struct FSetupSelectorLimits                        ARB[0x2];                                                 // 0x0000(0x0020) (Edit)
@@ -3907,6 +4148,10 @@ struct FSetupSuspensionsLimits
 	struct FSetupSelectorLimits                        BumpStopRateUp[0x4];                                      // 0x00C0(0x0020) (Edit)
 	struct FSetupSelectorLimits                        BumpStopRateDn[0x4];                                      // 0x0140(0x0020) (Edit)
 	struct FSetupSelectorLimits                        BumpStopRange[0x4];                                       // 0x01C0(0x0020) (Edit)
+	float                                              BSGraphMinY[0x4];                                         // 0x0240(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	float                                              DnBSOffsetToRate[0x2];                                    // 0x0250(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	bool                                               isBumpStopGraphAbsolute;                                  // 0x0258(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x7];                                       // 0x0259(0x0007) MISSED OFFSET
 };
 
 // ScriptStruct AC2.SetupDamperLimits
@@ -3960,18 +4205,18 @@ struct FSetupStrategyLimits
 };
 
 // ScriptStruct AC2.SetupLimits
-// 0x07C0
+// 0x07E0
 struct FSetupLimits
 {
 	struct FSetupAeroLimits                            AeroLimits;                                               // 0x0000(0x00C0) (Edit)
 	struct FSetupAlignmentLimits                       AlignmentLimits;                                          // 0x00C0(0x0120) (Edit)
-	struct FSetupSuspensionsLimits                     SuspensionLimits;                                         // 0x01E0(0x0240) (Edit)
-	struct FSetupDamperLimits                          DamperLimits;                                             // 0x0420(0x0200) (Edit)
-	struct FSetupDifferentialLimits                    DifferentialLimits;                                       // 0x0620(0x0020) (Edit)
-	struct FSetupTyresLimits                           TyresLimits;                                              // 0x0640(0x00A0) (Edit)
-	struct FSetupElectronicsLimits                     ElectronicsLimits;                                        // 0x06E0(0x0060) (Edit)
-	struct FSetupBrakesLimits                          BrakesLimits;                                             // 0x0740(0x0040) (Edit)
-	struct FSetupStrategyLimits                        StrategyLimits;                                           // 0x0780(0x0040) (Edit)
+	struct FSetupSuspensionsLimits                     SuspensionLimits;                                         // 0x01E0(0x0260) (Edit)
+	struct FSetupDamperLimits                          DamperLimits;                                             // 0x0440(0x0200) (Edit)
+	struct FSetupDifferentialLimits                    DifferentialLimits;                                       // 0x0640(0x0020) (Edit)
+	struct FSetupTyresLimits                           TyresLimits;                                              // 0x0660(0x00A0) (Edit)
+	struct FSetupElectronicsLimits                     ElectronicsLimits;                                        // 0x0700(0x0060) (Edit)
+	struct FSetupBrakesLimits                          BrakesLimits;                                             // 0x0760(0x0040) (Edit)
+	struct FSetupStrategyLimits                        StrategyLimits;                                           // 0x07A0(0x0040) (Edit)
 };
 
 // ScriptStruct AC2.DamperLut
@@ -3982,120 +4227,30 @@ struct FDamperLut : public FTableRowBase
 	class UCurveFloat*                                 DamperLut;                                                // 0x0018(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 };
 
-// ScriptStruct AC2.SetupTyre
+// ScriptStruct AC2.SetupCarPreviews
 // 0x0018
-struct FSetupTyre
+struct FSetupCarPreviews
 {
-	int                                                tyreSet;                                                  // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                tyreCompound;                                             // 0x0004(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                tyrePressure[0x4];                                        // 0x0008(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  TopView;                                                  // 0x0000(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  SideView;                                                 // 0x0008(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
+	class UTexture2D*                                  ThirdView;                                                // 0x0010(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
 };
 
-// ScriptStruct AC2.SetupAlignment
-// 0x0044
-struct FSetupAlignment
+// ScriptStruct AC2.GraphicArray
+// 0x0010
+struct FGraphicArray
 {
-	int                                                Camber[0x4];                                              // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                Toe[0x4];                                                 // 0x0010(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	float                                              staticCamber[0x4];                                        // 0x0020(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	float                                              ToeOutLinear[0x4];                                        // 0x0030(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                SteerRatio;                                               // 0x0040(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	TArray<struct FVector2D>                           graphValues;                                              // 0x0000(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
 };
 
-// ScriptStruct AC2.SetupElectronics
-// 0x0014
-struct FSetupElectronics
+// ScriptStruct AC2.GraphSettings
+// 0x0018
+struct FGraphSettings
 {
-	int                                                TC1;                                                      // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                TC2;                                                      // 0x0004(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                Abs;                                                      // 0x0008(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                ECUMap;                                                   // 0x000C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                FuelMix;                                                  // 0x0010(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-};
-
-// ScriptStruct AC2.PitStrategy
-// 0x0064
-struct FPitStrategy
-{
-	int                                                FuelToAdd;                                                // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	struct FSetupTyre                                  tyres[0x4];                                               // 0x0004(0x0018) (Edit)
-};
-
-// ScriptStruct AC2.SetupStrategy
-// 0x0068
-struct FSetupStrategy
-{
-	int                                                Fuel;                                                     // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	struct FPitStrategy                                PitStrategy;                                              // 0x0004(0x0064) (Edit)
-};
-
-// ScriptStruct AC2.BasicCarSetup
-// 0x00D8
-struct FBasicCarSetup
-{
-	struct FSetupTyre                                  tyres;                                                    // 0x0000(0x0018) (Edit)
-	struct FSetupAlignment                             Alignment;                                                // 0x0018(0x0044) (Edit)
-	struct FSetupElectronics                           electronics;                                              // 0x005C(0x0014) (Edit)
-	struct FSetupStrategy                              Strategy;                                                 // 0x0070(0x0068) (Edit)
-};
-
-// ScriptStruct AC2.SetupMechanicalBalance
-// 0x0050
-struct FSetupMechanicalBalance
-{
-	int                                                ARBFront;                                                 // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                ARBRear;                                                  // 0x0004(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                WheelRate[0x4];                                           // 0x0008(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                BumpStopRateUp[0x4];                                      // 0x0018(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                BumpStopRateDn[0x4];                                      // 0x0028(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                BumpStopWindow[0x4];                                      // 0x0038(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                BrakeTorque;                                              // 0x0048(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                BrakeBias;                                                // 0x004C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-};
-
-// ScriptStruct AC2.SetupDampers
-// 0x0040
-struct FSetupDampers
-{
-	int                                                BumpSlow[0x4];                                            // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                BumpFast[0x4];                                            // 0x0010(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                ReboundSlow[0x4];                                         // 0x0020(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                ReboundFast[0x4];                                         // 0x0030(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-};
-
-// ScriptStruct AC2.SetupAeroBalance
-// 0x0028
-struct FSetupAeroBalance
-{
-	int                                                RideHeight[0x4];                                          // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	float                                              rodLength[0x4];                                           // 0x0010(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                Splitter;                                                 // 0x0020(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-	int                                                RearWing;                                                 // 0x0024(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-};
-
-// ScriptStruct AC2.SetupDrivetrain
-// 0x0004
-struct FSetupDrivetrain
-{
-	int                                                Preload;                                                  // 0x0000(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
-};
-
-// ScriptStruct AC2.AdvancedCarSetup
-// 0x00BC
-struct FAdvancedCarSetup
-{
-	struct FSetupMechanicalBalance                     MechanicalBalance;                                        // 0x0000(0x0050) (Edit)
-	struct FSetupDampers                               Dampers;                                                  // 0x0050(0x0040) (Edit)
-	struct FSetupAeroBalance                           AeroBalance;                                              // 0x0090(0x0028) (Edit)
-	struct FSetupDrivetrain                            Drivetrain;                                               // 0x00B8(0x0004) (Edit)
-};
-
-// ScriptStruct AC2.CarSetup
-// 0x0194
-struct FCarSetup
-{
-	struct FBasicCarSetup                              BasicSetup;                                               // 0x0000(0x00D8) (Edit, BlueprintVisible)
-	struct FAdvancedCarSetup                           AdvancedSetup;                                            // 0x00D8(0x00BC) (Edit, BlueprintVisible)
+	struct FVector2D                                   Min;                                                      // 0x0000(0x0008) (Edit, IsPlainOldData)
+	struct FVector2D                                   Max;                                                      // 0x0008(0x0008) (Edit, IsPlainOldData)
+	int                                                NSamples;                                                 // 0x0010(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+	int                                                nGraphs;                                                  // 0x0014(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
 };
 
 // ScriptStruct AC2.SurfaceDef
@@ -4190,7 +4345,7 @@ struct FCommandAxis : public FTableRowBase
 };
 
 // ScriptStruct AC2.CommandDevice
-// 0x0078 (0x0080 - 0x0008)
+// 0x0088 (0x0090 - 0x0008)
 struct FCommandDevice : public FTableRowBase
 {
 	unsigned char                                      UnknownData00[0x8];                                       // 0x0008(0x0008) MISSED OFFSET
@@ -4207,10 +4362,14 @@ struct FCommandDevice : public FTableRowBase
 	float                                              ForceFeedbackGain;                                        // 0x0068(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	float                                              SteerScale;                                               // 0x006C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	float                                              SteerLock;                                                // 0x0070(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	float                                              MinimumForceFeedback;                                     // 0x0074(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	float                                              BrakeGamma;                                               // 0x0078(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      CombinedPedals;                                           // 0x007C(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x3];                                       // 0x007D(0x0003) MISSED OFFSET
+	float                                              DynamicDamping;                                           // 0x0074(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              RoadEffects;                                              // 0x0078(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              MinDamper;                                                // 0x007C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              DamperGain;                                               // 0x0080(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              MinimumForceFeedback;                                     // 0x0084(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	float                                              BrakeGamma;                                               // 0x0088(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      CombinedPedals;                                           // 0x008C(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x3];                                       // 0x008D(0x0003) MISSED OFFSET
 };
 
 // ScriptStruct AC2.GamepadSettings
@@ -4309,22 +4468,22 @@ struct FCameraType
 };
 
 // ScriptStruct AC2.SessionInfoEntryBaseRaceEntryInfo
-// 0x01B8
+// 0x01C0
 struct FSessionInfoEntryBaseRaceEntryInfo
 {
-	struct FCarInfo                                    CarInfo;                                                  // 0x0000(0x0098) (Edit, BlueprintVisible)
-	unsigned char                                      UnknownData00[0x8];                                       // 0x0098(0x0008) MISSED OFFSET
-	TArray<struct FDriverInfo>                         DriversOnCar;                                             // 0x00A0(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
-	struct FDriverInfo                                 ActiveDriverInfo;                                         // 0x00B0(0x00D0) (Edit, BlueprintVisible)
-	unsigned char                                      UnknownData01[0x4];                                       // 0x0180(0x0004) MISSED OFFSET
-	int                                                PositionTotal;                                            // 0x0184(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	int                                                PositionInClass;                                          // 0x0188(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	int                                                Laps;                                                     // 0x018C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	int                                                Time;                                                     // 0x0190(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	bool                                               IsPlayer;                                                 // 0x0194(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData02[0x3];                                       // 0x0195(0x0003) MISSED OFFSET
-	TArray<int>                                        Splits;                                                   // 0x0198(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
-	TArray<bool>                                       IsRecordSplit;                                            // 0x01A8(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	struct FCarInfo                                    CarInfo;                                                  // 0x0000(0x00A0) (Edit, BlueprintVisible)
+	unsigned char                                      UnknownData00[0x8];                                       // 0x00A0(0x0008) MISSED OFFSET
+	TArray<struct FDriverInfo>                         DriversOnCar;                                             // 0x00A8(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	struct FDriverInfo                                 ActiveDriverInfo;                                         // 0x00B8(0x00D0) (Edit, BlueprintVisible)
+	unsigned char                                      UnknownData01[0x4];                                       // 0x0188(0x0004) MISSED OFFSET
+	int                                                PositionTotal;                                            // 0x018C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                PositionInClass;                                          // 0x0190(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                Laps;                                                     // 0x0194(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                Time;                                                     // 0x0198(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	bool                                               IsPlayer;                                                 // 0x019C(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData02[0x3];                                       // 0x019D(0x0003) MISSED OFFSET
+	TArray<int>                                        Splits;                                                   // 0x01A0(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
+	TArray<bool>                                       IsRecordSplit;                                            // 0x01B0(0x0010) (Edit, BlueprintVisible, ZeroConstructor)
 };
 
 // ScriptStruct AC2.SessionInfoPanelSettings
@@ -4375,7 +4534,8 @@ struct FCarDataJson
 	struct FVector                                     Inertia;                                                  // 0x0014(0x000C) (Edit, BlueprintVisible, BlueprintReadOnly, IsPlainOldData)
 	float                                              MinimumHeight;                                            // 0x0020(0x0004) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData)
 	struct FSteerData                                  SteerData;                                                // 0x0024(0x0014) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FFuelData                                   FuelData;                                                 // 0x0038(0x0020) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FFuelData                                   FuelData;                                                 // 0x0038(0x001C) (Edit, BlueprintVisible, BlueprintReadOnly)
+	unsigned char                                      UnknownData00[0x4];                                       // 0x0054(0x0004) MISSED OFFSET
 	struct FBrakesData                                 BrakesData;                                               // 0x0058(0x0090) (Edit, BlueprintVisible, BlueprintReadOnly)
 	struct FEngineData                                 EngineData;                                               // 0x00E8(0x00A0) (Edit, BlueprintVisible, BlueprintReadOnly)
 	struct FDrivetrainData                             Drivetrain;                                               // 0x0188(0x00A0) (Edit, BlueprintVisible, BlueprintReadOnly)
@@ -4388,23 +4548,23 @@ struct FCarDataJson
 };
 
 // ScriptStruct AC2.TyreCompoundSetJson
-// 0x0280
+// 0x0290
 struct FTyreCompoundSetJson
 {
 	struct FString                                     TyreCompoundName;                                         // 0x0000(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
-	struct FTyreCompoundData                           Front;                                                    // 0x0010(0x0130) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FTyreCompoundData                           Rear;                                                     // 0x0140(0x0130) (Edit, BlueprintVisible, BlueprintReadOnly)
-	struct FString                                     FilePath;                                                 // 0x0270(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
+	struct FTyreCompoundData                           Front;                                                    // 0x0010(0x0138) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FTyreCompoundData                           Rear;                                                     // 0x0148(0x0138) (Edit, BlueprintVisible, BlueprintReadOnly)
+	struct FString                                     FilePath;                                                 // 0x0280(0x0010) (Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor)
 };
 
 // ScriptStruct AC2.CompoundSet
-// 0x0280
+// 0x0290
 struct FCompoundSet
 {
 	struct FString                                     Name;                                                     // 0x0000(0x0010) (Edit, ZeroConstructor)
 	struct FString                                     ShortName;                                                // 0x0010(0x0010) (Edit, ZeroConstructor)
-	struct FTyreCompoundData                           Front;                                                    // 0x0020(0x0130) (Edit)
-	struct FTyreCompoundData                           Rear;                                                     // 0x0150(0x0130) (Edit)
+	struct FTyreCompoundData                           Front;                                                    // 0x0020(0x0138) (Edit)
+	struct FTyreCompoundData                           Rear;                                                     // 0x0158(0x0138) (Edit)
 };
 
 // ScriptStruct AC2.LapTimeResponse
@@ -4457,6 +4617,41 @@ struct FVirtualDesktopLayout : public FTableRowBase
 	class UClass*                                      DesktopHUDClass;                                          // 0x0048(0x0008) (Edit, ZeroConstructor, IsPlainOldData)
 };
 
+// ScriptStruct AC2.MapMaterial
+// 0x0008 (0x0010 - 0x0008)
+struct FMapMaterial : public FTableRowBase
+{
+	class UMaterialInterface*                          MaterialInterface;                                        // 0x0008(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+};
+
+// ScriptStruct AC2.RaceRatingCarRelationshipELOResult
+// 0x000C
+struct FRaceRatingCarRelationshipELOResult
+{
+	unsigned char                                      UnknownData00[0xC];                                       // 0x0000(0x000C) MISSED OFFSET
+};
+
+// ScriptStruct AC2.RaceRatingCarRelationshipIncident
+// 0x0080
+struct FRaceRatingCarRelationshipIncident
+{
+	unsigned char                                      UnknownData00[0x80];                                      // 0x0000(0x0080) MISSED OFFSET
+};
+
+// ScriptStruct AC2.RatingIncidentAnalysisEvaluation
+// 0x000C
+struct FRatingIncidentAnalysisEvaluation
+{
+	unsigned char                                      UnknownData00[0xC];                                       // 0x0000(0x000C) MISSED OFFSET
+};
+
+// ScriptStruct AC2.RatingIncidentOutcomeEvaluation
+// 0x0010
+struct FRatingIncidentOutcomeEvaluation
+{
+	unsigned char                                      UnknownData00[0x10];                                      // 0x0000(0x0010) MISSED OFFSET
+};
+
 // ScriptStruct AC2.CornerSectionLapData
 // 0x0020
 struct FCornerSectionLapData
@@ -4492,6 +4687,13 @@ struct FUIniValue : public FTableRowBase
 	struct FString                                     Comment;                                                  // 0x0018(0x0010) (Edit, ZeroConstructor)
 };
 
+// ScriptStruct AC2.RaceRatingCarRelationshipStep
+// 0x0018
+struct FRaceRatingCarRelationshipStep
+{
+	unsigned char                                      UnknownData00[0x18];                                      // 0x0000(0x0018) MISSED OFFSET
+};
+
 // ScriptStruct AC2.RaceTransitionStruct
 // 0x0010
 struct FRaceTransitionStruct
@@ -4500,14 +4702,23 @@ struct FRaceTransitionStruct
 };
 
 // ScriptStruct AC2.HighlightEventsData
-// 0x0018 (0x0020 - 0x0008)
+// 0x0020 (0x0028 - 0x0008)
 struct FHighlightEventsData : public FTableRowBase
 {
 	EHighLightsEventType                               EventType;                                                // 0x0008(0x0001) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	unsigned char                                      UnknownData00[0x3];                                       // 0x0009(0x0003) MISSED OFFSET
 	int                                                Weigth;                                                   // 0x000C(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	int                                                maxPresence;                                              // 0x0010(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData01[0xC];                                       // 0x0014(0x000C) MISSED OFFSET
+	int                                                timeBefore;                                               // 0x0014(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	int                                                timeAfter;                                                // 0x0018(0x0004) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData01[0xC];                                       // 0x001C(0x000C) MISSED OFFSET
+};
+
+// ScriptStruct AC2.TimeTableEntry
+// 0x00B0
+struct FTimeTableEntry
+{
+	unsigned char                                      UnknownData00[0xB0];                                      // 0x0000(0x00B0) MISSED OFFSET
 };
 
 // ScriptStruct AC2.CornerSectionLapDataStack

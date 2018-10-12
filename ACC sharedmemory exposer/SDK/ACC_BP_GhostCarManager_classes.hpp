@@ -15,11 +15,11 @@ namespace SDK
 //---------------------------------------------------------------------------
 
 // BlueprintGeneratedClass BP_GhostCarManager.BP_GhostCarManager_C
-// 0x0008 (0x1FB0 - 0x1FA8)
+// 0x0008 (0x1FE8 - 0x1FE0)
 class ABP_GhostCarManager_C : public AGhostCarManager
 {
 public:
-	class USceneComponent*                             DefaultSceneRoot;                                         // 0x1FA8(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class USceneComponent*                             DefaultSceneRoot;                                         // 0x1FE0(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{

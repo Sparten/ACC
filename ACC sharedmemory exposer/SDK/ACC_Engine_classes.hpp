@@ -105,6 +105,7 @@ public:
 		return ptr;
 	}
 
+
 	bool WasRecentlyRendered(float Tolerance);
 	void UserConstructionScript();
 	void TearOff();
@@ -357,6 +358,8 @@ public:
 		static auto ptr = UObject::FindClass("Class Engine.SceneComponent");
 		return ptr;
 	}
+
+
 	void ToggleVisibility(bool bPropagateToChildren);
 	bool SnapTo(class USceneComponent* InParent, const struct FName& InSocketName);
 	void SetWorldScale3D(const struct FVector& NewScale);
@@ -2597,35 +2600,6 @@ public:
 };
 
 
-// Class Engine.CameraActor
-// 0x0558 (0x0880 - 0x0328)
-class ACameraActor : public AActor
-{
-public:
-	TEnumAsByte<EAutoReceiveInput>                     AutoActivateForPlayer;                                    // 0x0328(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
-	unsigned char                                      UnknownData00[0x7];                                       // 0x0329(0x0007) MISSED OFFSET
-	class UCameraComponent*                            CameraComponent;                                          // 0x0330(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
-	class USceneComponent*                             SceneComponent;                                           // 0x0338(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
-	unsigned char                                      UnknownData01[0x8];                                       // 0x0340(0x0008) MISSED OFFSET
-	unsigned char                                      bConstrainAspectRatio : 1;                                // 0x0348(0x0001) (Deprecated)
-	unsigned char                                      UnknownData02[0x3];                                       // 0x0349(0x0003) MISSED OFFSET
-	float                                              AspectRatio;                                              // 0x034C(0x0004) (ZeroConstructor, Deprecated, IsPlainOldData)
-	float                                              FOVAngle;                                                 // 0x0350(0x0004) (ZeroConstructor, Deprecated, IsPlainOldData)
-	float                                              PostProcessBlendWeight;                                   // 0x0354(0x0004) (ZeroConstructor, Deprecated, IsPlainOldData)
-	unsigned char                                      UnknownData03[0x8];                                       // 0x0358(0x0008) MISSED OFFSET
-	struct FPostProcessSettings                        PostProcessSettings;                                      // 0x0360(0x0520) (Deprecated)
-
-	static UClass* StaticClass()
-	{
-		static auto ptr = UObject::FindClass("Class Engine.CameraActor");
-		return ptr;
-	}
-
-
-	int GetAutoActivatePlayerIndex();
-};
-
-
 // Class Engine.GameInstance
 // 0x0078 (0x00A0 - 0x0028)
 class UGameInstance : public UObject
@@ -3324,6 +3298,35 @@ public:
 		return ptr;
 	}
 
+};
+
+
+// Class Engine.CameraActor
+// 0x0558 (0x0880 - 0x0328)
+class ACameraActor : public AActor
+{
+public:
+	TEnumAsByte<EAutoReceiveInput>                     AutoActivateForPlayer;                                    // 0x0328(0x0001) (Edit, ZeroConstructor, IsPlainOldData)
+	unsigned char                                      UnknownData00[0x7];                                       // 0x0329(0x0007) MISSED OFFSET
+	class UCameraComponent*                            CameraComponent;                                          // 0x0330(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
+	class USceneComponent*                             SceneComponent;                                           // 0x0338(0x0008) (Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData)
+	unsigned char                                      UnknownData01[0x8];                                       // 0x0340(0x0008) MISSED OFFSET
+	unsigned char                                      bConstrainAspectRatio : 1;                                // 0x0348(0x0001) (Deprecated)
+	unsigned char                                      UnknownData02[0x3];                                       // 0x0349(0x0003) MISSED OFFSET
+	float                                              AspectRatio;                                              // 0x034C(0x0004) (ZeroConstructor, Deprecated, IsPlainOldData)
+	float                                              FOVAngle;                                                 // 0x0350(0x0004) (ZeroConstructor, Deprecated, IsPlainOldData)
+	float                                              PostProcessBlendWeight;                                   // 0x0354(0x0004) (ZeroConstructor, Deprecated, IsPlainOldData)
+	unsigned char                                      UnknownData03[0x8];                                       // 0x0358(0x0008) MISSED OFFSET
+	struct FPostProcessSettings                        PostProcessSettings;                                      // 0x0360(0x0520) (Deprecated)
+
+	static UClass* StaticClass()
+	{
+		static auto ptr = UObject::FindClass("Class Engine.CameraActor");
+		return ptr;
+	}
+
+
+	int GetAutoActivatePlayerIndex();
 };
 
 
@@ -11062,9 +11065,7 @@ public:
 class ULevel : public UObject
 {
 public:
-	unsigned char                                      UnknownData00[0x78];                                      // 0x0028(0x0098) MISSED OFFSET
-	TArray<AActor*>									   Actors;
-	TArray<AActor*>									   ActorsForGC;
+	unsigned char                                      UnknownData00[0x98];                                      // 0x0028(0x0098) MISSED OFFSET
 	class UWorld*                                      OwningWorld;                                              // 0x00C0(0x0008) (ZeroConstructor, Transient, IsPlainOldData)
 	class UModel*                                      Model;                                                    // 0x00C8(0x0008) (ZeroConstructor, IsPlainOldData)
 	TArray<class UModelComponent*>                     ModelComponents;                                          // 0x00D0(0x0010) (ExportObject, ZeroConstructor)

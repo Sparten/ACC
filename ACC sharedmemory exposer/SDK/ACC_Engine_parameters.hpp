@@ -6782,12 +6782,6 @@ struct APlayerController_ActivateTouchInterface_Params
 	class UTouchInterface*                             NewTouchInterface;                                        // (Parm, ZeroConstructor, IsPlainOldData)
 };
 
-// Function Engine.CameraActor.GetAutoActivatePlayerIndex
-struct ACameraActor_GetAutoActivatePlayerIndex_Params
-{
-	int                                                ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
-};
-
 // Function Engine.GameInstance.ReceiveShutdown
 struct UGameInstance_ReceiveShutdown_Params
 {
@@ -7550,6 +7544,12 @@ struct UAnimNotifyState_Received_NotifyBegin_Params
 struct UAnimNotifyState_GetNotifyName_Params
 {
 	struct FString                                     ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm)
+};
+
+// Function Engine.CameraActor.GetAutoActivatePlayerIndex
+struct ACameraActor_GetAutoActivatePlayerIndex_Params
+{
+	int                                                ReturnValue;                                              // (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData)
 };
 
 // Function Engine.AmbientSound.Stop

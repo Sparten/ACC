@@ -708,10 +708,9 @@ struct FTimespan
 {
 	unsigned char                                      UnknownData00[0x8];                                       // 0x0000(0x0008) MISSED OFFSET
 };
-
+/*
 // ScriptStruct CoreUObject.SoftObjectPath
 // 0x0018
-/*
 struct FSoftObjectPath
 {
 	struct FName                                       AssetPathName;                                            // 0x0000(0x0008) (ZeroConstructor, IsPlainOldData)

@@ -15,22 +15,22 @@ namespace SDK
 //---------------------------------------------------------------------------
 
 // BlueprintGeneratedClass jaguar_g3.jaguar_g3_C
-// 0x0060 (0x2168 - 0x2108)
+// 0x0060 (0x2198 - 0x2138)
 class Ajaguar_g3_C : public ABP_Car_C
 {
 public:
-	struct FPointerToUberGraphFrame                    UberGraphFrame;                                           // 0x2108(0x0008) (Transient, DuplicateTransient)
-	class UDecalComponent*                             ClassRearREFEmilFrey;                                     // 0x2110(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UDecalComponent*                             ClassFrontREFEmilFrey;                                    // 0x2118(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UDecalComponent*                             PlateFrontREFEmilFrey;                                    // 0x2120(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UDownForceComponent*                         DownForceRR;                                              // 0x2128(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UDownForceComponent*                         DownForceRL;                                              // 0x2130(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UDownForceComponent*                         DownForceFR;                                              // 0x2138(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UDownForceComponent*                         DownForceFL;                                              // 0x2140(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UParticleSystemComponent*                    ParticleSystem3;                                          // 0x2148(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UParticleSystemComponent*                    ParticleSystem2;                                          // 0x2150(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UParticleSystemComponent*                    ParticleSystem1;                                          // 0x2158(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
-	class UArrowComponent*                             Driver_Enter_Exit;                                        // 0x2160(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	struct FPointerToUberGraphFrame                    UberGraphFrame;                                           // 0x2138(0x0008) (Transient, DuplicateTransient)
+	class UDecalComponent*                             ClassRearREFEmilFrey;                                     // 0x2140(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UDecalComponent*                             ClassFrontREFEmilFrey;                                    // 0x2148(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UDecalComponent*                             PlateFrontREFEmilFrey;                                    // 0x2150(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UDownForceComponent*                         DownForceRR;                                              // 0x2158(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UDownForceComponent*                         DownForceRL;                                              // 0x2160(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UDownForceComponent*                         DownForceFR;                                              // 0x2168(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UDownForceComponent*                         DownForceFL;                                              // 0x2170(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UParticleSystemComponent*                    ParticleSystem3;                                          // 0x2178(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UParticleSystemComponent*                    ParticleSystem2;                                          // 0x2180(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UParticleSystemComponent*                    ParticleSystem1;                                          // 0x2188(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
+	class UArrowComponent*                             Driver_Enter_Exit;                                        // 0x2190(0x0008) (BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{

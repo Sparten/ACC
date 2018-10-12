@@ -15,7 +15,7 @@ namespace SDK
 //---------------------------------------------------------------------------
 
 // BlueprintGeneratedClass Ultra_Dynamic_Sky_BP.Ultra_Dynamic_Sky_BP_C
-// 0x0338 (0x0660 - 0x0328)
+// 0x0340 (0x0668 - 0x0328)
 class AUltra_Dynamic_Sky_BP_C : public AActor
 {
 public:
@@ -156,6 +156,7 @@ public:
 	class UCurveLinearColor*                           FogDryCurve;                                              // 0x0648(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	class UCurveLinearColor*                           FogCloudyCurve;                                           // 0x0650(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
 	class UCurveFloat*                                 HorizontDensity;                                          // 0x0658(0x0008) (Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData)
+	class UCurveFloat*                                 Spray_Curve_Time;                                         // 0x0660(0x0008) (Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData)
 
 	static UClass* StaticClass()
 	{

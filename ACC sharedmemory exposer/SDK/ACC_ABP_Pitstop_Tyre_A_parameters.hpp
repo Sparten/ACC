@@ -14,6 +14,11 @@ namespace SDK
 //Parameters
 //---------------------------------------------------------------------------
 
+// Function ABP_Pitstop_Tyre_A.ABP_Pitstop_Tyre_A_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_Pitstop_Tyre_A_AnimGraphNode_TransitionResult_9B4F97E34F15D6F81E2D1FAB69309615
+struct UABP_Pitstop_Tyre_A_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_Pitstop_Tyre_A_AnimGraphNode_TransitionResult_9B4F97E34F15D6F81E2D1FAB69309615_Params
+{
+};
+
 // Function ABP_Pitstop_Tyre_A.ABP_Pitstop_Tyre_A_C.EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_Pitstop_Tyre_A_AnimGraphNode_TransitionResult_9C21FC124162B2512D7A0AB68D56F1E9
 struct UABP_Pitstop_Tyre_A_C_EvaluateGraphExposedInputs_ExecuteUbergraph_ABP_Pitstop_Tyre_A_AnimGraphNode_TransitionResult_9C21FC124162B2512D7A0AB68D56F1E9_Params
 {

@@ -83,6 +83,23 @@ void UWDG_CarSelectionPage_C::BndEvt__Button_162_K2Node_ComponentBoundEvent_0_On
 }
 
 
+// Function WDG_CarSelectionPage.WDG_CarSelectionPage_C.BndEvt__btnCloseSequenceClick_K2Node_ComponentBoundEvent_1_OnButtonClickedEvent__DelegateSignature
+// (BlueprintEvent)
+
+void UWDG_CarSelectionPage_C::BndEvt__btnCloseSequenceClick_K2Node_ComponentBoundEvent_1_OnButtonClickedEvent__DelegateSignature()
+{
+	static auto fn = UObject::FindObject<UFunction>("Function WDG_CarSelectionPage.WDG_CarSelectionPage_C.BndEvt__btnCloseSequenceClick_K2Node_ComponentBoundEvent_1_OnButtonClickedEvent__DelegateSignature");
+
+	UWDG_CarSelectionPage_C_BndEvt__btnCloseSequenceClick_K2Node_ComponentBoundEvent_1_OnButtonClickedEvent__DelegateSignature_Params params;
+
+	auto flags = fn->FunctionFlags;
+
+	UObject::ProcessEvent(fn, &params);
+
+	fn->FunctionFlags = flags;
+}
+
+
 // Function WDG_CarSelectionPage.WDG_CarSelectionPage_C.ExecuteUbergraph_WDG_CarSelectionPage
 // ()
 // Parameters:
