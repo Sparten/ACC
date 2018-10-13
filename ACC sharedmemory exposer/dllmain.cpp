@@ -1,7 +1,7 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 //#include "stdafx.h"
 #define WIN32_LEAN_AND_MEAN
-#define DEV_ENV
+//#define DEV_ENV
 #include <windows.h>
 #include "SDK.hpp"
 #include <fstream>
@@ -22,6 +22,7 @@ Tick_t pTick = nullptr;
 intptr_t* tickAddress = nullptr;
 std::vector<FCircuitInfo> savedCircuits;
 SharedMemeoryWriter<ACCSharedMemoryData> writer("Local\\CrewChief_ACC");
+
 #ifdef DEV_ENV
 
 char dlldir[512] = "";
@@ -31,30 +32,7 @@ static double const MILLISECONDS_IN_SECOND = 1000.0;
 static double const MICROSECONDS_IN_MILLISECOND = 1000.0;
 static double const MICROSECONDS_IN_SECOND = MILLISECONDS_IN_SECOND * MICROSECONDS_IN_MILLISECOND;
 
-void __cdecl add_log(const char *fmt, ...)
-{
 
-	if (!fmt || !strlen(fmt))
-	{
-		return;
-	}
-	va_list va_alist;
-	char logbuf[20000] = { 0 };
-	va_start(va_alist, fmt);
-	_vsnprintf_s(logbuf + strlen(logbuf), sizeof(logbuf) - strlen(logbuf), _TRUNCATE, fmt, va_alist);
-	va_end(va_alist);
-	std::ofstream ofile;
-	char outDir[1024] = "";
-	strcpy(outDir, dlldir);
-	strcat(outDir, "log.txt");	
-	ofile.open(outDir, std::ios::app);
-	if (ofile)
-	{
-		ofile << logbuf << std::endl;
-		ofile.close();
-	}
-	return;
-}
 void __stdcall Unhook()
 {
 	DWORD newProtect = PAGE_READWRITE;
@@ -94,7 +72,30 @@ double TicksNow() {
 #endif
 
 }
+void __cdecl add_log(const char *fmt, ...)
+{
 
+	if (!fmt || !strlen(fmt))
+	{
+		return;
+	}
+	va_list va_alist;
+	char logbuf[20000] = { 0 };
+	va_start(va_alist, fmt);
+	_vsnprintf_s(logbuf + strlen(logbuf), sizeof(logbuf) - strlen(logbuf), _TRUNCATE, fmt, va_alist);
+	va_end(va_alist);
+	std::ofstream ofile;
+	char outDir[1024] = "";
+	strcpy(outDir, dlldir);
+	strcat(outDir, "log.txt");
+	ofile.open(outDir, std::ios::app);
+	if (ofile)
+	{
+		ofile << logbuf << std::endl;
+		ofile.close();
+	}
+	return;
+}
 #endif // DEV_ENV
 
 intptr_t FindPattern(intptr_t start_offset, intptr_t size, char *pattern, char *mask)
@@ -285,9 +286,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 }
 void SetStateNotReady()
 {
-	std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-	sharedData->isReady = false;
-	writer.updateSharedMemory(sharedData.get());
+
 }
 
 DWORD __stdcall InitializeHook(LPVOID)
@@ -299,7 +298,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 	LoadLibraryA(unloadDir);
 #endif // DEV_ENV
 
-	add_log("%llx", sizeof(std::map<ECarModelType, struct FGuiCar>));
+	//add_log("%llx", sizeof(std::map<ECarModelType, struct FGuiCar>));
 	HMODULE mainModule = GetModuleHandle(NULL);
 	while (NamesAddress == nullptr)
 	{
@@ -308,9 +307,7 @@ DWORD __stdcall InitializeHook(LPVOID)
 			(CHAR *)"xxxxxxx????xxxxxxxxxx", 7);
 		Sleep(50);
 	}
-
 	FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*NamesAddress);
-	
 	ObjectsAddress = FindPatternForPointerInMemory(mainModule,
 		(unsigned char *)"\x48\x8D\x05\x25\x76\xC2\x02\x33\xF6\x48\x89\x01\x48\x89\x71\x10\x45\x8B\xD9\x41\xB9\xFF\xFF\xFF\xFF",
 		(CHAR *)"xxx????xxxxxxxxxxxxxxxxx", 3);
@@ -319,16 +316,17 @@ DWORD __stdcall InitializeHook(LPVOID)
 		return 0;
 	}
 	UObject::GObjects = reinterpret_cast<decltype(UObject::GObjects)>(ObjectsAddress);
-			
+
 	GWorldAddress = FindPatternForPointerInMemory(mainModule,
 		(unsigned char *)"\x48\x8B\x1D\x97\x98\x1B\x03\x48\x85\xDB\x74\x3B\x41\xB0\x01\x33\xD2\x48\x8B\xCB\xE8\xB5\xF3\x69\x01",
 		"xxx????xxxxxxxxxxxxxx????", 3);
+	
 	if (GWorldAddress == nullptr)
 	{
 		return 0;
 	}
 	UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
-	
+
 	for (;;)
 	{
 #ifdef DEV_ENV
@@ -340,32 +338,44 @@ DWORD __stdcall InitializeHook(LPVOID)
 			return 0;
 		}
 #endif // DEV_ENV
-		UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
-		if (UWorld::GWorld == nullptr || IsBadReadPtr((const void*)UWorld::GWorld, sizeof(UWorld)))
+		if (FName::GNames == nullptr)
 		{
-			SetStateNotReady();
+			FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*NamesAddress);
+			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+			sharedData->isReady = false;
+			writer.updateSharedMemory(sharedData.get());
 			Sleep(200);
 			continue;
 		}
-		if (UWorld::GWorld->AuthorityGameMode == nullptr)
+		UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
+		if (UWorld::GWorld == nullptr || IsBadReadPtr((const void*)UWorld::GWorld, sizeof(UWorld)))
 		{
-			SetStateNotReady();
+			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+			sharedData->isReady = false;
+			writer.updateSharedMemory(sharedData.get());
+			Sleep(200);
+			continue;
+		}
+		if (UWorld::GWorld->AuthorityGameMode == nullptr )
+		{
+			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+			sharedData->isReady = false;
+			writer.updateSharedMemory(sharedData.get());
 			Sleep(200);
 			continue;
 		}
 		if (!UWorld::GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
 		{
 			// If not in a AAcRaceGameMode state its safe to unhook the function here as its not called.
-			SetStateNotReady();
+			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+			sharedData->isReady = false;
+			writer.updateSharedMemory(sharedData.get());
 			Sleep(200);
 			continue;
 		}
-
-
 		//Hook AAcRaceGameMode::Ticks as we need to be in a game thread to run our updated to avoid being out of thread conntext.
 		if (!doOnce)
 		{	
-			add_log("Hooked AAcRaceGameMode::Ticks");
 			FCircuitInfo circuit;
 			TArray<FName> names;
 			UAcGameInstance* instance = reinterpret_cast<UAcGameInstance*>(UWorld::GWorld->OwningGameInstance);
@@ -386,7 +396,10 @@ DWORD __stdcall InitializeHook(LPVOID)
 			*tickAddress = (intptr_t)&Tick_Detour;
 			VirtualProtect(tickAddress, sizeof(intptr_t), oldProtect, &newProtect);
 			doOnce = true;
-			add_log("Hooked AAcRaceGameMode::Ticks");
+#ifndef DEV_ENV
+			return 0;
+#endif // DEV_ENV
+			//add_log("Hooked AAcRaceGameMode::Ticks");
 		}				
 		/*
 		add_log("%s %llx", GWorld->GetFullName().c_str(), GWorld);

@@ -60,6 +60,9 @@
     <ClInclude Include="SharedMemoryWriter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\ACC_CoreUObject_parameters.hpp">
+      <Filter>Header Files\SDK</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

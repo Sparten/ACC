@@ -150,6 +150,7 @@
     <ClInclude Include="SDK\ACC_AC2_structs.hpp" />
     <ClInclude Include="SDK\ACC_Basic.hpp" />
     <ClInclude Include="SDK\ACC_CoreUObject_classes.hpp" />
+    <ClInclude Include="SDK\ACC_CoreUObject_parameters.hpp" />
     <ClInclude Include="SDK\ACC_Engine_classes.hpp" />
     <ClInclude Include="SDK\ACC_Engine_parameters.hpp" />
     <ClInclude Include="SDK\ACC_Engine_structs.hpp" />
