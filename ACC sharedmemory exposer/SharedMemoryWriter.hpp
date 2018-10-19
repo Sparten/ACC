@@ -74,8 +74,10 @@ struct Driver
 	int lapCount;
 	int totalTime;
 	int currentDelta;
-	uint32_t currentSector;
-	uint32_t currentlaptime;
+	int32_t currentSector;
+	int32_t currentlaptime;
+	int32_t lastLapTime;
+	ksRacing::LapStateFlags lapStates;
 	float trottle;
 	float brake;
 	float clutch;

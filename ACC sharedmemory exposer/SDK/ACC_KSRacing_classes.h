@@ -767,7 +767,7 @@ namespace ksRacing
 		float timeStamp;
 		int lapTime;
 		std::vector<int> splitTimes;
-		unsigned __int16 lapStates;
+		LapStateFlags lapStates;
 	};
 	/* 78039 */
 	struct __declspec(align(4)) PitSpeedingInvestigation

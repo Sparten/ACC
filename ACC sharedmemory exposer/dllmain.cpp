@@ -215,8 +215,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			sharedData->opponentDrivers[index].isDisqualified = state->isDisqualified;
 			sharedData->opponentDrivers[index].isRetired = state->isRetired;
 			sharedData->opponentDrivers[index].isSessionOver = state->isSessionOver;
-			sharedData->opponentDrivers[index].lapCount = state->lapCount;
-			sharedData->opponentDrivers[index].lastSectorTimeStamp = state->lastSectorTimeStamp;
+			sharedData->opponentDrivers[index].lapCount = state->lapCount;			
 			sharedData->opponentDrivers[index].trackLocation = state->carLocation;
 			sharedData->opponentDrivers[index].position = state->lastStanding;
 			sharedData->opponentDrivers[index].realTimePosition = state->realtimePosition;				
@@ -224,6 +223,10 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			sharedData->opponentDrivers[index].distanceRoundTrackNormalized = state->splineDistance;
 			UAcCarTimingServices* timings = car->CarTimingServices;
 			sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
+			sharedData->opponentDrivers[index].lastLapTime = timings->GetLastLapTime();
+			sharedData->opponentDrivers[index].lapStates = timings->LastLap.lapStates;
+			sharedData->opponentDrivers[index].lastSectorTimeStamp = timings->LastSplitTimeStamp;
+
 			sharedData->opponentDrivers[index].currentSector = timings->CurrentSector;
 			sharedData->opponentDrivers[index].isCarOutOfTrack = timings->isCarOutOfTrack;
 			sharedData->opponentDrivers[index].trottle = car->GetGas();
@@ -286,7 +289,10 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 }
 void SetStateNotReady()
 {
-
+	std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
+	sharedData->isReady = false;
+	writer.updateSharedMemory(sharedData.get());
+	Sleep(200);
 }
 
 DWORD __stdcall InitializeHook(LPVOID)
@@ -297,7 +303,6 @@ DWORD __stdcall InitializeHook(LPVOID)
 	strcat(unloadDir, "DllUnload.dll");
 	LoadLibraryA(unloadDir);
 #endif // DEV_ENV
-
 	//add_log("%llx", sizeof(std::map<ECarModelType, struct FGuiCar>));
 	HMODULE mainModule = GetModuleHandle(NULL);
 	while (NamesAddress == nullptr)
@@ -341,36 +346,24 @@ DWORD __stdcall InitializeHook(LPVOID)
 		if (FName::GNames == nullptr)
 		{
 			FName::GNames = reinterpret_cast<decltype(FName::GNames)>(*NamesAddress);
-			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-			sharedData->isReady = false;
-			writer.updateSharedMemory(sharedData.get());
-			Sleep(200);
+			SetStateNotReady();			
 			continue;
 		}
 		UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
 		if (UWorld::GWorld == nullptr || IsBadReadPtr((const void*)UWorld::GWorld, sizeof(UWorld)))
 		{
-			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-			sharedData->isReady = false;
-			writer.updateSharedMemory(sharedData.get());
-			Sleep(200);
+			SetStateNotReady();
 			continue;
 		}
 		if (UWorld::GWorld->AuthorityGameMode == nullptr )
 		{
-			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-			sharedData->isReady = false;
-			writer.updateSharedMemory(sharedData.get());
-			Sleep(200);
+			SetStateNotReady();
 			continue;
 		}
 		if (!UWorld::GWorld->AuthorityGameMode->IsA(AAcRaceGameMode::StaticClass()))
 		{
 			// If not in a AAcRaceGameMode state its safe to unhook the function here as its not called.
-			std::shared_ptr<ACCSharedMemoryData> sharedData = std::make_shared<ACCSharedMemoryData>();
-			sharedData->isReady = false;
-			writer.updateSharedMemory(sharedData.get());
-			Sleep(200);
+			SetStateNotReady();
 			continue;
 		}
 		//Hook AAcRaceGameMode::Ticks as we need to be in a game thread to run our updated to avoid being out of thread conntext.
