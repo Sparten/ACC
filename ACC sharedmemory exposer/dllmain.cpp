@@ -266,6 +266,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 				sharedData->opponentDrivers[index].rotation.roll = rotation.Roll;
 				sharedData->opponentDrivers[index].fuel = state->fuel;
 				sharedData->opponentDrivers[index].maxFuel = car->CarData->FuelData.MaxFuel;
+				sharedData->opponentDrivers[index].pitLimiterOn = state->carSystems.c.pitLimiterOn & 1;
 			}
 
 			FDriverInfo driverInfo = car->DriverInfo;

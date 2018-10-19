@@ -99,6 +99,7 @@ struct Driver
 	uint16_t driverIndex;
 	uint8_t formationLapCounter;
 	ksRacing::CarLocation trackLocation;
+	bool pitLimiterOn;
 	
 };
 struct PlayerDriver : Driver
