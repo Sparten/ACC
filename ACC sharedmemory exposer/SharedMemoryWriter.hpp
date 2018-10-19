@@ -35,7 +35,14 @@ struct Rotation
 	float yaw;
 	float roll;
 };
-
+struct Lap 
+{
+	unsigned __int16 driverIndex;
+	float timeStamp;
+	int lapTime;
+	int splitTimes[6]; //size of this one might have to get tweaked as we dont know if kunos are going do something fanzy here
+	ksRacing::LapStateFlags lapStates;
+};
 
 struct WeatherStatus
 {
@@ -76,8 +83,8 @@ struct Driver
 	int currentDelta;
 	int32_t currentSector;
 	int32_t currentlaptime;
-	int32_t lastLapTime;
-	ksRacing::LapStateFlags lapStates;
+	Lap currentLap;
+	Lap lastLap;
 	float trottle;
 	float brake;
 	float clutch;
@@ -122,6 +129,7 @@ struct SessionData
 	ksRacing::RaceSessionPhase currentSessionPhase;
 	uint8_t mandatoryPitStopCount;
 	uint8_t pitlaneSpeedLimitKmh;
+	bool isOnline;
 };
 
 struct ACCSharedMemoryData

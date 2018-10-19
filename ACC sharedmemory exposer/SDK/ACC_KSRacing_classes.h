@@ -782,8 +782,9 @@ namespace ksRacing
 		bool hasBeenNotificated;
 	};
 	/* 68664 */
-	struct TimingServices
+	class TimingServices
 	{
+	public:
 		Event<OnSplitTimeEvent> onSplitTimeEvent;
 		Event<Lap> onLapEvent;
 		Event<BestLap> onBestLapEvent;
@@ -792,6 +793,10 @@ namespace ksRacing
 		SessionTiming timing;
 		const char carMaxBestHistory;
 		Lap nullLap;
+		Lap GetDriverCurrentLap(uint16_t driverIndex)
+		{
+			return this->timing.overallLaps[timing.carCurrentLap[driverIndex].second];
+		}
 	};
 	/* 68728 */
 	struct __declspec(align(8)) RaceDirectorServices

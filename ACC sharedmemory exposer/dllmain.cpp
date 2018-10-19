@@ -140,6 +140,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	sharedData->update = raceManager->physicsTime;
 	sharedData->sessionData.physicsTime = p->raceManager->physicsTime;
 	UWorld::GWorld = reinterpret_cast<decltype(UWorld::GWorld)>(*GWorldAddress);
+	UAcGameInstance* instance = reinterpret_cast<UAcGameInstance*>(UWorld::GWorld->OwningGameInstance);
 	ATrackAvatar* trackAvatar = reinterpret_cast<ATrackAvatar*>(raceGameMode->TrackAvatar);
 	//collect all our session data
 	sharedData->sessionData.areCarsInitializated = raceManager->areCarsInitializated;
@@ -162,7 +163,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 	sharedData->sessionData.pitWindowOpenAtTime = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.pitWindowOpenAtTime;
 	sharedData->sessionData.pitWindowCloseAtTime = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.eventRaceRules.pitWindowCloseAtTime;
 	sharedData->sessionData.sessionDuration = raceManager->seasonEntity.events[raceManager->currentEventIndex].race.sessions[raceManager->currentSessionIndex].sessionDuration;
-	
+	sharedData->sessionData.isOnline = instance->isOnline;
 	//track and weather
 	strcpy_s(sharedData->track.name, _TRUNCATE, ws2s(raceManager->trackServices->trackName).c_str());
 	sharedData->track.id = raceManager->trackServices->trackId;
@@ -223,8 +224,24 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 			sharedData->opponentDrivers[index].distanceRoundTrackNormalized = state->splineDistance;
 			UAcCarTimingServices* timings = car->CarTimingServices;
 			sharedData->opponentDrivers[index].currentlaptime = timings->GetCurrentLapTime();
-			sharedData->opponentDrivers[index].lastLapTime = timings->GetLastLapTime();
-			sharedData->opponentDrivers[index].lapStates = timings->LastLap.lapStates;
+
+			sharedData->opponentDrivers[index].lastLap.driverIndex = timings->LastLap.driverIndex;
+			sharedData->opponentDrivers[index].lastLap.lapStates = timings->LastLap.lapStates;
+			sharedData->opponentDrivers[index].lastLap.lapTime = timings->LastLap.lapTime;
+			sharedData->opponentDrivers[index].lastLap.timeStamp = timings->LastLap.timeStamp;
+			for (int itt = 0; itt < timings->LastLap.splitTimes.size(); itt++)
+			{
+				sharedData->opponentDrivers[index].lastLap.splitTimes[itt] = timings->LastLap.splitTimes[itt];
+			}
+			ksRacing::Lap currentLap = raceManager->timingServices->GetDriverCurrentLap(car->driverIndex);
+			sharedData->opponentDrivers[index].currentLap.driverIndex = currentLap.driverIndex;
+			sharedData->opponentDrivers[index].currentLap.lapStates = currentLap.lapStates;
+			sharedData->opponentDrivers[index].currentLap.lapTime = currentLap.lapTime;
+			sharedData->opponentDrivers[index].currentLap.timeStamp = currentLap.timeStamp;
+			for (int itt = 0; itt < currentLap.splitTimes.size(); itt++)
+			{
+				sharedData->opponentDrivers[index].currentLap.splitTimes[itt] = currentLap.splitTimes[itt];
+			}
 			sharedData->opponentDrivers[index].lastSectorTimeStamp = timings->LastSplitTimeStamp;
 
 			sharedData->opponentDrivers[index].currentSector = timings->CurrentSector;
@@ -247,7 +264,7 @@ void __stdcall Tick_Detour(AAcRaceGameMode* p, double time)
 				sharedData->opponentDrivers[index].rotation.pitch = rotation.Pitch;
 				sharedData->opponentDrivers[index].rotation.yaw = rotation.Yaw;
 				sharedData->opponentDrivers[index].rotation.roll = rotation.Roll;
-				sharedData->opponentDrivers[index].fuel = car->CarData->FuelData.Fuel;
+				sharedData->opponentDrivers[index].fuel = state->fuel;
 				sharedData->opponentDrivers[index].maxFuel = car->CarData->FuelData.MaxFuel;
 			}
 
